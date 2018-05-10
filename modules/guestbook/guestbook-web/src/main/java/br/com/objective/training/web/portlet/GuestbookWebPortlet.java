@@ -69,20 +69,23 @@ public class GuestbookWebPortlet extends MVCPortlet {
             if (guestbookId == 0) {
                 guestbookId = guestbooks.get(0).getGuestbookId();
             }
-
-            renderRequest.setAttribute("total", EntryLocalServiceUtil.getEntriesCount());
-
-
-            renderRequest.setAttribute("results",
-                    EntryLocalServiceUtil.getEntries(
-                            serviceContext.getScopeGroupId(),
-                            guestbookId,
-                            ParamUtil.getInteger(renderRequest, "start", 0),
-                            ParamUtil.getInteger(renderRequest, "end", 20)
-                    )
-            );
-
             renderRequest.setAttribute("guestbookId", guestbookId);
+
+
+            long entryId = ParamUtil.getLong(renderRequest, "entryId", 0);
+            if (entryId > 0) {
+                renderRequest.setAttribute("entry", EntryLocalServiceUtil.getEntry(entryId));
+            } else {
+                renderRequest.setAttribute("total", EntryLocalServiceUtil.getEntriesCount());
+                renderRequest.setAttribute("results",
+                        EntryLocalServiceUtil.getEntries(
+                                serviceContext.getScopeGroupId(),
+                                guestbookId,
+                                ParamUtil.getInteger(renderRequest, "start", 0),
+                                ParamUtil.getInteger(renderRequest, "end", 20)
+                        )
+                );
+            }
         } catch (Exception e) {
             throw new PortletException(e);
         }

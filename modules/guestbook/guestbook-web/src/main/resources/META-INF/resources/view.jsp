@@ -15,10 +15,9 @@
         <liferay-ui:search-container-column-text property="message"/>
         <liferay-ui:search-container-column-text property="name"/>
 
-
-        <portlet:actionURL name="removeEntry" var="removeEntryURL">
-            <portlet:param name="name" value="${entry.name}"/>
-            <portlet:param name="message" value="${entry.message}"/>
+        <portlet:actionURL name="deleteEntry" var="removeEntryURL">
+            <portlet:param name="entryId" value="${entry.entryId}"/>
+            <portlet:param name="guestbookId" value="${entry.guestbookId}"/>
         </portlet:actionURL>
 
         <c:set var="removeEntryURL" value="location = '${removeEntryURL}'"/>
