@@ -2,6 +2,7 @@ package br.com.objective.training.web.portlet;
 
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.EntryLocalService;
+import br.com.objective.training.service.EntryLocalServiceUtil;
 import br.com.objective.training.service.GuestbookLocalService;
 import br.com.objective.training.web.constants.GuestbookWebPortletKeys;
 import br.com.objective.training.web.model.Entry;
@@ -23,7 +24,6 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,8 +50,7 @@ import java.util.logging.Logger;
 )
 public class GuestbookWebPortlet extends MVCPortlet {
     @Override
-    public void render(RenderRequest renderRequest, RenderResponse renderResponse)
-            throws IOException, PortletException {
+    public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
 
         try {
             ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), renderRequest);
@@ -70,6 +69,18 @@ public class GuestbookWebPortlet extends MVCPortlet {
             if (guestbookId == 0) {
                 guestbookId = guestbooks.get(0).getGuestbookId();
             }
+
+            renderRequest.setAttribute("total", EntryLocalServiceUtil.getEntriesCount());
+
+
+            renderRequest.setAttribute("results",
+                    EntryLocalServiceUtil.getEntries(
+                            serviceContext.getScopeGroupId(),
+                            guestbookId,
+                            ParamUtil.getInteger(renderRequest, "start", 0),
+                            ParamUtil.getInteger(renderRequest, "end", 20)
+                    )
+            );
 
             renderRequest.setAttribute("guestbookId", guestbookId);
         } catch (Exception e) {
@@ -141,8 +152,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
             response.setRenderParameter("guestbookId", Long.toString(guestbookId));
             _entryLocalService.deleteEntry(entryId, serviceContext);
         } catch (Exception e) {
-            Logger.getLogger(GuestbookPortlet.class.getName()).log(
-                    Level.SEVERE, null, e);
+            Logger.getLogger(GuestbookWebPortlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

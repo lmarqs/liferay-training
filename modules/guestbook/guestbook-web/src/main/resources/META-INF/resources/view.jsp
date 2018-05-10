@@ -7,11 +7,10 @@
 
 <jsp:useBean id="entries" class="java.util.ArrayList" scope="request"/>
 
-<liferay-ui:search-container>
-    <liferay-ui:search-container-results results="${entries}"/>
+<liferay-ui:search-container total="${total}">
+    <liferay-ui:search-container-results results="${results}"/>
 
-
-    <liferay-ui:search-container-row className="br.com.objective.training.web.model.Entry" modelVar="entry">
+    <liferay-ui:search-container-row className="br.com.objective.training.model.Entry" modelVar="entry">
 
         <liferay-ui:search-container-column-text property="message"/>
         <liferay-ui:search-container-column-text property="name"/>
@@ -33,6 +32,7 @@
 
 <portlet:renderURL var="addEntryURL">
     <portlet:param name="mvcPath" value="/edit_entry.jsp"/>
+    <portlet:param name="guestbookId" value="${guestbookId}" />
 </portlet:renderURL>
 
 <aui:button-row>
