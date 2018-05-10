@@ -53,6 +53,16 @@ public class EntryLocalServiceUtil {
 		return getService().addEntry(entry);
 	}
 
+	public static br.com.objective.training.model.Entry addEntry(long userId,
+		long guestbookId, java.lang.String name, java.lang.String email,
+		java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .addEntry(userId, guestbookId, name, email, message,
+			serviceContext);
+	}
+
 	/**
 	* Creates a new entry with the primary key. Does not add the entry to the database.
 	*
@@ -86,6 +96,13 @@ public class EntryLocalServiceUtil {
 		long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteEntry(entryId);
+	}
+
+	public static br.com.objective.training.model.Entry deleteEntry(
+		long entryId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deleteEntry(entryId, serviceContext);
 	}
 
 	/**
@@ -211,6 +228,23 @@ public class EntryLocalServiceUtil {
 		return getService().getEntries(start, end);
 	}
 
+	public static java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId) {
+		return getService().getEntries(groupId, guestbookId);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEntries(groupId, guestbookId, start, end);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Entry> obc) {
+		return getService().getEntries(groupId, guestbookId, start, end, obc);
+	}
+
 	/**
 	* Returns all the entries matching the UUID and company.
 	*
@@ -248,6 +282,10 @@ public class EntryLocalServiceUtil {
 	*/
 	public static int getEntriesCount() {
 		return getService().getEntriesCount();
+	}
+
+	public static int getEntriesCount(long groupId, long guestbookId) {
+		return getService().getEntriesCount(groupId, guestbookId);
 	}
 
 	/**
@@ -309,6 +347,17 @@ public class EntryLocalServiceUtil {
 	public static br.com.objective.training.model.Entry updateEntry(
 		br.com.objective.training.model.Entry entry) {
 		return getService().updateEntry(entry);
+	}
+
+	public static br.com.objective.training.model.Entry updateEntry(
+		long userId, long guestbookId, long entryId, java.lang.String name,
+		java.lang.String email, java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateEntry(userId, guestbookId, entryId, name, email,
+			message, serviceContext);
 	}
 
 	public static EntryLocalService getService() {

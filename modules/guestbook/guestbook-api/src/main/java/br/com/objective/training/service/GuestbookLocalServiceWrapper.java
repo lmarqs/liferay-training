@@ -45,6 +45,13 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 		return _guestbookLocalService.addGuestbook(guestbook);
 	}
 
+	@Override
+	public br.com.objective.training.model.Guestbook addGuestbook(long userId,
+		java.lang.String name, ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _guestbookLocalService.addGuestbook(userId, name, serviceContext);
+	}
+
 	/**
 	* Creates a new guestbook with the primary key. Does not add the guestbook to the database.
 	*
@@ -254,6 +261,25 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 		return _guestbookLocalService.getGuestbooks(start, end);
 	}
 
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId) {
+		return _guestbookLocalService.getGuestbooks(groupId);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int start, int end) {
+		return _guestbookLocalService.getGuestbooks(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> obc) {
+		return _guestbookLocalService.getGuestbooks(groupId, start, end, obc);
+	}
+
 	/**
 	* Returns all the guestbooks matching the UUID and company.
 	*
@@ -294,6 +320,11 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	@Override
 	public int getGuestbooksCount() {
 		return _guestbookLocalService.getGuestbooksCount();
+	}
+
+	@Override
+	public int getGuestbooksCount(long groupId) {
+		return _guestbookLocalService.getGuestbooksCount(groupId);
 	}
 
 	@Override
