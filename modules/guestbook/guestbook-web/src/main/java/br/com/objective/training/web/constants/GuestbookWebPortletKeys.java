@@ -5,6 +5,6 @@ package br.com.objective.training.web.constants;
  */
 public class GuestbookWebPortletKeys {
 
-	public static final String GuestbookWeb = "GuestbookWeb";
+	public static final String GUESTBOOK = "br_com_objective_training_guestbook_portlet_GuestbookPortlet";
 
 }
