@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the entry local service.
@@ -49,10 +50,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
      * Never reference this class directly. Always use {@link br.com.objective.training.service.EntryLocalServiceUtil} to access the entry local service.
      */
 
-    public Entry addEntry(
-            long userId, long guestbookId, String name, String email,
-            String message, ServiceContext serviceContext)
-            throws PortalException {
+    public Entry addEntry(long userId, long guestbookId, String name, String email, String message, ServiceContext serviceContext) throws PortalException {
 
         long groupId = serviceContext.getScopeGroupId();
 
@@ -84,10 +82,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entry;
     }
 
-    public Entry updateEntry(
-            long userId, long guestbookId, long entryId, String name, String email,
-            String message, ServiceContext serviceContext)
-            throws PortalException, SystemException {
+    public Entry updateEntry(long userId, long guestbookId, long entryId, String name, String email, String message, ServiceContext serviceContext) throws PortalException, SystemException {
 
         Date now = new Date();
 
@@ -110,13 +105,9 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entry;
     }
 
-    public Entry deleteEntry(long entryId, ServiceContext serviceContext)
-            throws PortalException {
-
+    public Entry deleteEntry(long entryId, ServiceContext serviceContext) throws PortalException {
         Entry entry = getEntry(entryId);
-
         entry = deleteEntry(entryId);
-
         return entry;
     }
 
@@ -136,8 +127,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entryPersistence.countByG_G(groupId, guestbookId);
     }
 
-    protected void validate(String name, String email, String entry)
-            throws PortalException {
+    protected void validate(String name, String email, String entry) throws PortalException {
 
         if (Validator.isNull(name)) {
             throw new EntryNameException();

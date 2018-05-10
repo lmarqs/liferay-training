@@ -20,6 +20,7 @@
         <column name="createDate" type="Date"/>
         <column name="modifiedDate" type="Date"/>
 
+
         <!-- Status fields -->
 
         <column name="status" type="int"/>

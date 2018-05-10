@@ -14,7 +14,17 @@
 
 package br.com.objective.training.service.impl;
 
+import br.com.objective.training.exception.GuestbookNameException;
+import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.base.GuestbookLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.Validator;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the guestbook local service.
@@ -37,9 +47,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
      * Never reference this class directly. Always use {@link br.com.objective.training.service.GuestbookLocalServiceUtil} to access the guestbook local service.
      */
 
-    public Guestbook addGuestbook(
-            long userId, String name, ServiceContext serviceContext)
-            throws PortalException {
+    public Guestbook addGuestbook(long userId, String name, ServiceContext serviceContext) throws PortalException {
 
         long groupId = serviceContext.getScopeGroupId();
 

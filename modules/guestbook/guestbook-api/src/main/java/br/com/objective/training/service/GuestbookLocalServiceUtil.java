@@ -54,7 +54,8 @@ public class GuestbookLocalServiceUtil {
 	}
 
 	public static br.com.objective.training.model.Guestbook addGuestbook(
-		long userId, java.lang.String name, ServiceContext serviceContext)
+		long userId, java.lang.String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().addGuestbook(userId, name, serviceContext);
 	}
