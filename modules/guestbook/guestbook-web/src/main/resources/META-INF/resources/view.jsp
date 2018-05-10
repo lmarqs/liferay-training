@@ -11,7 +11,7 @@
     <liferay-ui:search-container-results results="${entries}"/>
 
 
-    <liferay-ui:search-container-row className="br.com.objective.training.model.Entry" modelVar="entry">
+    <liferay-ui:search-container-row className="br.com.objective.training.web.model.Entry" modelVar="entry">
 
         <liferay-ui:search-container-column-text property="message"/>
         <liferay-ui:search-container-column-text property="name"/>

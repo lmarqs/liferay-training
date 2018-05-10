@@ -1,4 +1,4 @@
-package br.com.objective.training.model;
+package br.com.objective.training.web.model;
 
 public class Entry {
 

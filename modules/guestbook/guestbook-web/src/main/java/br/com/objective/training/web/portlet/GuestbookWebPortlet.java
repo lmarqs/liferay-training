@@ -1,7 +1,7 @@
-package br.com.objective.training.portlet;
+package br.com.objective.training.web.portlet;
 
-import br.com.objective.training.constants.GuestbookWebPortletKeys;
-import br.com.objective.training.model.Entry;
+import br.com.objective.training.web.constants.GuestbookWebPortletKeys;
+import br.com.objective.training.web.model.Entry;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;

@@ -1,0 +1,9 @@
+Bundle-Name: guestbook-api
+Bundle-SymbolicName: br.com.objective.training.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	br.com.objective.training.exception,\
+	br.com.objective.training.web.model,\
+	br.com.objective.training.service,\
+	br.com.objective.training.service.persistence
+-includeresource: META-INF/service.xml=../guestbook-service/service.xml
