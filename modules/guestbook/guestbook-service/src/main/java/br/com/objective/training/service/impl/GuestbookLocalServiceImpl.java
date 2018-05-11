@@ -15,9 +15,11 @@
 package br.com.objective.training.service.impl;
 
 import br.com.objective.training.exception.GuestbookNameException;
+import br.com.objective.training.model.Entry;
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.base.GuestbookLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -75,6 +77,42 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
         return guestbook;
 
+    }
+
+    public Guestbook updateGuestbook(long userId, long guestbookId, String name, ServiceContext serviceContext) throws PortalException, SystemException {
+
+        Date now = new Date();
+
+        validate(name);
+
+        Guestbook guestbook = getGuestbook(guestbookId);
+
+        User user = userLocalService.getUser(userId);
+
+        guestbook.setUserId(userId);
+        guestbook.setUserName(user.getFullName());
+        guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
+        guestbook.setName(name);
+        guestbook.setExpandoBridgeAttributes(serviceContext);
+
+        guestbookPersistence.update(guestbook);
+
+        return guestbook;
+    }
+
+    public Guestbook deleteGuestbook(long guestbookId, ServiceContext serviceContext) throws PortalException, SystemException {
+
+        Guestbook guestbook = getGuestbook(guestbookId);
+
+        List<Entry> entries = entryLocalService.getEntries(serviceContext.getScopeGroupId(), guestbookId);
+
+        for (Entry entry : entries) {
+            entryLocalService.deleteEntry(entry.getEntryId());
+        }
+
+        guestbook = deleteGuestbook(guestbook);
+
+        return guestbook;
     }
 
     public List<Guestbook> getGuestbooks(long groupId) {
