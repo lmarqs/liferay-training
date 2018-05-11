@@ -40,7 +40,7 @@ import java.util.logging.Logger;
                 "javax.portlet.display-name=Guestbook",
                 "javax.portlet.expiration-cache=0",
                 "javax.portlet.init-param.template-path=/",
-                "javax.portlet.init-param.view-template=/view.jsp",
+                "javax.portlet.init-param.view-template=/web/view.jsp",
                 "javax.portlet.name=" + GuestbookWebPortletKeys.GUESTBOOK,
                 "javax.portlet.resource-bundle=content.Language",
                 "javax.portlet.security-role-ref=power-user,user",
