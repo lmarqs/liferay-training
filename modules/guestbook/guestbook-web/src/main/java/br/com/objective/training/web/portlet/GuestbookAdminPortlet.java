@@ -1,17 +1,25 @@
 package br.com.objective.training.web.portlet;
 
+import br.com.objective.training.model.Guestbook;
+import br.com.objective.training.service.GuestbookLocalService;
 import br.com.objective.training.web.constants.GuestbookAdminPortletKeys;
-
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.util.ParamUtil;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
-import org.osgi.service.component.annotations.Component;
-
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author lucas
@@ -44,5 +52,44 @@ public class GuestbookAdminPortlet extends MVCPortlet {
     @Override
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
         super.render(renderRequest, renderResponse);
+    }
+
+    public void addGuestbook(ActionRequest request, ActionResponse response)
+            throws PortalException {
+
+        ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
+
+        String name = ParamUtil.getString(request, "name");
+
+        try {
+            _guestbookLocalService.addGuestbook(serviceContext.getUserId(), name, serviceContext);
+        } catch (PortalException pe) {
+            Logger.getLogger(GuestbookAdminPortlet.class.getName()).log(Level.SEVERE, null, pe);
+
+            response.setRenderParameter("mvcPath", "/admin/edit.jsp");
+        }
+    }
+
+    public void deleteGuestbook(ActionRequest request, ActionResponse response) throws PortalException {
+
+        ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
+
+        long guestbookId = ParamUtil.getLong(request, "guestbookId");
+
+        try {
+            _guestbookLocalService.deleteGuestbook(guestbookId, serviceContext);
+        } catch (PortalException pe) {
+
+            Logger.getLogger(GuestbookAdminPortlet.class.getName())
+                    .log(Level.SEVERE, null, pe);
+        }
+    }
+
+
+    private GuestbookLocalService _guestbookLocalService;
+
+    @Reference(unbind = "-")
+    protected void setGuestbookService(GuestbookLocalService guestbookLocalService) {
+        _guestbookLocalService = guestbookLocalService;
     }
 }

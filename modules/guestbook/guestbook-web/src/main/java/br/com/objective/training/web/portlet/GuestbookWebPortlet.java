@@ -119,7 +119,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
                 System.out.println(e);
                 SessionErrors.add(request, e.getClass().getName());
                 PortalUtil.copyRequestParameters(request, response);
-                response.setRenderParameter("mvcPath", "/edit_entry.jsp");
+                response.setRenderParameter("mvcPath", "/edit.jsp");
             }
 
         } else {
@@ -139,7 +139,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
                 PortalUtil.copyRequestParameters(request, response);
 
-                response.setRenderParameter("mvcPath", "/edit_entry.jsp");
+                response.setRenderParameter("mvcPath", "/edit.jsp");
             }
         }
     }

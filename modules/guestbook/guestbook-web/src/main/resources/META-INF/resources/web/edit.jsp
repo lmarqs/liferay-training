@@ -1,7 +1,7 @@
 <%@ include file="./init.jsp" %>
 
 <portlet:renderURL var="viewURL">
-    <portlet:param name="mvcPath" value="/view.jsp"/>
+    <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
 <portlet:actionURL name="addEntry" var="addEntryURL"/>

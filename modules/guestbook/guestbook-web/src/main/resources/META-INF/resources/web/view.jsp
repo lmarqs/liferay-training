@@ -30,7 +30,7 @@
 
 
 <portlet:renderURL var="addEntryURL">
-    <portlet:param name="mvcPath" value="/edit_entry.jsp"/>
+    <portlet:param name="mvcPath" value="/web/edit.jsp"/>
     <portlet:param name="guestbookId" value="${guestbookId}" />
 </portlet:renderURL>
 
