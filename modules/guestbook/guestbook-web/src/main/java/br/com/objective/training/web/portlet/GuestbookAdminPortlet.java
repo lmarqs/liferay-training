@@ -70,6 +70,25 @@ public class GuestbookAdminPortlet extends MVCPortlet {
         }
     }
 
+    public void updateGuestbook(ActionRequest request, ActionResponse response) throws PortalException {
+
+        ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
+
+        String name = ParamUtil.getString(request, "name");
+        long guestbookId = ParamUtil.getLong(request, "guestbookId");
+
+        try {
+            _guestbookLocalService.updateGuestbook(serviceContext.getUserId(), guestbookId, name, serviceContext);
+
+        } catch (PortalException pe) {
+
+            Logger.getLogger(GuestbookAdminPortlet.class.getName())
+                    .log(Level.SEVERE, null, pe);
+
+            response.setRenderParameter("mvcPath", "/admin/edit.jsp");
+        }
+    }
+
     public void deleteGuestbook(ActionRequest request, ActionResponse response) throws PortalException {
 
         ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
