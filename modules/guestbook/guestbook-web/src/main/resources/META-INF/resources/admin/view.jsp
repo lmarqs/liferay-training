@@ -5,7 +5,7 @@
 
     <liferay-ui:search-container-row className="br.com.objective.training.model.Guestbook" modelVar="guestbook">
         <liferay-ui:search-container-column-text property="name"/>
-        <liferay-ui:search-container-column-jsp align="right" path="./actions.jsp"/>
+        <liferay-ui:search-container-column-jsp align="right" path="/admin/actions.jsp"/>
     </liferay-ui:search-container-row>
 
     <liferay-ui:search-iterator/>

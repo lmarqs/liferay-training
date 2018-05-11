@@ -1,12 +1,11 @@
 <%@include file="./init.jsp" %>
 
-<jsp:useBean id="SEARCH_CONTAINER_RESULT_ROW" class="com.liferay.portal.kernel.dao.search.ResultRow" scope="request"/>
-<c:set var="guestbook" value="${SEARCH_CONTAINER_RESULT_ROW.object}"/>
+<c:set var="guestbook" value="${SEARCH_CONTAINER_RESULT_ROW.object}" scope="request"/>
 
 <liferay-ui:icon-menu>
 
     <portlet:renderURL var="editURL">
-        <portlet:param name="guestbookId" value="guestbook.guestbookId}"/>
+        <portlet:param name="guestbookId" value="${guestbook.guestbookId}"/>
         <portlet:param name="mvcPath" value="/admin/edit.jsp"/>
     </portlet:renderURL>
 

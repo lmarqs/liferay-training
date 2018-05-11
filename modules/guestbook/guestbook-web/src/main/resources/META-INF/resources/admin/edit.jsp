@@ -1,24 +1,23 @@
-<%@ include file="./init.jsp" %>
+<%@include file = "./init.jsp" %>
 
 <portlet:renderURL var="viewURL">
-    <portlet:param name="mvcPath" value="/view.jsp"/>
+    <portlet:param name="mvcPath" value="/admin/view.jsp" />
 </portlet:renderURL>
 
-<portlet:actionURL name="addEntry" var="addEntryURL"/>
+<portlet:actionURL name='${guestbook ne null ? "updateGuestbook" : "addGuestbook"}' var="editGuestbookURL" />
 
-<aui:form action="${addEntryURL}" name="fm">
-    <aui:model-context bean="${entry}" model="${br.com.objective.training.model.Entry.class}" />
+<aui:form action="${editGuestbookURL}" name="fm">
+
+    <aui:model-context bean="${guestbook}" model="${br.com.objective.training.model.Guestbook.class}" />
+
+    <aui:input type="hidden" name="guestbookId" value='${guestbook.guestbookId}' />
 
     <aui:fieldset>
-        <aui:input name="name" />
-        <aui:input name="email" />
-        <aui:input name="message" />
-        <aui:input name="entryId" type="hidden" />
-        <aui:input name="guestbookId" type="hidden" value="${entry eq null ? guestbookId : entry.guestbookId}"/>
+        <aui:input name="name"  value='${guestbook.name}' />
     </aui:fieldset>
 
     <aui:button-row>
-        <aui:button type="submit"/>
-        <aui:button type="cancel" onClick="${viewURL}"/>
+        <aui:button type="submit" />
+        <aui:button onClick="${viewURL}" type="cancel"  />
     </aui:button-row>
 </aui:form>

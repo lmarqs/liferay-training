@@ -2,6 +2,7 @@ package br.com.objective.training.web.portlet;
 
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.GuestbookLocalService;
+import br.com.objective.training.service.GuestbookLocalServiceUtil;
 import br.com.objective.training.web.constants.GuestbookAdminPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -20,6 +21,9 @@ import javax.portlet.RenderResponse;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
 
 /**
  * @author lucas
@@ -50,12 +54,42 @@ import java.util.logging.Logger;
 )
 public class GuestbookAdminPortlet extends MVCPortlet {
     @Override
-    public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
-        super.render(renderRequest, renderResponse);
+    public void render(RenderRequest request, RenderResponse response) throws IOException, PortletException {
+
+        try {
+
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
+
+            String mvcPath = ParamUtil.getString(request, "mvcPath");
+
+            if (MVC_PATH_EDIT.equals(mvcPath)) {
+                long guestbookId = ParamUtil.getLong(request, "guestbookId");
+                request.setAttribute("guestbook", guestbookId > 0 ? GuestbookLocalServiceUtil.getGuestbook(guestbookId) : null);
+            } else {
+                long scopeGroupId = serviceContext.getScopeGroupId();
+                request.setAttribute("total",
+                        GuestbookLocalServiceUtil
+                                .getGuestbooksCount(scopeGroupId)
+                );
+
+                request.setAttribute("results",
+                        GuestbookLocalServiceUtil.getGuestbooks(
+                                scopeGroupId,
+                                ParamUtil.getInteger(request, "start", 0),
+                                ParamUtil.getInteger(request, "end", 20)
+                        )
+                );
+
+            }
+        } catch (PortalException pe) {
+            Logger.getLogger(GuestbookAdminPortlet.class.getName())
+                    .log(Level.SEVERE, null, pe);
+        }
+
+        super.render(request, response);
     }
 
-    public void addGuestbook(ActionRequest request, ActionResponse response)
-            throws PortalException {
+    public void addGuestbook(ActionRequest request, ActionResponse response) throws PortalException {
 
         ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
 
@@ -64,9 +98,10 @@ public class GuestbookAdminPortlet extends MVCPortlet {
         try {
             _guestbookLocalService.addGuestbook(serviceContext.getUserId(), name, serviceContext);
         } catch (PortalException pe) {
-            Logger.getLogger(GuestbookAdminPortlet.class.getName()).log(Level.SEVERE, null, pe);
+            Logger.getLogger(GuestbookAdminPortlet.class.getName())
+                    .log(Level.SEVERE, null, pe);
 
-            response.setRenderParameter("mvcPath", "/admin/edit.jsp");
+            response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
         }
     }
 
@@ -79,13 +114,12 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
         try {
             _guestbookLocalService.updateGuestbook(serviceContext.getUserId(), guestbookId, name, serviceContext);
-
         } catch (PortalException pe) {
 
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
                     .log(Level.SEVERE, null, pe);
 
-            response.setRenderParameter("mvcPath", "/admin/edit.jsp");
+            response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
         }
     }
 
@@ -105,10 +139,11 @@ public class GuestbookAdminPortlet extends MVCPortlet {
     }
 
 
-    private GuestbookLocalService _guestbookLocalService;
-
     @Reference(unbind = "-")
     protected void setGuestbookService(GuestbookLocalService guestbookLocalService) {
         _guestbookLocalService = guestbookLocalService;
     }
+
+    private GuestbookLocalService _guestbookLocalService;
+
 }
