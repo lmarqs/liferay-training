@@ -7,13 +7,13 @@
 <portlet:actionURL name="addEntry" var="addEntryURL"/>
 
 <aui:form action="${addEntryURL}" name="fm">
-    <aui:model-context bean="${entry}" model="${br.com.objective.training.model.Entry.class}" />
+    <aui:model-context bean="${entry}" model="${br.com.objective.training.model.Entry.class}"/>
 
     <aui:fieldset>
-        <aui:input name="name" />
-        <aui:input name="email" />
-        <aui:input name="message" />
-        <aui:input name="entryId" type="hidden" />
+        <aui:input name="name" value="${entry.name}"/>
+        <aui:input name="email" value="${entry.email}"/>
+        <aui:input name="message" value="${entry.message}"/>
+        <aui:input name="entryId" type="hidden" value="${entry.entryId}"/>
         <aui:input name="guestbookId" type="hidden" value="${entry eq null ? guestbookId : entry.guestbookId}"/>
     </aui:fieldset>
 

@@ -3,7 +3,6 @@ package br.com.objective.training.web.portlet;
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.GuestbookLocalService;
 import br.com.objective.training.service.GuestbookLocalServiceUtil;
-import br.com.objective.training.web.constants.GuestbookAdminPortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -22,6 +21,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
 import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
 import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
 
@@ -44,8 +44,8 @@ import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.
                 "javax.portlet.expiration-cache=0",
                 "javax.portlet.init-param.portlet-title-based-navigation=true",
                 "javax.portlet.init-param.template-path=/",
-                "javax.portlet.init-param.view-template=/admin/view.jsp",
-                "javax.portlet.name=" + GuestbookAdminPortletKeys.GUESTBOOK_ADMIN,
+                "javax.portlet.init-param.view-template=" + MVC_PATH_VIEW,
+                "javax.portlet.name=" + GUESTBOOK_ADMIN,
                 "javax.portlet.resource-bundle=content.Language",
                 "javax.portlet.security-role-ref=administrator",
                 "javax.portlet.supports.mime-type=text/html"
@@ -79,7 +79,6 @@ public class GuestbookAdminPortlet extends MVCPortlet {
                                 ParamUtil.getInteger(request, "end", 20)
                         )
                 );
-
             }
         } catch (PortalException pe) {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())

@@ -5,8 +5,6 @@
     <b><liferay-ui:message key="guestbook-web.caption"/></b>
 </p>
 
-<jsp:useBean id="entries" class="java.util.ArrayList" scope="request"/>
-
 <liferay-ui:search-container total="${total}">
     <liferay-ui:search-container-results results="${results}"/>
 
@@ -14,20 +12,13 @@
 
         <liferay-ui:search-container-column-text property="message"/>
         <liferay-ui:search-container-column-text property="name"/>
-
-        <portlet:actionURL name="deleteEntry" var="removeEntryURL">
-            <portlet:param name="entryId" value="${entry.entryId}"/>
-            <portlet:param name="guestbookId" value="${entry.guestbookId}"/>
-        </portlet:actionURL>
-
-        <c:set var="removeEntryURL" value="location = '${removeEntryURL}'"/>
-        <liferay-ui:search-container-column-button href="${removeEntryURL}"/>
+        <liferay-ui:search-container-column-text property="email"/>
+        <liferay-ui:search-container-column-jsp align="right" path="/web/actions.jsp"/>
 
     </liferay-ui:search-container-row>
 
     <liferay-ui:search-iterator/>
 </liferay-ui:search-container>
-
 
 <portlet:renderURL var="addEntryURL">
     <portlet:param name="mvcPath" value="/web/edit.jsp"/>
