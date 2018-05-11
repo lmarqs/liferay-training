@@ -5,6 +5,6 @@ package br.com.objective.training.web.constants;
  */
 public class GuestbookAdminPanelCategoryKeys {
 
-    public static final String CONTROL_PANEL_CATEGORY = "Guestbook Admin";
+    public static final String CONTROL_PANEL_CATEGORY = "br.com.objective.training.web.application.list.GuestbookAdminPanelCategory";
 
 }

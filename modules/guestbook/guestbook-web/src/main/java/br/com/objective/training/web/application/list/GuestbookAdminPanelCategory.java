@@ -31,8 +31,8 @@ public class GuestbookAdminPanelCategory extends BasePanelCategory {
 
     @Override
     public String getLabel(Locale locale) {
-        ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-                "content.Language", locale, getClass());
+        ResourceBundle resourceBundle = ResourceBundleUtil
+                .getBundle("content.Language", locale, getClass());
 
         return LanguageUtil.get(resourceBundle, "category.custom.label");
     }
