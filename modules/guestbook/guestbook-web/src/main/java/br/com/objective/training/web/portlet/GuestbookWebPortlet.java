@@ -1,11 +1,10 @@
 package br.com.objective.training.web.portlet;
 
+import br.com.objective.training.model.Entry;
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.EntryLocalService;
 import br.com.objective.training.service.EntryLocalServiceUtil;
 import br.com.objective.training.service.GuestbookLocalService;
-import br.com.objective.training.web.constants.GuestbookWebPortletKeys;
-import br.com.objective.training.web.model.Entry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
