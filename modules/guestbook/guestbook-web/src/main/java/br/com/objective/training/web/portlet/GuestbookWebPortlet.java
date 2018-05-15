@@ -111,7 +111,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
                 request.setAttribute("guestbooks", guestbooks);
 
-                request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount());
+                request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId));
                 request.setAttribute("results",
                         EntryLocalServiceUtil.getEntries(
                                 scopeGroupId,
@@ -120,9 +120,6 @@ public class GuestbookWebPortlet extends MVCPortlet {
                                 ParamUtil.getInteger(request, "end", 20)
                         )
                 );
-
-
-                request.setAttribute("ADD_ENTRY", GuestbookPermission.contains(permissionChecker, guestbookId, "ADD_ENTRY"));
             }
 
         } catch (Exception e) {
@@ -203,12 +200,4 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
     private EntryLocalService _entryLocalService;
     private GuestbookLocalService _guestbookLocalService;
-
-    public static class HelloTag extends  SimpleTagSupport {
-
-        public void doTag() throws JspException, IOException {
-            JspWriter out = getJspContext().getOut();
-            out.println("Hello Custom Tag!");
-        }
-    }
 }

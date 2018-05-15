@@ -18,7 +18,9 @@
     </aui:fieldset>
 
     <aui:button-row>
-        <aui:button type="submit"/>
+        <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
+            <aui:button type="submit"/>
+        </gb:if-entry-permission>
         <aui:button type="cancel" onClick="${viewURL}"/>
     </aui:button-row>
 </aui:form>

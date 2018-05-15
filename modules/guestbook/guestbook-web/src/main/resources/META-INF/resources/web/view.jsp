@@ -39,7 +39,7 @@
     <liferay-ui:search-iterator/>
 </liferay-ui:search-container>
 
-<c:if test="${ADD_ENTRY eq true}">
+<gb:if-guestbook-permission permissionChecker="${permissionChecker}" guestbookId="${guestbookId}" actionId="ADD_ENTRY">
     <portlet:renderURL var="addEntryURL">
         <portlet:param name="mvcPath" value="/web/edit.jsp"/>
         <portlet:param name="guestbookId" value="${guestbookId}"/>
@@ -48,5 +48,4 @@
     <aui:button-row>
         <aui:button onClick="${addEntryURL}" value="Add Entry"/>
     </aui:button-row>
-</c:if>
-
+</gb:if-guestbook-permission>
