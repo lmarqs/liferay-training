@@ -5,6 +5,10 @@
     <b><liferay-ui:message key="msg.caption"/></b>
 </p>
 
+<liferay-ui:success key="entryAdded" message="msg.entry-added" />
+<liferay-ui:success key="entryUpdated" message="msg.entry-updated" />
+<liferay-ui:success key="entryDeleted" message="msg.entry-deleted" />
+
 <aui:nav>
     <c:forEach items="${guestbooks}" var="guestbook">
         <gb:if-guestbook-permission

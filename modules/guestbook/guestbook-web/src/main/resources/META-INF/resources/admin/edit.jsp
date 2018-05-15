@@ -4,9 +4,9 @@
     <portlet:param name="mvcPath" value="/admin/view.jsp" />
 </portlet:renderURL>
 
-<portlet:actionURL name='${guestbook ne null ? "updateGuestbook" : "addGuestbook"}' var="editGuestbookURL" />
+<portlet:actionURL name='${guestbook eq null ? "addGuestbook" : "updateGuestbook"}' var="actionURL" />
 
-<aui:form action="${editGuestbookURL}" name="fm">
+<aui:form action="${actionURL}" name="fm">
 
     <aui:model-context bean="${guestbook}" model="${br.com.objective.training.model.Guestbook.class}" />
 

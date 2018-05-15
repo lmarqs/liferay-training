@@ -1,5 +1,9 @@
 <%@ include file="./init.jsp" %>
 
+<liferay-ui:success key="guestbookAdded" message="msg.guestbook-added" />
+<liferay-ui:success key="guestbookUpdated" message="msg.guestbook-updated" />
+<liferay-ui:success key="guestbookDeleted" message="msg.guestbook-deleted" />
+
 <liferay-ui:search-container total="${total}">
     <liferay-ui:search-container-results results="${results}"/>
 
