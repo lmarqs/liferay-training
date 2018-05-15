@@ -23,3 +23,10 @@
 /plugins-sdk/dist
 /plugins-sdk/lib
 test-results
+gradle/wrapper/gradle-wrapper\.properties
+
+gradle/wrapper/gradle-wrapper\.jar
+
+gradlew\.bat
+
+gradlew
