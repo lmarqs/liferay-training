@@ -18,9 +18,19 @@
     </aui:fieldset>
 
     <aui:button-row>
-        <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
-            <aui:button type="submit"/>
-        </gb:if-entry-permission>
+        <c:choose>
+            <c:when test="${entry eq null}">
+                <gb:if-guestbook-permission
+                        permissionChecker="${permissionChecker}" guestbookId="${guestbookId}" actionId="ADD_ENTRY">
+                    <aui:button type="submit"/>
+                </gb:if-guestbook-permission>
+            </c:when>
+            <c:otherwise>
+                <gb:if-entry-permission
+                        permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
+                    <aui:button type="submit"/>
+                </gb:if-entry-permission>            </c:otherwise>
+        </c:choose>
         <aui:button type="cancel" onClick="${viewURL}"/>
     </aui:button-row>
 </aui:form>
