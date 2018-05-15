@@ -29,7 +29,7 @@
 
     <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="PERMISSIONS">
         <liferay-security:permissionsURL
-                modelResource="${br.com.objective.training.model.Entry['class'].name}"
+                modelResource="br.com.objective.training.model.Entry"
                 modelResourceDescription="${entry.message}"
                 resourcePrimKey="${entry.entryId}"
                 var="permissionsURL"/>

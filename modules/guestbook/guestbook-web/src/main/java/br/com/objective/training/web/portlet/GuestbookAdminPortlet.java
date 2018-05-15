@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -118,6 +119,7 @@ public class GuestbookAdminPortlet extends MVCPortlet {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
                     .log(Level.SEVERE, null, pe);
 
+            SessionErrors.add(request, pe.getClass().getName());
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
         }
     }

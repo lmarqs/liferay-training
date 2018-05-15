@@ -61,27 +61,14 @@ import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MV
 public class GuestbookWebPortlet extends MVCPortlet {
     @Override
     public void render(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-
         try {
+
             ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
 
             long scopeGroupId = serviceContext.getScopeGroupId();
-            long groupId = scopeGroupId;
+            long guestbookId = _getAttributeGuestbookId(request, response, serviceContext);
 
-            long guestbookId = ParamUtil.getLong(request, "guestbookId");
-
-            List<Guestbook> guestbooks = _guestbookLocalService.getGuestbooks(groupId);
-
-            if (guestbooks.isEmpty()) {
-                Guestbook guestbook = _guestbookLocalService.addGuestbook(serviceContext.getUserId(), "Main", serviceContext);
-                guestbookId = guestbook.getGuestbookId();
-            }
-
-            if (guestbookId == 0) {
-                guestbookId = guestbooks.get(0).getGuestbookId();
-            }
             request.setAttribute("guestbookId", guestbookId);
-
 
             String mvcPath = ParamUtil.getString(request, "mvcPath");
 
@@ -89,27 +76,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
                 long entryId = ParamUtil.getLong(request, "entryId");
                 request.setAttribute("entry", entryId > 0 ? EntryLocalServiceUtil.getEntry(entryId) : null);
             } else {
-                ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
-                PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
 
-
-                guestbooks = new ArrayList<>(GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId));
-
-                for (Iterator<Guestbook> iterator = guestbooks.listIterator(); iterator.hasNext(); ) {
-                    try {
-                        Guestbook guestbook = iterator.next();
-                        if (GuestbookPermission.contains(permissionChecker, guestbook.getGuestbookId(), "VIEW")) {
-                            continue;
-                        }
-                    } catch (Exception ignored) {
-                        Logger.getLogger(GuestbookWebPortlet.class.getName())
-                                .log(Level.SEVERE, null, ignored);
-                    }
-                    iterator.remove();
-
-                }
-
-                request.setAttribute("guestbooks", guestbooks);
+                request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId));
 
                 request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId));
                 request.setAttribute("results",
@@ -129,62 +97,67 @@ public class GuestbookWebPortlet extends MVCPortlet {
         super.render(request, response);
     }
 
-    public void addEntry(ActionRequest request, ActionResponse response) throws PortalException {
-
-        ServiceContext serviceContext = ServiceContextFactory.getInstance(Entry.class.getName(), request);
-
-        String userName = ParamUtil.getString(request, "name");
-        String email = ParamUtil.getString(request, "email");
-        String message = ParamUtil.getString(request, "message");
+    private long _getAttributeGuestbookId(RenderRequest request, RenderResponse response, ServiceContext serviceContext) throws PortalException {
         long guestbookId = ParamUtil.getLong(request, "guestbookId");
-        long entryId = ParamUtil.getLong(request, "entryId");
 
-        if (entryId > 0) {
+        List<Guestbook> guestbooks = _guestbookLocalService.getGuestbooks(serviceContext.getScopeGroupId());
 
-            try {
+        if (guestbooks.isEmpty()) {
+            Guestbook guestbook = _guestbookLocalService.addGuestbook(serviceContext.getUserId(), "Main", serviceContext);
+            guestbookId = guestbook.getGuestbookId();
+        }
+
+        if (guestbookId == 0) {
+            guestbookId = guestbooks.get(0).getGuestbookId();
+        }
+
+        return guestbookId;
+    }
+
+    public void addEntry(ActionRequest request, ActionResponse response) throws PortalException {
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Entry.class.getName(), request);
+
+            String userName = ParamUtil.getString(request, "name");
+            String email = ParamUtil.getString(request, "email");
+            String message = ParamUtil.getString(request, "message");
+
+            long guestbookId = ParamUtil.getLong(request, "guestbookId");
+            long entryId = ParamUtil.getLong(request, "entryId");
+
+            response.setRenderParameter("guestbookId", Long.toString(guestbookId));
+
+            if (entryId > 0) {
                 _entryLocalService.updateEntry(serviceContext.getUserId(), guestbookId, entryId, userName, email, message, serviceContext);
-
                 SessionMessages.add(request, "entryAdded");
-
-                response.setRenderParameter("guestbookId", Long.toString(guestbookId));
-
-            } catch (Exception e) {
-                System.out.println(e);
-                SessionErrors.add(request, e.getClass().getName());
-                PortalUtil.copyRequestParameters(request, response);
-                response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
-            }
-
-        } else {
-
-            try {
+            } else {
                 _entryLocalService.addEntry(serviceContext.getUserId(), guestbookId, userName, email, message, serviceContext);
-                SessionMessages.add(request, "entryAdded");
-
-                response.setRenderParameter("guestbookId", Long.toString(guestbookId));
-
-            } catch (Exception e) {
-                SessionErrors.add(request, e.getClass().getName());
-
-                PortalUtil.copyRequestParameters(request, response);
-
-                response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
+                SessionMessages.add(request, "msg.entryUpdated");
             }
+        } catch (Exception e) {
+            SessionErrors.add(request, e.getClass().getName());
+            PortalUtil.copyRequestParameters(request, response);
+            response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
         }
     }
 
 
     public void deleteEntry(ActionRequest request, ActionResponse response) throws PortalException {
-        long entryId = ParamUtil.getLong(request, "entryId");
-        long guestbookId = ParamUtil.getLong(request, "guestbookId");
-
-        ServiceContext serviceContext = ServiceContextFactory.getInstance(Entry.class.getName(), request);
-
         try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Entry.class.getName(), request);
+
+            long entryId = ParamUtil.getLong(request, "entryId");
+            long guestbookId = ParamUtil.getLong(request, "guestbookId");
+
             response.setRenderParameter("guestbookId", Long.toString(guestbookId));
+
             _entryLocalService.deleteEntry(entryId, serviceContext);
+
+            SessionMessages.add(request, "msg.entryDeleted");
         } catch (Exception e) {
-            Logger.getLogger(GuestbookWebPortlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
+            SessionErrors.add(request, e.getClass().getName());
         }
     }
 

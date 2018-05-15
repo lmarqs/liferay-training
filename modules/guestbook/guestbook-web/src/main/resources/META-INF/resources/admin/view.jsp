@@ -4,8 +4,11 @@
     <liferay-ui:search-container-results results="${results}"/>
 
     <liferay-ui:search-container-row className="br.com.objective.training.model.Guestbook" modelVar="guestbook">
-        <liferay-ui:search-container-column-text property="name"/>
-        <liferay-ui:search-container-column-jsp align="right" path="/admin/actions.jsp"/>
+        <gb:if-guestbook-permission
+                permissionChecker="${permissionChecker}" guestbookId="${guestbook.guestbookId}" actionId="VIEW">
+            <liferay-ui:search-container-column-text property="name"/>
+            <liferay-ui:search-container-column-jsp align="right" path="/admin/actions.jsp"/>
+        </gb:if-guestbook-permission>
     </liferay-ui:search-container-row>
 
     <liferay-ui:search-iterator/>
