@@ -4,7 +4,7 @@
     <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
-<portlet:actionURL name='${entry eq null ? "addGuestbook" : "updateGuestbook"}' var="actionURL"/>
+<portlet:actionURL name='${entry eq null ? "addEntry" : "updateEntry"}' var="actionURL"/>
 
 <aui:form action="${actionURL}" name="fm">
     <aui:model-context bean="${entry}"/>

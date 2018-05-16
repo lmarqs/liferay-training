@@ -21,7 +21,7 @@
     </div>
 </aui:form>
 
-<liferay-ui:search-container delta="10" emptyResultsMessage="no-entries-were-found" total="${entries['size']}">
+<liferay-ui:search-container delta="10" emptyResultsMessage="no-entries-were-found" total="${fn:length(entries)}">
     <liferay-ui:search-container-results results="${entries}"/>
 
     <liferay-ui:search-container-row
