@@ -30,3 +30,5 @@ test-results
 gradle/*
 gradlew\.bat
 gradlew
+
+configs/
