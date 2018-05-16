@@ -1,5 +1,6 @@
 package br.com.objective.training.web.portlet.util.taglib;
 
+import br.com.objective.training.model.Entry;
 import br.com.objective.training.service.permission.EntryPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;

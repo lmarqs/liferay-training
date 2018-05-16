@@ -7,6 +7,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -80,9 +82,11 @@ public class GuestbookAdminPortlet extends MVCPortlet {
                         )
                 );
             }
-        } catch (PortalException pe) {
+        } catch (Exception e) {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
-                    .log(Level.SEVERE, null, pe);
+                    .log(Level.SEVERE, null, e);
+
+            throw new PortletException(e);
         }
 
         super.render(request, response);
@@ -96,6 +100,7 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
         try {
             _guestbookLocalService.addGuestbook(serviceContext.getUserId(), name, serviceContext);
+            SessionMessages.add(request, "guestbookAdded");
         } catch (PortalException pe) {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
                     .log(Level.SEVERE, null, pe);
@@ -113,11 +118,11 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
         try {
             _guestbookLocalService.updateGuestbook(serviceContext.getUserId(), guestbookId, name, serviceContext);
+            SessionMessages.add(request, "guestbookUpdated");
         } catch (PortalException pe) {
-
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
                     .log(Level.SEVERE, null, pe);
-
+            SessionErrors.add(request, pe.getClass().getName());
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
         }
     }
@@ -130,10 +135,11 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
         try {
             _guestbookLocalService.deleteGuestbook(guestbookId, serviceContext);
+            SessionMessages.add(request, "guestbookDeleted");
         } catch (PortalException pe) {
-
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
                     .log(Level.SEVERE, null, pe);
+            SessionErrors.add(request, pe.getClass().getName());
         }
     }
 

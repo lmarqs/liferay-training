@@ -4,10 +4,10 @@
     <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
-<portlet:actionURL name="addEntry" var="addEntryURL"/>
+<portlet:actionURL name='${entry eq null ? "addGuestbook" : "updateGuestbook"}' var="actionURL"/>
 
-<aui:form action="${addEntryURL}" name="fm">
-    <aui:model-context bean="${entry}" model="${br.com.objective.training.model.Entry.class}"/>
+<aui:form action="${actionURL}" name="fm">
+    <aui:model-context bean="${entry}"/>
 
     <aui:fieldset>
         <aui:input name="name" value="${entry.name}"/>
@@ -18,9 +18,20 @@
     </aui:fieldset>
 
     <aui:button-row>
-        <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
-            <aui:button type="submit"/>
-        </gb:if-entry-permission>
+        <c:choose>
+            <c:when test="${entry eq null}">
+                <gb:if-guestbook-permission
+                        permissionChecker="${permissionChecker}" guestbookId="${guestbookId}" actionId="ADD_ENTRY">
+                    <aui:button type="submit"/>
+                </gb:if-guestbook-permission>
+            </c:when>
+            <c:otherwise>
+                <gb:if-entry-permission
+                        permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
+                    <aui:button type="submit"/>
+                </gb:if-entry-permission>
+            </c:otherwise>
+        </c:choose>
         <aui:button type="cancel" onClick="${viewURL}"/>
     </aui:button-row>
 </aui:form>
