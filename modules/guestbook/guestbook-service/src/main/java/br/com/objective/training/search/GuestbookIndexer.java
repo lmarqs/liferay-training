@@ -90,7 +90,7 @@ public class GuestbookIndexer extends BaseIndexer<Guestbook> {
     @Override
     protected void doReindex(Guestbook guestbook) throws Exception {
         Document document = getDocument(guestbook);
-        IndexWriterHelper.updateDocument(getSearchEngineId(), guestbook.getCompanyId(), document, isCommitImmediately());
+        indexWriterHelper.updateDocument(getSearchEngineId(), guestbook.getCompanyId(), document, isCommitImmediately());
     }
 
     @Override
