@@ -5,9 +5,9 @@
     <b><liferay-ui:message key="msg.caption"/></b>
 </p>
 
-<liferay-ui:success key="entryAdded" message="msg.entry-added" />
-<liferay-ui:success key="entryUpdated" message="msg.entry-updated" />
-<liferay-ui:success key="entryDeleted" message="msg.entry-deleted" />
+<liferay-ui:success key="entryAdded" message="msg.entry-added"/>
+<liferay-ui:success key="entryUpdated" message="msg.entry-updated"/>
+<liferay-ui:success key="entryDeleted" message="msg.entry-deleted"/>
 
 <aui:nav>
     <c:forEach items="${guestbooks}" var="guestbook">
@@ -33,6 +33,26 @@
     </c:forEach>
 </aui:nav>
 
+<liferay-portlet:renderURL varImpl="searchURL">
+    <portlet:param name="mvcPath" value="/web/search.jsp"/>
+</liferay-portlet:renderURL>
+
+<aui:form action="${searchURL}" method="get" name="fm">
+    <liferay-portlet:renderURLParams varImpl="searchURL"/>
+    <div class="search-form">
+        <span class="aui-search-bar">
+            <aui:input
+                    inlineField="${true}"
+                    label=""
+                    name="keywords"
+                    size="30"
+                    title="search-entries"
+                    type="text"
+            />
+            <aui:button type="submit" value="search"/>
+        </span>
+    </div>
+</aui:form>
 
 <gb:if-guestbook-permission
         permissionChecker="${permissionChecker}" guestbookId="${guestbookId}" actionId="VIEW">
