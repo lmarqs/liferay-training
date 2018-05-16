@@ -28,6 +28,5 @@
 test-results
 
 gradle/*
-gradle/*
 gradlew\.bat
 gradlew
