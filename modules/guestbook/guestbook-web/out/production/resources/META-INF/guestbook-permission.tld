@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<taglib
+        version="2.1"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+>
+    <tlib-version>1.0</tlib-version>
+    <description>Provides de permission checker</description>
+    <short-name>guestbook-permission</short-name>
+    <uri>http://training.objective.com.br/tld/guestbook</uri>
+    <tag>
+        <name>if-guestbook-permission</name>
+        <tag-class>br.com.objective.training.web.portlet.util.taglib.GuestbookPermissionTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>permissionChecker</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>guestbookId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>actionId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>if-entry-permission</name>
+        <tag-class>br.com.objective.training.web.portlet.util.taglib.EntryPermissionTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>permissionChecker</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>entryId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>actionId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>
