@@ -107,24 +107,24 @@ public class GuestbookIndexer extends BaseIndexer<Guestbook> {
 
     protected void reindexGuestbooks(long companyId) throws PortalException {
 
-        final IndexableActionableDynamicQuery indexableActionableDynamicQuery;
-        indexableActionableDynamicQuery = _guestbookLocalService.getIndexableActionableDynamicQuery();
+        final IndexableActionableDynamicQuery query;
+        query = _guestbookLocalService.getIndexableActionableDynamicQuery();
 
-        indexableActionableDynamicQuery.setCompanyId(companyId);
+        query.setCompanyId(companyId);
 
-        indexableActionableDynamicQuery.setPerformActionMethod(
-                (ActionableDynamicQuery.PerformActionMethod<Guestbook>) guestbook -> {
-                    try {
-                        Document document = getDocument(guestbook);
-                        indexableActionableDynamicQuery.addDocuments(document);
-                    } catch (PortalException pe) {
-                        if (_log.isWarnEnabled()) {
-                            _log.warn("Unable to index guestbook " + guestbook.getGuestbookId(), pe);
-                        }
-                    }
-                });
-        indexableActionableDynamicQuery.setSearchEngineId(getSearchEngineId());
-        indexableActionableDynamicQuery.performActions();
+        query.setPerformActionMethod((ActionableDynamicQuery.PerformActionMethod<Guestbook>) guestbook -> {
+            try {
+                Document document = getDocument(guestbook);
+                query.addDocuments(document);
+            } catch (PortalException pe) {
+                if (_log.isWarnEnabled()) {
+                    _log.warn("Unable to index guestbook " + guestbook.getGuestbookId(), pe);
+                }
+            }
+        });
+
+        query.setSearchEngineId(getSearchEngineId());
+        query.performActions();
     }
 
     private static final Log _log = LogFactoryUtil.getLog(GuestbookIndexer.class);
