@@ -102,10 +102,10 @@ public class GuestbookIndexer extends BaseIndexer<Guestbook> {
     @Override
     protected void doReindex(String[] ids) throws Exception {
         long companyId = GetterUtil.getLong(ids[0]);
-        reindexGuestbooks(companyId);
+        _reindexGuestbooks(companyId);
     }
 
-    protected void reindexGuestbooks(long companyId) throws PortalException {
+    private void _reindexGuestbooks(long companyId) throws PortalException {
 
         final IndexableActionableDynamicQuery query;
         query = _guestbookLocalService.getIndexableActionableDynamicQuery();
