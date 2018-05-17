@@ -1,7 +1,9 @@
 package br.com.objective.training.search;
 
 import br.com.objective.training.model.Entry;
+import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.EntryLocalService;
+import br.com.objective.training.service.GuestbookLocalService;
 import br.com.objective.training.service.permission.EntryPermission;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -9,6 +11,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexWriterHelper;
@@ -37,13 +40,10 @@ public class EntryIndexer extends BaseIndexer<Entry> {
     private static final String CLASS_NAME = Entry.class.getName();
 
     public EntryIndexer() {
-        setDefaultSelectedFieldNames(
-                Field.ASSET_TAG_NAMES, Field.COMPANY_ID, Field.CONTENT,
-                Field.ENTRY_CLASS_NAME, Field.ENTRY_CLASS_PK, Field.GROUP_ID,
-                Field.MODIFIED_DATE, Field.SCOPE_GROUP_ID, Field.TITLE, Field.UID
-        );
-        setPermissionAware(true);
+        setDefaultSelectedFieldNames(Field.COMPANY_ID, Field.ENTRY_CLASS_NAME, Field.ENTRY_CLASS_PK, Field.UID, Field.SCOPE_GROUP_ID, Field.GROUP_ID);
+        setDefaultSelectedLocalizedFieldNames(Field.TITLE, Field.CONTENT);
         setFilterSearch(true);
+        setPermissionAware(true);
     }
 
     @Override
@@ -62,6 +62,13 @@ public class EntryIndexer extends BaseIndexer<Entry> {
     }
 
     @Override
+    public void postProcessSearchQuery(BooleanQuery searchQuery, BooleanFilter fullQueryBooleanFilter, SearchContext searchContext) throws Exception {
+        addSearchLocalizedTerm(searchQuery, searchContext, "guestbookName", false);
+        addSearchLocalizedTerm(searchQuery, searchContext, Field.TITLE, false);
+        addSearchLocalizedTerm(searchQuery, searchContext, Field.CONTENT, false);
+    }
+
+    @Override
     protected void doDelete(Entry entry) throws Exception {
         deleteDocument(entry.getCompanyId(), entry.getEntryId());
     }
@@ -70,23 +77,30 @@ public class EntryIndexer extends BaseIndexer<Entry> {
     protected Document doGetDocument(Entry entry) throws Exception {
 
         Document document = getBaseModelDocument(CLASS_NAME, entry);
-
         document.addDate(Field.MODIFIED_DATE, entry.getModifiedDate());
+        document.addText("email", entry.getEmail());
 
         Locale defaultLocale = PortalUtil.getSiteDefaultLocale(entry.getGroupId());
-
         String localizedTitle = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
-        String localizedContent = LocalizationUtil.getLocalizedName(Field.CONTENT, defaultLocale.toString());
+        String localizedMessage = LocalizationUtil.getLocalizedName(Field.CONTENT, defaultLocale.toString());
 
         document.addText(localizedTitle, entry.getName());
-        document.addText(localizedContent, entry.getMessage());
+        document.addText(localizedMessage, entry.getMessage());
+
+        long guestbookId = entry.getGuestbookId();
+        Guestbook guestbook = _guestbookLocalService.getGuestbook(guestbookId);
+        String guestbookName = guestbook.getName();
+        String localizedGbName = LocalizationUtil.getLocalizedName("guestbookName", defaultLocale.toString());
+
+        document.addText(localizedGbName, guestbookName);
+
         return document;
     }
 
     @Override
-    protected Summary doGetSummary(Document document, Locale locale, String snippet, PortletRequest portletRequest, PortletResponse portletResponse) {
+    protected Summary doGetSummary(Document document, Locale locale, String snippet, PortletRequest portletRequest, PortletResponse portletResponse) throws Exception {
         Summary summary = createSummary(document);
-        summary.setMaxContentLength(128);
+        summary.setMaxContentLength(200);
         return summary;
     }
 
@@ -105,26 +119,27 @@ public class EntryIndexer extends BaseIndexer<Entry> {
     @Override
     protected void doReindex(String[] ids) throws Exception {
         long companyId = GetterUtil.getLong(ids[0]);
-        _reindexEntries(companyId);
+        _reindex(companyId);
     }
 
-    private void _reindexEntries(long companyId) throws PortalException {
+    private void _reindex(long companyId) throws PortalException {
 
         final IndexableActionableDynamicQuery query;
         query = _entryLocalService.getIndexableActionableDynamicQuery();
 
         query.setCompanyId(companyId);
 
-        query.setPerformActionMethod((ActionableDynamicQuery.PerformActionMethod<Entry>) entry -> {
-            try {
-                Document document = getDocument(entry);
-                query.addDocuments(document);
-            } catch (PortalException pe) {
-                if (_log.isWarnEnabled()) {
-                    _log.warn("Unable to index entry " + entry.getEntryId(), pe);
-                }
-            }
-        });
+        query.setPerformActionMethod(
+                (ActionableDynamicQuery.PerformActionMethod<Entry>) entry -> {
+                    try {
+                        Document document = getDocument(entry);
+                        query.addDocuments(document);
+                    } catch (PortalException pe) {
+                        if (_log.isWarnEnabled()) {
+                            _log.warn("Unable to index entry " + entry.getEntryId(), pe);
+                        }
+                    }
+                });
 
         query.setSearchEngineId(getSearchEngineId());
         query.performActions();
@@ -133,9 +148,12 @@ public class EntryIndexer extends BaseIndexer<Entry> {
     private static final Log _log = LogFactoryUtil.getLog(EntryIndexer.class);
 
     @Reference
+    private IndexWriterHelper _indexWriterHelper;
+
+    @Reference
     private EntryLocalService _entryLocalService;
 
     @Reference
-    private IndexWriterHelper _indexWriterHelper;
+    private GuestbookLocalService _guestbookLocalService;
 
 }

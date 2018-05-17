@@ -149,14 +149,15 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
         List<Guestbook> guestbooks = GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);
 
-        Map<String, String> guestbookMap = new HashMap<>();
+        Map<Long, String> guestbookMap = new HashMap<>();
 
         for (Guestbook guestbook : guestbooks) {
-            guestbookMap.put(Long.toString(guestbook.getGuestbookId()), guestbook.getName());
+            guestbookMap.put(guestbook.getGuestbookId(), guestbook.getName());
         }
 
 
         request.setAttribute("entries", entries);
+        request.setAttribute("guestbooks", guestbooks);
         request.setAttribute("guestbookMap", guestbookMap);
     }
 
