@@ -1,4 +1,4 @@
-package br.com.objective.training.web.constants;
+package br.com.objective.training.constants;
 
 /**
  * @author lucas

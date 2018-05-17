@@ -1,7 +1,7 @@
 package br.com.objective.training.web.application.list;
 
-import br.com.objective.training.web.constants.GuestbookAdminPanelCategoryKeys;
-import br.com.objective.training.web.constants.GuestbookAdminPortletKeys;
+import br.com.objective.training.constants.GuestbookAdminPanelCategoryKeys;
+import br.com.objective.training.constants.GuestbookAdminPortletKeys;
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.portal.kernel.model.Portlet;

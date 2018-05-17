@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
 
 /**
  * @author lucas

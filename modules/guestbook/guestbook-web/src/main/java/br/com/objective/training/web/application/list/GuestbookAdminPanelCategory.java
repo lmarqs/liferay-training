@@ -1,6 +1,6 @@
 package br.com.objective.training.web.application.list;
 
-import br.com.objective.training.web.constants.GuestbookAdminPanelCategoryKeys;
+import br.com.objective.training.constants.GuestbookAdminPanelCategoryKeys;
 import com.liferay.application.list.BasePanelCategory;
 import com.liferay.application.list.PanelCategory;
 import com.liferay.application.list.constants.PanelCategoryKeys;

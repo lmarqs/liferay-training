@@ -43,10 +43,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.GUESTBOOK;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
 
 /**
  * @author lucas
