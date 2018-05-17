@@ -6,18 +6,24 @@ import br.com.objective.training.service.EntryLocalService;
 import br.com.objective.training.service.EntryLocalServiceUtil;
 import br.com.objective.training.service.GuestbookLocalService;
 import br.com.objective.training.service.GuestbookLocalServiceUtil;
-import br.com.objective.training.service.permission.GuestbookPermission;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchContextFactory;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -25,17 +31,21 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.GUESTBOOK;
 import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
 import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
 
 /**
@@ -73,28 +83,86 @@ public class GuestbookWebPortlet extends MVCPortlet {
             String mvcPath = ParamUtil.getString(request, "mvcPath");
 
             if (MVC_PATH_EDIT.equals(mvcPath)) {
-                long entryId = ParamUtil.getLong(request, "entryId");
-                request.setAttribute("entry", entryId > 0 ? EntryLocalServiceUtil.getEntry(entryId) : null);
+                _renderEdit(request);
+            } else if (MVC_PATH_SEARCH.equals(mvcPath)) {
+                _renderSearch(request, scopeGroupId);
             } else {
-
-                request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId));
-
-                request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId));
-                request.setAttribute("results",
-                        EntryLocalServiceUtil.getEntries(
-                                scopeGroupId,
-                                guestbookId,
-                                ParamUtil.getInteger(request, "start", 0),
-                                ParamUtil.getInteger(request, "end", 20)
-                        )
-                );
+                _renderView(request, scopeGroupId, guestbookId);
             }
-
         } catch (Exception e) {
             throw new PortletException(e);
         }
 
         super.render(request, response);
+    }
+
+    private void _renderEdit(RenderRequest request) throws PortalException {
+        long entryId = ParamUtil.getLong(request, "entryId");
+        request.setAttribute("entry", entryId > 0 ? EntryLocalServiceUtil.getEntry(entryId) : null);
+    }
+
+    private void _renderView(RenderRequest request, long scopeGroupId, long guestbookId) {
+        request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId));
+
+        request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId));
+        request.setAttribute("results",
+                EntryLocalServiceUtil.getEntries(
+                        scopeGroupId,
+                        guestbookId,
+                        ParamUtil.getInteger(request, "start", 0),
+                        ParamUtil.getInteger(request, "end", 20)
+                )
+        );
+
+    }
+
+    private void _renderSearch(RenderRequest request, long scopeGroupId) throws SearchException {
+        String keywords = ParamUtil.getString(request, "keywords");
+
+        SearchContext searchContext;
+        searchContext = SearchContextFactory.getInstance(getHttpServletRequest(request));
+
+        searchContext.setKeywords(keywords);
+        searchContext.setAttribute("paginationType", "more");
+        searchContext.setStart(0);
+        searchContext.setEnd(10);
+
+        Indexer indexer = IndexerRegistryUtil.getIndexer(Entry.class);
+
+        Hits hits = indexer.search(searchContext);
+
+        List<Entry> entries = new ArrayList<>();
+
+        for (int i = 0; i < hits.getDocs().length; i++) {
+            Document doc = hits.doc(i);
+
+            long entryId = GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
+
+            try {
+                Entry entry = EntryLocalServiceUtil.getEntry(entryId);
+                entries.add(entry);
+            } catch (PortalException | SystemException e) {
+                Logger.getLogger(GuestbookWebPortlet.class.getName())
+                        .log(Level.WARNING, null, e);
+            }
+        }
+
+        List<Guestbook> guestbooks = GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);
+
+        Map<Long, String> guestbookMap = new HashMap<>();
+
+        for (Guestbook guestbook : guestbooks) {
+            guestbookMap.put(guestbook.getGuestbookId(), guestbook.getName());
+        }
+
+
+        request.setAttribute("entries", entries);
+        request.setAttribute("guestbooks", guestbooks);
+        request.setAttribute("guestbookMap", guestbookMap);
+    }
+
+    private static HttpServletRequest getHttpServletRequest(final PortletRequest request) {
+        return PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request));
     }
 
     private long _getAttributeGuestbookId(RenderRequest request, RenderResponse response, ServiceContext serviceContext) throws PortalException {
