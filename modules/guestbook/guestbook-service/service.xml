@@ -5,24 +5,21 @@
 <service-builder package-path="br.com.objective.training">
     <namespace>GB</namespace>
     <entity name="Guestbook" local-service="true" uuid="true">
+
         <!-- PK fields -->
         <column name="guestbookId" primary="true" type="long"/>
-        <!-- Group instance -->
 
+        <!-- Group instance -->
         <column name="groupId" type="long"/>
 
-
         <!-- Audit fields -->
-
         <column name="companyId" type="long"/>
         <column name="userId" type="long"/>
         <column name="userName" type="String"/>
         <column name="createDate" type="Date"/>
         <column name="modifiedDate" type="Date"/>
 
-
         <!-- Status fields -->
-
         <column name="status" type="int"/>
         <column name="statusByUserId" type="long"/>
         <column name="statusByUserName" type="String"/>
@@ -40,20 +37,29 @@
         <finder name="GroupId" return-type="Collection">
             <finder-column name="groupId"/>
         </finder>
+        <finder name="Status" return-type="Collection">
+            <finder-column name="status"/>
+        </finder>
+        <finder name="G_S" return-type="Collection">
+            <finder-column name="groupId"/>
+            <finder-column name="status"/>
+        </finder>
+
+        <!-- References -->
+        <reference package-path="com.liferay.portlet.asset" entity="AssetEntry"/>
+        <reference package-path="com.liferay.portlet.asset" entity="AssetLink"/>
 
     </entity>
 
     <entity name="Entry" local-service="true" uuid="true">
-        <!-- PK fields -->
 
+        <!-- PK fields -->
         <column name="entryId" primary="true" type="long"/>
 
         <!-- Group instance -->
-
         <column name="groupId" type="long"/>
 
         <!-- Audit fields -->
-
         <column name="companyId" type="long"/>
         <column name="userId" type="long"/>
         <column name="userName" type="String"/>
@@ -61,25 +67,33 @@
         <column name="modifiedDate" type="Date"/>
 
         <!-- Status fields -->
-
         <column name="status" type="int"/>
         <column name="statusByUserId" type="long"/>
         <column name="statusByUserName" type="String"/>
         <column name="statusDate" type="Date"/>
 
         <!-- Other fields -->
-
         <column name="name" type="String"/>
         <column name="email" type="String"/>
         <column name="message" type="String"/>
         <column name="guestbookId" type="long"/>
 
         <!-- Finder methods -->
-
+        <finder name="Status" return-type="Collection">
+            <finder-column name="status"/>
+        </finder>
         <finder name="G_G" return-type="Collection">
             <finder-column name="groupId"/>
             <finder-column name="guestbookId"/>
         </finder>
+        <finder name="G_S" return-type="Collection">
+            <finder-column name="groupId"/>
+            <finder-column name="status"/>
+        </finder>
+
+        <!-- References -->
+        <reference package-path="com.liferay.portlet.asset" entity="AssetEntry"/>
+        <reference package-path="com.liferay.portlet.asset" entity="AssetLink"/>
 
     </entity>
 
