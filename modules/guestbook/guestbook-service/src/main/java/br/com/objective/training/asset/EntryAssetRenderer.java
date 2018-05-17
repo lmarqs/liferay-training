@@ -89,7 +89,7 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
 
     @Override
     public boolean include(HttpServletRequest request, HttpServletResponse response, String template) throws Exception {
-        request.setAttribute("ENTRY", _entry);
+        request.setAttribute("entry", _entry);
         request.setAttribute("HtmlUtil", HtmlUtil.getHtml());
         request.setAttribute("StringUtil", new StringUtil());
         return super.include(request, response, template);

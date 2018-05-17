@@ -150,8 +150,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
     @Indexable(type = IndexableType.DELETE)
     public Entry deleteEntry(long entryId, ServiceContext serviceContext) throws PortalException {
-        Entry entry = getEntry(entryId);
-        entry = deleteEntry(entryId);
+        Entry entry = deleteEntry(entryId);
         resourceLocalService.deleteResource(
                 serviceContext.getCompanyId(), Entry.class.getName(),
                 ResourceConstants.SCOPE_INDIVIDUAL, entryId);
@@ -182,7 +181,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entryPersistence.countByG_G(groupId, guestbookId);
     }
 
-    protected void validate(String name, String email, String entry) throws PortalException {
+    private void validate(String name, String email, String entry) throws PortalException {
 
         if (Validator.isNull(name)) {
             throw new EntryNameException();
