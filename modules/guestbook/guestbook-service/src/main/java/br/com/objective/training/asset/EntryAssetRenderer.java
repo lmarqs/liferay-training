@@ -1,7 +1,7 @@
 package br.com.objective.training.asset;
 
-import br.com.objective.training.model.Guestbook;
-import br.com.objective.training.service.permission.GuestbookPermission;
+import br.com.objective.training.model.Entry;
+import br.com.objective.training.service.permission.EntryPermission;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -25,77 +25,71 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
-import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
 import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
 
-public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
+public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
 
-    public GuestbookAssetRenderer(Guestbook guestbook) {
-        _guestbook = guestbook;
-    }
-
-    @Override
-    public boolean hasEditPermission(PermissionChecker permissionChecker) throws PortalException {
-        long guestbookId = _guestbook.getGuestbookId();
-        return GuestbookPermission.contains(permissionChecker, guestbookId, ActionKeys.UPDATE);
+    public EntryAssetRenderer(Entry entry) {
+        _entry = entry;
     }
 
     @Override
     public boolean hasViewPermission(PermissionChecker permissionChecker) throws PortalException {
-        long guestbookId = _guestbook.getGuestbookId();
-        return GuestbookPermission.contains(permissionChecker, guestbookId, ActionKeys.VIEW);
+        long entryId = _entry.getEntryId();
+        return EntryPermission.contains(permissionChecker, entryId, ActionKeys.VIEW);
     }
 
     @Override
-    public Guestbook getAssetObject() {
-        return _guestbook;
+    public Entry getAssetObject() {
+        return _entry;
     }
 
     @Override
     public long getGroupId() {
-        return _guestbook.getGroupId();
+        return _entry.getGroupId();
     }
 
     @Override
     public long getUserId() {
-        return _guestbook.getUserId();
+        return _entry.getUserId();
     }
 
     @Override
     public String getUserName() {
-        return _guestbook.getUserName();
+        return _entry.getUserName();
     }
 
     @Override
     public String getUuid() {
-        return _guestbook.getUuid();
+        return _entry.getUuid();
     }
 
     @Override
     public String getClassName() {
-        return Guestbook.class.getName();
+        return Entry.class.getName();
     }
 
     @Override
     public long getClassPK() {
-        return _guestbook.getGuestbookId();
+        return _entry.getEntryId();
     }
 
     @Override
     public String getSummary(PortletRequest request, PortletResponse response) {
-        return "Name: " + _guestbook.getName();
+        return "Name: " + _entry.getName() + ". Message: " + _entry.getMessage();
     }
 
     @Override
     public String getTitle(Locale locale) {
-        return _guestbook.getName();
+        return _entry.getMessage();
     }
 
     @Override
     public boolean include(HttpServletRequest request, HttpServletResponse response, String template) throws Exception {
-        request.setAttribute("GUESTBOOK", _guestbook);
+        request.setAttribute("ENTRY", _entry);
         request.setAttribute("HtmlUtil", HtmlUtil.getHtml());
         request.setAttribute("StringUtil", new StringUtil());
         return super.include(request, response, template);
@@ -104,19 +98,18 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
     @Override
     public String getJspPath(HttpServletRequest request, String template) {
         if (template.equals(TEMPLATE_FULL_CONTENT)) {
-            request.setAttribute("gb_guestbook", _guestbook);
-            return "/asset/guestbook/" + template + ".jsp";
+            request.setAttribute("gb_entry", _entry);
+            return "/asset/entry/" + template + ".jsp";
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     @Override
-    public PortletURL getURLEdit(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse) throws Exception {
-        PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(liferayPortletRequest), GUESTBOOK, PortletRequest.RENDER_PHASE);
-
+    public PortletURL getURLEdit(LiferayPortletRequest request, LiferayPortletResponse response) throws Exception {
+        PortletURL portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK, RENDER_PHASE);
         portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
-        portletURL.setParameter("guestbookId", String.valueOf(_guestbook.getGuestbookId()));
+        portletURL.setParameter("entryId", String.valueOf(_entry.getEntryId()));
         portletURL.setParameter("showback", Boolean.FALSE.toString());
 
         return portletURL;
@@ -124,19 +117,20 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
 
     @Override
     public String getURLViewInContext(LiferayPortletRequest request, LiferayPortletResponse response, String noSuchEntryRedirect) throws Exception {
+
         try {
 
-            long plid = PortalUtil.getPlidFromPortletId(_guestbook.getGroupId(), GUESTBOOK_ADMIN);
+            long plid = PortalUtil.getPlidFromPortletId(_entry.getGroupId(), GUESTBOOK);
 
             PortletURL portletURL;
             if (plid == LayoutConstants.DEFAULT_PLID) {
-                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_ADMIN, RENDER_PHASE);
+                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK, RENDER_PHASE);
             } else {
-                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_ADMIN, plid, RENDER_PHASE);
+                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK, plid, RENDER_PHASE);
             }
 
-            portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
-            portletURL.setParameter("guestbookId", String.valueOf(_guestbook.getGuestbookId()));
+            portletURL.setParameter("mvcRenderCommandName", MVC_PATH_VIEW);
+            portletURL.setParameter("entryId", String.valueOf(_entry.getEntryId()));
 
             String currentUrl = PortalUtil.getCurrentURL(request);
 
@@ -147,16 +141,20 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
         } catch (PortalException | SystemException e) {
             Logger.getLogger(GuestbookAssetRenderer.class.getName())
                     .log(Level.SEVERE, null, e);
-
         }
 
         return noSuchEntryRedirect;
     }
 
     @Override
-    public String getURLView(LiferayPortletResponse liferayPortletResponse, WindowState windowState) throws Exception {
-        return super.getURLView(liferayPortletResponse, windowState);
+    public String getURLView(LiferayPortletResponse response, WindowState windowState) throws Exception {
+        return super.getURLView(response, windowState);
     }
 
-    private Guestbook _guestbook;
+    @Override
+    public boolean isPrintable() {
+        return true;
+    }
+
+    private Entry _entry;
 }
