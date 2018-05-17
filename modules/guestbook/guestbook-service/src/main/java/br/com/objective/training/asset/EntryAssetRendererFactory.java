@@ -6,26 +6,19 @@ import br.com.objective.training.service.permission.EntryPermission;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseAssetRendererFactory;
-import com.liferay.docs.guestbook.model.Entry;
-import com.liferay.docs.guestbook.portlet.constants.GuestbookPortletKeys;
-import com.liferay.docs.guestbook.service.EntryLocalService;
-import com.liferay.docs.guestbook.service.permission.EntryPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayPortletURL;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 import javax.servlet.ServletContext;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
