@@ -1,6 +1,8 @@
 package br.com.objective.training.asset;
 
 import br.com.objective.training.model.Entry;
+import br.com.objective.training.model.Guestbook;
+import br.com.objective.training.service.GuestbookLocalServiceUtil;
 import br.com.objective.training.service.permission.EntryPermission;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -98,11 +100,20 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
     @Override
     public String getJspPath(HttpServletRequest request, String template) {
         if (template.equals(TEMPLATE_FULL_CONTENT)) {
-            request.setAttribute("gb_entry", _entry);
+
+            try {
+                Guestbook guestbook = GuestbookLocalServiceUtil.getGuestbook(_entry.getGuestbookId());
+                request.setAttribute("guestbook", guestbook);
+            } catch (PortalException e) {
+                Logger.getLogger(GuestbookAssetRenderer.class.getName())
+                        .log(Level.SEVERE, null, e);
+            }
+            request.setAttribute("entry", _entry);
+
             return "/asset/entry/" + template + ".jsp";
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     @Override
