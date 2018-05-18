@@ -150,17 +150,20 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
     @Indexable(type = IndexableType.DELETE)
     public Entry deleteEntry(long entryId, ServiceContext serviceContext) throws PortalException {
+
         Entry entry = deleteEntry(entryId);
         resourceLocalService.deleteResource(
                 serviceContext.getCompanyId(), Entry.class.getName(),
                 ResourceConstants.SCOPE_INDIVIDUAL, entryId);
 
+
         AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
                 Entry.class.getName(), entryId);
 
-        assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
-
-        assetEntryLocalService.deleteEntry(assetEntry);
+        if (assetEntry != null) {
+            assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
+            assetEntryLocalService.deleteEntry(assetEntry);
+        }
 
         return entry;
     }

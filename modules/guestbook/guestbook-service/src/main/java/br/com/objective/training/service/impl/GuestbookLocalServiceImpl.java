@@ -165,9 +165,11 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
                 Guestbook.class.getName(), guestbookId);
 
-        assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
+        if (assetEntry != null) {
+            assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
 
-        assetEntryLocalService.deleteEntry(assetEntry);
+            assetEntryLocalService.deleteEntry(assetEntry);
+        }
 
         return guestbook;
     }
