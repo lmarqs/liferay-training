@@ -23,12 +23,12 @@ public class GuestbookAdminPanelApp extends BasePanelApp {
 
     @Override
     public String getPortletId() {
-        return GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
+        return GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
     }
 
     @Override
     @Reference(
-            target = "(javax.portlet.name=" + GuestbookAdminPortletKeys.GUESTBOOK_ADMIN + ")",
+            target = "(javax.portlet.name=" + GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET + ")",
             unbind = "-"
     )
     public void setPortlet(Portlet portlet) {

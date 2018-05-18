@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK_WEB_PORTLET;
 import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
 import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
@@ -118,7 +118,7 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
 
     @Override
     public PortletURL getURLEdit(LiferayPortletRequest request, LiferayPortletResponse response) throws Exception {
-        PortletURL portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK, RENDER_PHASE);
+        PortletURL portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_WEB_PORTLET, RENDER_PHASE);
         portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
         portletURL.setParameter("entryId", String.valueOf(_entry.getEntryId()));
         portletURL.setParameter("showback", Boolean.FALSE.toString());
@@ -131,13 +131,13 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
 
         try {
 
-            long plid = PortalUtil.getPlidFromPortletId(_entry.getGroupId(), GUESTBOOK);
+            long plid = PortalUtil.getPlidFromPortletId(_entry.getGroupId(), GUESTBOOK_WEB_PORTLET);
 
             PortletURL portletURL;
             if (plid == LayoutConstants.DEFAULT_PLID) {
-                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK, RENDER_PHASE);
+                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_WEB_PORTLET, RENDER_PHASE);
             } else {
-                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK, plid, RENDER_PHASE);
+                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_WEB_PORTLET, plid, RENDER_PHASE);
             }
 
             portletURL.setParameter("mvcRenderCommandName", MVC_PATH_VIEW);

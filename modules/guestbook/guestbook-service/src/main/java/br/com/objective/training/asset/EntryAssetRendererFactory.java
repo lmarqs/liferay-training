@@ -22,7 +22,7 @@ import javax.servlet.ServletContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK_WEB_PORTLET;
 import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
 import static com.liferay.portal.kernel.util.WebKeys.THEME_DISPLAY;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
@@ -30,7 +30,7 @@ import static javax.portlet.PortletRequest.RENDER_PHASE;
 @Component(
         immediate = true,
         property = {
-                "javax.portlet.name=" + GUESTBOOK
+                "javax.portlet.name=" + GUESTBOOK_WEB_PORTLET
         },
         service = AssetRendererFactory.class
 )
@@ -40,7 +40,7 @@ public class EntryAssetRendererFactory extends BaseAssetRendererFactory<Entry> {
 
         setClassName(CLASS_NAME);
         setLinkable(_LINKABLE);
-        setPortletId(GUESTBOOK);
+        setPortletId(GUESTBOOK_WEB_PORTLET);
         setSearchable(true);
         setSelectable(true);
 
@@ -85,7 +85,7 @@ public class EntryAssetRendererFactory extends BaseAssetRendererFactory<Entry> {
 
             ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(THEME_DISPLAY);
 
-            portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK, RENDER_PHASE);
+            portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK_WEB_PORTLET, RENDER_PHASE);
 
             portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
             portletURL.setParameter("showback", Boolean.FALSE.toString());
@@ -101,7 +101,7 @@ public class EntryAssetRendererFactory extends BaseAssetRendererFactory<Entry> {
     @Override
     public PortletURL getURLView(LiferayPortletResponse response, WindowState windowState) {
 
-        LiferayPortletURL liferayPortletURL = response.createLiferayPortletURL(GUESTBOOK, RENDER_PHASE);
+        LiferayPortletURL liferayPortletURL = response.createLiferayPortletURL(GUESTBOOK_WEB_PORTLET, RENDER_PHASE);
 
         try {
             liferayPortletURL.setWindowState(windowState);

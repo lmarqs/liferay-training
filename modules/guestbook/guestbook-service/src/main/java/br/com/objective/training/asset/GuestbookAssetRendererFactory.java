@@ -19,7 +19,7 @@ import javax.servlet.ServletContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
 import static com.liferay.portal.kernel.util.WebKeys.THEME_DISPLAY;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
 
@@ -27,7 +27,7 @@ import static javax.portlet.PortletRequest.RENDER_PHASE;
 @Component(
         immediate = true,
         property = {
-                "javax.portlet.name=" + GUESTBOOK_ADMIN
+                "javax.portlet.name=" + GUESTBOOK_ADMIN_PORTLET
         },
         service = AssetRendererFactory.class
 )
@@ -36,7 +36,7 @@ public class GuestbookAssetRendererFactory extends BaseAssetRendererFactory<Gues
     public GuestbookAssetRendererFactory() {
         setClassName(CLASS_NAME);
         setLinkable(_LINKABLE);
-        setPortletId(GUESTBOOK_ADMIN);
+        setPortletId(GUESTBOOK_ADMIN_PORTLET);
         setSearchable(true);
         setSelectable(true);
     }
@@ -77,8 +77,8 @@ public class GuestbookAssetRendererFactory extends BaseAssetRendererFactory<Gues
         try {
             ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(THEME_DISPLAY);
 
-            portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK_ADMIN, RENDER_PHASE);
-            portletURL.setParameter("mvcRenderCommandName", GUESTBOOK_ADMIN);
+            portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK_ADMIN_PORTLET, RENDER_PHASE);
+            portletURL.setParameter("mvcRenderCommandName", GUESTBOOK_ADMIN_PORTLET);
             portletURL.setParameter("showback", Boolean.FALSE.toString());
         } catch (PortalException e) {
             Logger.getLogger(GuestbookAssetRendererFactory.class.getName())

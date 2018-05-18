@@ -25,9 +25,9 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
 import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK_WEB_PORTLET;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
 
 public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
@@ -113,7 +113,7 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
 
     @Override
     public PortletURL getURLEdit(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse) throws Exception {
-        PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(liferayPortletRequest), GUESTBOOK, PortletRequest.RENDER_PHASE);
+        PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(liferayPortletRequest), GUESTBOOK_WEB_PORTLET, PortletRequest.RENDER_PHASE);
 
         portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
         portletURL.setParameter("guestbookId", String.valueOf(_guestbook.getGuestbookId()));
@@ -126,13 +126,13 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
     public String getURLViewInContext(LiferayPortletRequest request, LiferayPortletResponse response, String noSuchEntryRedirect) throws Exception {
         try {
 
-            long plid = PortalUtil.getPlidFromPortletId(_guestbook.getGroupId(), GUESTBOOK_ADMIN);
+            long plid = PortalUtil.getPlidFromPortletId(_guestbook.getGroupId(), GUESTBOOK_ADMIN_PORTLET);
 
             PortletURL portletURL;
             if (plid == LayoutConstants.DEFAULT_PLID) {
-                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_ADMIN, RENDER_PHASE);
+                portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_ADMIN_PORTLET, RENDER_PHASE);
             } else {
-                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_ADMIN, plid, RENDER_PHASE);
+                portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_ADMIN_PORTLET, plid, RENDER_PHASE);
             }
 
             portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
