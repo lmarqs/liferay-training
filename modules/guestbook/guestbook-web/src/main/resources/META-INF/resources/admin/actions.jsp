@@ -18,28 +18,12 @@
     <liferay-ui:icon-delete url="${deleteURL}"/>
 
 
-    <portlet:renderURL var="viewEntryURL">
-        <portlet:param name="entryId" value="${entry.entryId}"/>
-        <portlet:param name="mvcPath" value="/web/edit.jsp"/>
+    <portlet:renderURL var="viewGuessbookURL">
+        <portlet:param name="entryId" value="${guestbook.guestbookId}"/>
+        <portlet:param name="mvcPath" value="/admin/edit.jsp"/>
     </portlet:renderURL>
-    <liferay-ui:icon message="View" url="${viewEntryURL}"/>
+    <liferay-ui:icon message="View" url="${viewGuessbookURL}"/>
 
-
-    <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="UPDATE">
-        <portlet:renderURL var="editURL">
-            <portlet:param name="entryId" value="${entry.entryId}"/>
-            <portlet:param name="mvcPath" value="/web/edit.jsp"/>
-        </portlet:renderURL>
-        <liferay-ui:icon image="edit" message="Edit" url="${editURL}"/>
-    </gb:if-entry-permission>
-
-
-    <gb:if-entry-permission permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="DELETE">
-        <portlet:actionURL name="deleteEntry" var="deleteURL">
-            <portlet:param name="entryId" value="${entry.entryId}"/>
-        </portlet:actionURL>
-        <liferay-ui:icon-delete url="${deleteURL}"/>
-    </gb:if-entry-permission>
 
     <gb:if-guestbook-permission permissionChecker="${permissionChecker}" guestbookId="${guestbook.guestbookId}" actionId="PERMISSIONS">
         <liferay-security:permissionsURL
