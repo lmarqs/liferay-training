@@ -1,4 +1,4 @@
-package br.com.objective.training.asset;
+package br.com.objective.training.service.asset;
 
 import br.com.objective.training.model.Entry;
 import br.com.objective.training.model.Guestbook;

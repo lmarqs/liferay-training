@@ -1,4 +1,4 @@
-package br.com.objective.training.asset;
+package br.com.objective.training.service.asset;
 
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.permission.GuestbookPermission;
@@ -95,7 +95,7 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
 
     @Override
     public boolean include(HttpServletRequest request, HttpServletResponse response, String template) throws Exception {
-        request.setAttribute("guestbook", _guestbook);
+        request.setAttribute("GUESTBOOK", _guestbook);
         request.setAttribute("HtmlUtil", HtmlUtil.getHtml());
         request.setAttribute("StringUtil", new StringUtil());
         return super.include(request, response, template);
