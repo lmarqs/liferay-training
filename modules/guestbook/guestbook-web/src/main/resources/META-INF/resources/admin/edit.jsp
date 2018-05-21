@@ -21,7 +21,7 @@
     <liferay-ui:panel
             defaultState="closed"
             extended="${false}"
-            id="guestbookCategorizationPanel"
+            id="guestbook-categorization-panel"
             persistState="${true}"
             title="categorization"
     >
@@ -34,7 +34,7 @@
     <liferay-ui:panel
             defaultState="closed"
             extended="${false}"
-            id="guestbookAssetLinksPanel"
+            id="guestbook-asset-links-panel"
             persistState="${true}"
             title="related-assets">
         <aui:fieldset>
