@@ -122,7 +122,7 @@ public class EntryAssetRendererFactory extends BaseAssetRendererFactory<Entry> {
         return "pencil";
     }
 
-    @Reference(target = "(osgi.web.symbolicname=br.com.objective.training.web.portlet)", unbind = "-")
+    @Reference(target = "(osgi.web.symbolicname=br.com.objective.training.web)", unbind = "-")
     public void setServletContext(ServletContext servletContext) {
         _servletContext = servletContext;
     }
