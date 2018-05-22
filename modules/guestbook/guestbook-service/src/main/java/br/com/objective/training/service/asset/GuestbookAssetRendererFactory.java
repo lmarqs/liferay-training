@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
 import static com.liferay.portal.kernel.util.WebKeys.THEME_DISPLAY;
 import static javax.portlet.PortletRequest.RENDER_PHASE;
 
@@ -78,7 +79,7 @@ public class GuestbookAssetRendererFactory extends BaseAssetRendererFactory<Gues
             ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(THEME_DISPLAY);
 
             portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK_ADMIN_PORTLET, RENDER_PHASE);
-            portletURL.setParameter("mvcRenderCommandName", GUESTBOOK_ADMIN_PORTLET);
+            portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
             portletURL.setParameter("showback", Boolean.FALSE.toString());
         } catch (PortalException e) {
             Logger.getLogger(GuestbookAssetRendererFactory.class.getName())

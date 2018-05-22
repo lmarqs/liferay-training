@@ -115,7 +115,7 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
     public PortletURL getURLEdit(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse) throws Exception {
         PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(liferayPortletRequest), GUESTBOOK_WEB_PORTLET, PortletRequest.RENDER_PHASE);
 
-        portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
+        portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
         portletURL.setParameter("guestbookId", String.valueOf(_guestbook.getGuestbookId()));
         portletURL.setParameter("showback", Boolean.FALSE.toString());
 
@@ -135,7 +135,7 @@ public class GuestbookAssetRenderer extends BaseJSPAssetRenderer<Guestbook> {
                 portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_ADMIN_PORTLET, plid, RENDER_PHASE);
             }
 
-            portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
+            portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
             portletURL.setParameter("guestbookId", String.valueOf(_guestbook.getGuestbookId()));
 
             String currentUrl = PortalUtil.getCurrentURL(request);

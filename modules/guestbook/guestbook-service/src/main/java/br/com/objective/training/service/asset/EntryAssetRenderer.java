@@ -45,6 +45,12 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
     }
 
     @Override
+    public boolean hasEditPermission(PermissionChecker permissionChecker) throws PortalException {
+        long entryId = _entry.getEntryId();
+        return EntryPermission.contains(permissionChecker, entryId, ActionKeys.UPDATE);
+    }
+
+    @Override
     public Entry getAssetObject() {
         return _entry;
     }
@@ -119,7 +125,7 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
     @Override
     public PortletURL getURLEdit(LiferayPortletRequest request, LiferayPortletResponse response) throws Exception {
         PortletURL portletURL = response.createLiferayPortletURL(getControlPanelPlid(request), GUESTBOOK_WEB_PORTLET, RENDER_PHASE);
-        portletURL.setParameter("mvcRenderCommandName", MVC_PATH_EDIT);
+        portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
         portletURL.setParameter("entryId", String.valueOf(_entry.getEntryId()));
         portletURL.setParameter("showback", Boolean.FALSE.toString());
 
@@ -140,7 +146,7 @@ public class EntryAssetRenderer extends BaseJSPAssetRenderer<Entry> {
                 portletURL = PortletURLFactoryUtil.create(request, GUESTBOOK_WEB_PORTLET, plid, RENDER_PHASE);
             }
 
-            portletURL.setParameter("mvcRenderCommandName", MVC_PATH_VIEW);
+            portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
             portletURL.setParameter("entryId", String.valueOf(_entry.getEntryId()));
 
             String currentUrl = PortalUtil.getCurrentURL(request);
