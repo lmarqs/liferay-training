@@ -14,6 +14,6 @@ What have be done so far:
 6. [X] Using Resources and Permissions
 7. [X] Displaying Messages and Errors
 8. [X] Leveraging Search
-9. [ ] Assets: Integrating with Liferay’s Framework
+9. [X] Assets: Integrating with Liferay’s Framework
 10. [ ] Generating Web Services
 11. [ ] Using Workflow
