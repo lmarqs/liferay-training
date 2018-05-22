@@ -43,10 +43,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.GUESTBOOK;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
-import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK_WEB_PORTLET;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
 
 /**
  * @author lucas
@@ -61,7 +61,7 @@ import static br.com.objective.training.web.constants.GuestbookWebPortletKeys.MV
                 "javax.portlet.expiration-cache=0",
                 "javax.portlet.init-param.template-path=/",
                 "javax.portlet.init-param.view-template=" + MVC_PATH_VIEW,
-                "javax.portlet.name=" + GUESTBOOK,
+                "javax.portlet.name=" + GUESTBOOK_WEB_PORTLET,
                 "javax.portlet.resource-bundle=content.Language",
                 "javax.portlet.security-role-ref=power-user,user",
                 "javax.portlet.supports.mime-type=text/html"

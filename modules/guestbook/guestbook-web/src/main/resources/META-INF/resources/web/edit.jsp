@@ -17,6 +17,37 @@
         <aui:input name="guestbookId" type="hidden" value="${entry eq null ? guestbookId : entry.guestbookId}"/>
     </aui:fieldset>
 
+    <liferay-ui:asset-categories-error/>
+    <liferay-ui:asset-tags-error/>
+    <liferay-ui:panel
+            defaultState="closed"
+            extended="${false}"
+            id="entryCategorizationPanel"
+            persistState="${true}"
+            title="categorization"
+    >
+        <aui:fieldset>
+            <aui:input name="categories" type="assetCategories"/>
+            <aui:input name="tags" type="assetTags"/>
+        </aui:fieldset>
+    </liferay-ui:panel>
+
+    <liferay-ui:panel
+            defaultState="closed"
+            extended="${false}"
+            id="entryAssetLinksPanel"
+            persistState="${true}"
+            title="related-assets"
+    >
+        <aui:fieldset>
+            <liferay-ui:input-asset-links
+                    className="br.com.objective.training.model.Entry"
+                    classPK="${entryId}"
+            />
+        </aui:fieldset>
+    </liferay-ui:panel>
+
+
     <aui:button-row>
         <c:choose>
             <c:when test="${entry eq null}">

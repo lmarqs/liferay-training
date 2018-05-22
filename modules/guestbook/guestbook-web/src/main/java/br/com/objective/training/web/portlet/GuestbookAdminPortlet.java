@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN;
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
+import static br.com.objective.training.constants.GuestbookAdminPortletKeys.MVC_PATH_VIEW;
 
 /**
  * @author lucas
@@ -47,7 +47,7 @@ import static br.com.objective.training.web.constants.GuestbookAdminPortletKeys.
                 "javax.portlet.init-param.portlet-title-based-navigation=true",
                 "javax.portlet.init-param.template-path=/",
                 "javax.portlet.init-param.view-template=" + MVC_PATH_VIEW,
-                "javax.portlet.name=" + GUESTBOOK_ADMIN,
+                "javax.portlet.name=" + GUESTBOOK_ADMIN_PORTLET,
                 "javax.portlet.resource-bundle=content.Language",
                 "javax.portlet.security-role-ref=administrator",
                 "javax.portlet.supports.mime-type=text/html"
