@@ -4,7 +4,7 @@ This source is a implementation of the [training materials](https://dev.liferay.
 
 All steps to create this app can be found at [Developing a Web Application](https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/developing-a-web-application) section.
 
-What have be done so far:
+What has been done so far:
 
 1. [X] Development Setup Overview
 2. [X] Creating a Working Prototype
