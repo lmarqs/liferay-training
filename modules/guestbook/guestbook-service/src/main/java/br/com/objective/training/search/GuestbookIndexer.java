@@ -22,10 +22,15 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import java.util.Locale;
 
+/**
+ * @deprecated As of 1.0.1, since 7.1.0
+ * @author lucas
+ */
 @Component(
         immediate = true,
         service = Indexer.class
 )
+@Deprecated
 public class GuestbookIndexer extends BaseIndexer<Guestbook> {
 
     private static final String CLASS_NAME = Guestbook.class.getName();

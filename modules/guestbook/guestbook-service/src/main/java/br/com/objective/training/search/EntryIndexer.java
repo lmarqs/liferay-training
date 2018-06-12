@@ -31,10 +31,15 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import java.util.Locale;
 
+/**
+ * @deprecated As of 1.0.1, since 7.1.0
+ * @author lucas
+ */
 @Component(
         immediate = true,
         service = Indexer.class
 )
+@Deprecated
 public class EntryIndexer extends BaseIndexer<Entry> {
 
     private static final String CLASS_NAME = Entry.class.getName();
