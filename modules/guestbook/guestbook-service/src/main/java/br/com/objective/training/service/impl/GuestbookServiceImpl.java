@@ -16,6 +16,9 @@ package br.com.objective.training.service.impl;
 
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.base.GuestbookServiceBaseImpl;
+import br.com.objective.training.service.permission.GuestbookModelPermission;
+import br.com.objective.training.service.permission.GuestbookPermission;
+import br.com.objective.training.service.util.ActionKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -44,26 +47,30 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
      */
 
     public Guestbook addGuestbook(long userId, String name, ServiceContext serviceContext) throws SystemException, PortalException {
+        GuestbookModelPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), ActionKeys.ADD_GUESTBOOK);
         return guestbookLocalService.addGuestbook(userId, name, serviceContext);
     }
 
     public Guestbook deleteGuestbook(long guestbookId, ServiceContext serviceContext) throws PortalException, SystemException {
+        GuestbookPermission.check(getPermissionChecker(), guestbookId, ActionKeys.DELETE);
         return guestbookLocalService.deleteGuestbook(guestbookId, serviceContext);
     }
 
     public List<Guestbook> getGuestbooks(long groupId) throws SystemException {
-        return guestbookLocalService.getGuestbooks(groupId);
+        return guestbookPersistence.filterFindByGroupId(groupId);
     }
 
     public List<Guestbook> getGuestbooks(long groupId, int start, int end) throws SystemException {
-        return guestbookLocalService.getGuestbooks(groupId, start, end);
+        return guestbookPersistence.filterFindByGroupId(groupId, start, end);
     }
 
     public int getGuestbooksCount(long groupId) throws SystemException {
-        return guestbookLocalService.getGuestbooksCount();
+        return guestbookPersistence.filterCountByGroupId(groupId);
     }
 
     public Guestbook updateGuestbook(long userId, long guestbookId, String name, ServiceContext serviceContext) throws PortalException, SystemException {
+        GuestbookPermission.check(getPermissionChecker(), guestbookId, ActionKeys.UPDATE);
         return guestbookLocalService.updateGuestbook(userId, guestbookId, name, serviceContext);
     }
+
 }
