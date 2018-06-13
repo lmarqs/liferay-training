@@ -32,6 +32,44 @@ public class GuestbookServiceWrapper implements GuestbookService,
 		_guestbookService = guestbookService;
 	}
 
+	@Override
+	public br.com.objective.training.model.Guestbook addGuestbook(long userId,
+		java.lang.String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.exception.PortalException {
+		return _guestbookService.addGuestbook(userId, name, serviceContext);
+	}
+
+	@Override
+	public br.com.objective.training.model.Guestbook deleteGuestbook(
+		long guestbookId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookService.deleteGuestbook(guestbookId, serviceContext);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookService.getGuestbooks(groupId);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookService.getGuestbooks(groupId, start, end);
+	}
+
+	@Override
+	public int getGuestbooksCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookService.getGuestbooksCount(groupId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -40,6 +78,16 @@ public class GuestbookServiceWrapper implements GuestbookService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _guestbookService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public br.com.objective.training.model.Guestbook updateGuestbook(
+		long userId, long guestbookId, java.lang.String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookService.updateGuestbook(userId, guestbookId, name,
+			serviceContext);
 	}
 
 	@Override

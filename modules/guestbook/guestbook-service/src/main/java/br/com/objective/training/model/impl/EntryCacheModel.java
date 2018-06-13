@@ -21,7 +21,6 @@ import br.com.objective.training.model.Entry;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -109,7 +108,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		EntryImpl entryImpl = new EntryImpl();
 
 		if (uuid == null) {
-			entryImpl.setUuid(StringPool.BLANK);
+			entryImpl.setUuid("");
 		}
 		else {
 			entryImpl.setUuid(uuid);
@@ -121,7 +120,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		entryImpl.setUserId(userId);
 
 		if (userName == null) {
-			entryImpl.setUserName(StringPool.BLANK);
+			entryImpl.setUserName("");
 		}
 		else {
 			entryImpl.setUserName(userName);
@@ -145,7 +144,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		entryImpl.setStatusByUserId(statusByUserId);
 
 		if (statusByUserName == null) {
-			entryImpl.setStatusByUserName(StringPool.BLANK);
+			entryImpl.setStatusByUserName("");
 		}
 		else {
 			entryImpl.setStatusByUserName(statusByUserName);
@@ -159,21 +158,21 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		}
 
 		if (name == null) {
-			entryImpl.setName(StringPool.BLANK);
+			entryImpl.setName("");
 		}
 		else {
 			entryImpl.setName(name);
 		}
 
 		if (email == null) {
-			entryImpl.setEmail(StringPool.BLANK);
+			entryImpl.setEmail("");
 		}
 		else {
 			entryImpl.setEmail(email);
 		}
 
 		if (message == null) {
-			entryImpl.setMessage(StringPool.BLANK);
+			entryImpl.setMessage("");
 		}
 		else {
 			entryImpl.setMessage(message);
@@ -217,7 +216,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(uuid);
@@ -232,7 +231,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(userName);
@@ -246,7 +245,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		objectOutput.writeLong(statusByUserId);
 
 		if (statusByUserName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(statusByUserName);
@@ -255,21 +254,21 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 		objectOutput.writeLong(statusDate);
 
 		if (name == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(name);
 		}
 
 		if (email == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(email);
 		}
 
 		if (message == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(message);

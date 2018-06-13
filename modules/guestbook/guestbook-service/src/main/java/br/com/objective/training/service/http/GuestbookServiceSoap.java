@@ -16,9 +16,16 @@ package br.com.objective.training.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import br.com.objective.training.service.GuestbookServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link br.com.objective.training.service.GuestbookServiceUtil} service utility. The
+ * {@link GuestbookServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,105 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  * @see GuestbookServiceHttp
  * @see br.com.objective.training.model.GuestbookSoap
- * @see br.com.objective.training.service.GuestbookServiceUtil
+ * @see GuestbookServiceUtil
  * @generated
  */
 @ProviderType
 public class GuestbookServiceSoap {
+	public static br.com.objective.training.model.GuestbookSoap addGuestbook(
+		long userId, java.lang.String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Guestbook returnValue = GuestbookServiceUtil.addGuestbook(userId,
+					name, serviceContext);
+
+			return br.com.objective.training.model.GuestbookSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.GuestbookSoap deleteGuestbook(
+		long guestbookId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Guestbook returnValue = GuestbookServiceUtil.deleteGuestbook(guestbookId,
+					serviceContext);
+
+			return br.com.objective.training.model.GuestbookSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.GuestbookSoap[] getGuestbooks(
+		long groupId) throws RemoteException {
+		try {
+			java.util.List<br.com.objective.training.model.Guestbook> returnValue =
+				GuestbookServiceUtil.getGuestbooks(groupId);
+
+			return br.com.objective.training.model.GuestbookSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.GuestbookSoap[] getGuestbooks(
+		long groupId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<br.com.objective.training.model.Guestbook> returnValue =
+				GuestbookServiceUtil.getGuestbooks(groupId, start, end);
+
+			return br.com.objective.training.model.GuestbookSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getGuestbooksCount(long groupId)
+		throws RemoteException {
+		try {
+			int returnValue = GuestbookServiceUtil.getGuestbooksCount(groupId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.GuestbookSoap updateGuestbook(
+		long userId, long guestbookId, java.lang.String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Guestbook returnValue = GuestbookServiceUtil.updateGuestbook(userId,
+					guestbookId, name, serviceContext);
+
+			return br.com.objective.training.model.GuestbookSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(GuestbookServiceSoap.class);
 }

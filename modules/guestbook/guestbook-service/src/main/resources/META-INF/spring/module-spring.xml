@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
 	<bean class="br.com.objective.training.service.impl.EntryLocalServiceImpl" id="br.com.objective.training.service.EntryLocalService" />
 	<bean class="br.com.objective.training.service.impl.EntryServiceImpl" id="br.com.objective.training.service.EntryService" />
 	<bean class="br.com.objective.training.service.persistence.impl.EntryPersistenceImpl" id="br.com.objective.training.service.persistence.EntryPersistence" parent="basePersistence" />

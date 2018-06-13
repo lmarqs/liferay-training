@@ -16,14 +16,20 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import br.com.objective.training.model.Entry;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Entry. Methods of this
@@ -49,6 +55,24 @@ public interface EntryService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link EntryServiceUtil} to access the entry remote service. Add custom service methods to {@link br.com.objective.training.service.impl.EntryServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Entry addEntry(long userId, long guestbookId, java.lang.String name,
+		java.lang.String email, java.lang.String message,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	public Entry deleteEntry(long entryId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entry> getEntries(long groupId, long guestbookId)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entry> getEntries(long groupId, long guestbookId, int start,
+		int end) throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getEntriesCount(long groupId, long guestbookId)
+		throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -56,4 +80,9 @@ public interface EntryService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	public Entry updateEntry(long userId, long guestbookId, long entryId,
+		java.lang.String name, java.lang.String email,
+		java.lang.String message, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 }

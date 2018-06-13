@@ -16,9 +16,16 @@ package br.com.objective.training.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import br.com.objective.training.service.EntryServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link br.com.objective.training.service.EntryServiceUtil} service utility. The
+ * {@link EntryServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,109 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  * @see EntryServiceHttp
  * @see br.com.objective.training.model.EntrySoap
- * @see br.com.objective.training.service.EntryServiceUtil
+ * @see EntryServiceUtil
  * @generated
  */
 @ProviderType
 public class EntryServiceSoap {
+	public static br.com.objective.training.model.EntrySoap addEntry(
+		long userId, long guestbookId, java.lang.String name,
+		java.lang.String email, java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Entry returnValue = EntryServiceUtil.addEntry(userId,
+					guestbookId, name, email, message, serviceContext);
+
+			return br.com.objective.training.model.EntrySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.EntrySoap deleteEntry(
+		long entryId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Entry returnValue = EntryServiceUtil.deleteEntry(entryId,
+					serviceContext);
+
+			return br.com.objective.training.model.EntrySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.EntrySoap[] getEntries(
+		long groupId, long guestbookId) throws RemoteException {
+		try {
+			java.util.List<br.com.objective.training.model.Entry> returnValue = EntryServiceUtil.getEntries(groupId,
+					guestbookId);
+
+			return br.com.objective.training.model.EntrySoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.EntrySoap[] getEntries(
+		long groupId, long guestbookId, int start, int end)
+		throws RemoteException {
+		try {
+			java.util.List<br.com.objective.training.model.Entry> returnValue = EntryServiceUtil.getEntries(groupId,
+					guestbookId, start, end);
+
+			return br.com.objective.training.model.EntrySoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getEntriesCount(long groupId, long guestbookId)
+		throws RemoteException {
+		try {
+			int returnValue = EntryServiceUtil.getEntriesCount(groupId,
+					guestbookId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static br.com.objective.training.model.EntrySoap updateEntry(
+		long userId, long guestbookId, long entryId, java.lang.String name,
+		java.lang.String email, java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			br.com.objective.training.model.Entry returnValue = EntryServiceUtil.updateEntry(userId,
+					guestbookId, entryId, name, email, message, serviceContext);
+
+			return br.com.objective.training.model.EntrySoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(EntryServiceSoap.class);
 }

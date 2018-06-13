@@ -41,6 +41,41 @@ public class EntryServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link br.com.objective.training.service.impl.EntryServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static br.com.objective.training.model.Entry addEntry(long userId,
+		long guestbookId, java.lang.String name, java.lang.String email,
+		java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addEntry(userId, guestbookId, name, email, message,
+			serviceContext);
+	}
+
+	public static br.com.objective.training.model.Entry deleteEntry(
+		long entryId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteEntry(entryId, serviceContext);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEntries(groupId, guestbookId);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEntries(groupId, guestbookId, start, end);
+	}
+
+	public static int getEntriesCount(long groupId, long guestbookId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEntriesCount(groupId, guestbookId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +84,17 @@ public class EntryServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static br.com.objective.training.model.Entry updateEntry(
+		long userId, long guestbookId, long entryId, java.lang.String name,
+		java.lang.String email, java.lang.String message,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateEntry(userId, guestbookId, entryId, name, email,
+			message, serviceContext);
 	}
 
 	public static EntryService getService() {
