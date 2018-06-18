@@ -55,7 +55,7 @@ public interface GuestbookService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link GuestbookServiceUtil} to access the guestbook remote service. Add custom service methods to {@link br.com.objective.training.service.impl.GuestbookServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public Guestbook addGuestbook(long userId, java.lang.String name,
+	public Guestbook addGuestbook(long userId, String name,
 		ServiceContext serviceContext) throws SystemException, PortalException;
 
 	public Guestbook deleteGuestbook(long guestbookId,
@@ -77,9 +77,9 @@ public interface GuestbookService extends BaseService {
 	*
 	* @return the OSGi service identifier
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	public Guestbook updateGuestbook(long userId, long guestbookId,
-		java.lang.String name, ServiceContext serviceContext)
+		String name, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 }

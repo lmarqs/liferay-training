@@ -16,7 +16,8 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -42,7 +43,7 @@ public class GuestbookServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link br.com.objective.training.service.impl.GuestbookServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static br.com.objective.training.model.Guestbook addGuestbook(
-		long userId, java.lang.String name,
+		long userId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.kernel.exception.PortalException {
@@ -79,12 +80,12 @@ public class GuestbookServiceUtil {
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static br.com.objective.training.model.Guestbook updateGuestbook(
-		long userId, long guestbookId, java.lang.String name,
+		long userId, long guestbookId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -96,6 +97,16 @@ public class GuestbookServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<GuestbookService, GuestbookService> _serviceTracker =
-		ServiceTrackerFactory.open(GuestbookService.class);
+	private static ServiceTracker<GuestbookService, GuestbookService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(GuestbookService.class);
+
+		ServiceTracker<GuestbookService, GuestbookService> serviceTracker = new ServiceTracker<GuestbookService, GuestbookService>(bundle.getBundleContext(),
+				GuestbookService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

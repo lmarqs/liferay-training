@@ -46,8 +46,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 
 	@Override
 	public br.com.objective.training.model.Entry addEntry(long userId,
-		long guestbookId, java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		long guestbookId, String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _entryLocalService.addEntry(userId, guestbookId, name, email,
@@ -205,7 +204,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	*/
 	@Override
 	public br.com.objective.training.model.Entry fetchEntryByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
+		String uuid, long groupId) {
 		return _entryLocalService.fetchEntryByUuidAndGroupId(uuid, groupId);
 	}
 
@@ -261,7 +260,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	*/
 	@Override
 	public java.util.List<br.com.objective.training.model.Entry> getEntriesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId) {
+		String uuid, long companyId) {
 		return _entryLocalService.getEntriesByUuidAndCompanyId(uuid, companyId);
 	}
 
@@ -277,7 +276,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	*/
 	@Override
 	public java.util.List<br.com.objective.training.model.Entry> getEntriesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Entry> orderByComparator) {
 		return _entryLocalService.getEntriesByUuidAndCompanyId(uuid, companyId,
 			start, end, orderByComparator);
@@ -321,7 +320,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	*/
 	@Override
 	public br.com.objective.training.model.Entry getEntryByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
+		String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _entryLocalService.getEntryByUuidAndGroupId(uuid, groupId);
 	}
@@ -343,7 +342,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
+	public String getOSGiServiceIdentifier() {
 		return _entryLocalService.getOSGiServiceIdentifier();
 	}
 
@@ -368,8 +367,8 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 
 	@Override
 	public br.com.objective.training.model.Entry updateEntry(long userId,
-		long guestbookId, long entryId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long guestbookId, long entryId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

@@ -66,8 +66,8 @@ import java.rmi.RemoteException;
 @ProviderType
 public class EntryServiceSoap {
 	public static br.com.objective.training.model.EntrySoap addEntry(
-		long userId, long guestbookId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long userId, long guestbookId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -147,8 +147,8 @@ public class EntryServiceSoap {
 	}
 
 	public static br.com.objective.training.model.EntrySoap updateEntry(
-		long userId, long guestbookId, long entryId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long userId, long guestbookId, long entryId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {

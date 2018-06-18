@@ -16,7 +16,8 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -54,7 +55,7 @@ public class GuestbookLocalServiceUtil {
 	}
 
 	public static br.com.objective.training.model.Guestbook addGuestbook(
-		long userId, java.lang.String name,
+		long userId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().addGuestbook(userId, name, serviceContext);
@@ -203,7 +204,7 @@ public class GuestbookLocalServiceUtil {
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
 	public static br.com.objective.training.model.Guestbook fetchGuestbookByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
+		String uuid, long groupId) {
 		return getService().fetchGuestbookByUuidAndGroupId(uuid, groupId);
 	}
 
@@ -238,7 +239,7 @@ public class GuestbookLocalServiceUtil {
 	* @throws PortalException if a matching guestbook could not be found
 	*/
 	public static br.com.objective.training.model.Guestbook getGuestbookByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
+		String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getGuestbookByUuidAndGroupId(uuid, groupId);
 	}
@@ -283,7 +284,7 @@ public class GuestbookLocalServiceUtil {
 	* @return the matching guestbooks, or an empty list if no matches were found
 	*/
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId) {
+		String uuid, long companyId) {
 		return getService().getGuestbooksByUuidAndCompanyId(uuid, companyId);
 	}
 
@@ -298,7 +299,7 @@ public class GuestbookLocalServiceUtil {
 	* @return the range of matching guestbooks, or an empty list if no matches were found
 	*/
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> orderByComparator) {
 		return getService()
 				   .getGuestbooksByUuidAndCompanyId(uuid, companyId, start,
@@ -327,7 +328,7 @@ public class GuestbookLocalServiceUtil {
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
@@ -349,7 +350,7 @@ public class GuestbookLocalServiceUtil {
 	}
 
 	public static br.com.objective.training.model.Guestbook updateGuestbook(
-		long userId, long guestbookId, java.lang.String name,
+		long userId, long guestbookId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -361,6 +362,17 @@ public class GuestbookLocalServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<GuestbookLocalService, GuestbookLocalService> _serviceTracker =
-		ServiceTrackerFactory.open(GuestbookLocalService.class);
+	private static ServiceTracker<GuestbookLocalService, GuestbookLocalService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(GuestbookLocalService.class);
+
+		ServiceTracker<GuestbookLocalService, GuestbookLocalService> serviceTracker =
+			new ServiceTracker<GuestbookLocalService, GuestbookLocalService>(bundle.getBundleContext(),
+				GuestbookLocalService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

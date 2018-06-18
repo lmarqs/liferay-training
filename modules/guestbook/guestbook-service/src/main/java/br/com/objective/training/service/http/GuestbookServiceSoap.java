@@ -66,7 +66,7 @@ import java.rmi.RemoteException;
 @ProviderType
 public class GuestbookServiceSoap {
 	public static br.com.objective.training.model.GuestbookSoap addGuestbook(
-		long userId, java.lang.String name,
+		long userId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
@@ -144,7 +144,7 @@ public class GuestbookServiceSoap {
 	}
 
 	public static br.com.objective.training.model.GuestbookSoap updateGuestbook(
-		long userId, long guestbookId, java.lang.String name,
+		long userId, long guestbookId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {

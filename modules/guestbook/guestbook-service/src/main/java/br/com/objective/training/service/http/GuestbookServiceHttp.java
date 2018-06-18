@@ -56,7 +56,7 @@ import com.liferay.portal.kernel.util.MethodKey;
 @ProviderType
 public class GuestbookServiceHttp {
 	public static br.com.objective.training.model.Guestbook addGuestbook(
-		HttpPrincipal httpPrincipal, long userId, java.lang.String name,
+		HttpPrincipal httpPrincipal, long userId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.kernel.exception.PortalException {
@@ -227,7 +227,7 @@ public class GuestbookServiceHttp {
 
 	public static br.com.objective.training.model.Guestbook updateGuestbook(
 		HttpPrincipal httpPrincipal, long userId, long guestbookId,
-		java.lang.String name,
+		String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -266,7 +266,7 @@ public class GuestbookServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(GuestbookServiceHttp.class);
 	private static final Class<?>[] _addGuestbookParameterTypes0 = new Class[] {
-			long.class, java.lang.String.class,
+			long.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteGuestbookParameterTypes1 = new Class[] {
@@ -282,7 +282,7 @@ public class GuestbookServiceHttp {
 			long.class
 		};
 	private static final Class<?>[] _updateGuestbookParameterTypes5 = new Class[] {
-			long.class, long.class, java.lang.String.class,
+			long.class, long.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

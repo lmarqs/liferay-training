@@ -179,7 +179,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
+	public Object clone() {
 		return new EntryWrapper((Entry)_entry.clone());
 	}
 
@@ -214,7 +214,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the email of this entry
 	*/
 	@Override
-	public java.lang.String getEmail() {
+	public String getEmail() {
 		return _entry.getEmail();
 	}
 
@@ -259,7 +259,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the message of this entry
 	*/
 	@Override
-	public java.lang.String getMessage() {
+	public String getMessage() {
 		return _entry.getMessage();
 	}
 
@@ -279,7 +279,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the name of this entry
 	*/
 	@Override
-	public java.lang.String getName() {
+	public String getName() {
 		return _entry.getName();
 	}
 
@@ -324,7 +324,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the status by user name of this entry
 	*/
 	@Override
-	public java.lang.String getStatusByUserName() {
+	public String getStatusByUserName() {
 		return _entry.getStatusByUserName();
 	}
 
@@ -334,7 +334,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the status by user uuid of this entry
 	*/
 	@Override
-	public java.lang.String getStatusByUserUuid() {
+	public String getStatusByUserUuid() {
 		return _entry.getStatusByUserUuid();
 	}
 
@@ -364,7 +364,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the user name of this entry
 	*/
 	@Override
-	public java.lang.String getUserName() {
+	public String getUserName() {
 		return _entry.getUserName();
 	}
 
@@ -374,7 +374,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the user uuid of this entry
 	*/
 	@Override
-	public java.lang.String getUserUuid() {
+	public String getUserUuid() {
 		return _entry.getUserUuid();
 	}
 
@@ -384,7 +384,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @return the uuid of this entry
 	*/
 	@Override
-	public java.lang.String getUuid() {
+	public String getUuid() {
 		return _entry.getUuid();
 	}
 
@@ -524,7 +524,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param email the email of this entry
 	*/
 	@Override
-	public void setEmail(java.lang.String email) {
+	public void setEmail(String email) {
 		_entry.setEmail(email);
 	}
 
@@ -580,7 +580,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param message the message of this entry
 	*/
 	@Override
-	public void setMessage(java.lang.String message) {
+	public void setMessage(String message) {
 		_entry.setMessage(message);
 	}
 
@@ -600,7 +600,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param name the name of this entry
 	*/
 	@Override
-	public void setName(java.lang.String name) {
+	public void setName(String name) {
 		_entry.setName(name);
 	}
 
@@ -650,7 +650,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param statusByUserName the status by user name of this entry
 	*/
 	@Override
-	public void setStatusByUserName(java.lang.String statusByUserName) {
+	public void setStatusByUserName(String statusByUserName) {
 		_entry.setStatusByUserName(statusByUserName);
 	}
 
@@ -660,7 +660,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param statusByUserUuid the status by user uuid of this entry
 	*/
 	@Override
-	public void setStatusByUserUuid(java.lang.String statusByUserUuid) {
+	public void setStatusByUserUuid(String statusByUserUuid) {
 		_entry.setStatusByUserUuid(statusByUserUuid);
 	}
 
@@ -690,7 +690,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param userName the user name of this entry
 	*/
 	@Override
-	public void setUserName(java.lang.String userName) {
+	public void setUserName(String userName) {
 		_entry.setUserName(userName);
 	}
 
@@ -700,7 +700,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param userUuid the user uuid of this entry
 	*/
 	@Override
-	public void setUserUuid(java.lang.String userUuid) {
+	public void setUserUuid(String userUuid) {
 		_entry.setUserUuid(userUuid);
 	}
 
@@ -710,7 +710,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	* @param uuid the uuid of this entry
 	*/
 	@Override
-	public void setUuid(java.lang.String uuid) {
+	public void setUuid(String uuid) {
 		_entry.setUuid(uuid);
 	}
 
@@ -725,7 +725,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public java.lang.String toString() {
+	public String toString() {
 		return _entry.toString();
 	}
 
@@ -735,7 +735,7 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
 	}
 
 	@Override
-	public java.lang.String toXmlString() {
+	public String toXmlString() {
 		return _entry.toXmlString();
 	}
 

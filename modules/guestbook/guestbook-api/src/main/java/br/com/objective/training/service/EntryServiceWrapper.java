@@ -34,8 +34,7 @@ public class EntryServiceWrapper implements EntryService,
 
 	@Override
 	public br.com.objective.training.model.Entry addEntry(long userId,
-		long guestbookId, java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		long guestbookId, String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -77,14 +76,14 @@ public class EntryServiceWrapper implements EntryService,
 	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
+	public String getOSGiServiceIdentifier() {
 		return _entryService.getOSGiServiceIdentifier();
 	}
 
 	@Override
 	public br.com.objective.training.model.Entry updateEntry(long userId,
-		long guestbookId, long entryId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long guestbookId, long entryId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

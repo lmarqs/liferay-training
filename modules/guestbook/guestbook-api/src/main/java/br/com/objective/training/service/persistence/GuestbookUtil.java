@@ -18,11 +18,12 @@ import aQute.bnd.annotation.ProviderType;
 
 import br.com.objective.training.model.Guestbook;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
-
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -117,7 +118,7 @@ public class GuestbookUtil {
 	* @param uuid the uuid
 	* @return the matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid(java.lang.String uuid) {
+	public static List<Guestbook> findByUuid(String uuid) {
 		return getPersistence().findByUuid(uuid);
 	}
 
@@ -133,8 +134,7 @@ public class GuestbookUtil {
 	* @param end the upper bound of the range of guestbooks (not inclusive)
 	* @return the range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid(java.lang.String uuid, int start,
-		int end) {
+	public static List<Guestbook> findByUuid(String uuid, int start, int end) {
 		return getPersistence().findByUuid(uuid, start, end);
 	}
 
@@ -151,8 +151,8 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid(java.lang.String uuid, int start,
-		int end, OrderByComparator<Guestbook> orderByComparator) {
+	public static List<Guestbook> findByUuid(String uuid, int start, int end,
+		OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
 	}
 
@@ -170,8 +170,8 @@ public class GuestbookUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid(java.lang.String uuid, int start,
-		int end, OrderByComparator<Guestbook> orderByComparator,
+	public static List<Guestbook> findByUuid(String uuid, int start, int end,
+		OrderByComparator<Guestbook> orderByComparator,
 		boolean retrieveFromCache) {
 		return getPersistence()
 				   .findByUuid(uuid, start, end, orderByComparator,
@@ -186,7 +186,7 @@ public class GuestbookUtil {
 	* @return the first matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public static Guestbook findByUuid_First(java.lang.String uuid,
+	public static Guestbook findByUuid_First(String uuid,
 		OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence().findByUuid_First(uuid, orderByComparator);
@@ -199,7 +199,7 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUuid_First(java.lang.String uuid,
+	public static Guestbook fetchByUuid_First(String uuid,
 		OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence().fetchByUuid_First(uuid, orderByComparator);
 	}
@@ -212,7 +212,7 @@ public class GuestbookUtil {
 	* @return the last matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public static Guestbook findByUuid_Last(java.lang.String uuid,
+	public static Guestbook findByUuid_Last(String uuid,
 		OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence().findByUuid_Last(uuid, orderByComparator);
@@ -225,7 +225,7 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUuid_Last(java.lang.String uuid,
+	public static Guestbook fetchByUuid_Last(String uuid,
 		OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence().fetchByUuid_Last(uuid, orderByComparator);
 	}
@@ -240,7 +240,7 @@ public class GuestbookUtil {
 	* @throws NoSuchGuestbookException if a guestbook with the primary key could not be found
 	*/
 	public static Guestbook[] findByUuid_PrevAndNext(long guestbookId,
-		java.lang.String uuid, OrderByComparator<Guestbook> orderByComparator)
+		String uuid, OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence()
 				   .findByUuid_PrevAndNext(guestbookId, uuid, orderByComparator);
@@ -251,7 +251,7 @@ public class GuestbookUtil {
 	*
 	* @param uuid the uuid
 	*/
-	public static void removeByUuid(java.lang.String uuid) {
+	public static void removeByUuid(String uuid) {
 		getPersistence().removeByUuid(uuid);
 	}
 
@@ -261,7 +261,7 @@ public class GuestbookUtil {
 	* @param uuid the uuid
 	* @return the number of matching guestbooks
 	*/
-	public static int countByUuid(java.lang.String uuid) {
+	public static int countByUuid(String uuid) {
 		return getPersistence().countByUuid(uuid);
 	}
 
@@ -273,7 +273,7 @@ public class GuestbookUtil {
 	* @return the matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public static Guestbook findByUUID_G(java.lang.String uuid, long groupId)
+	public static Guestbook findByUUID_G(String uuid, long groupId)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence().findByUUID_G(uuid, groupId);
 	}
@@ -285,7 +285,7 @@ public class GuestbookUtil {
 	* @param groupId the group ID
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUUID_G(java.lang.String uuid, long groupId) {
+	public static Guestbook fetchByUUID_G(String uuid, long groupId) {
 		return getPersistence().fetchByUUID_G(uuid, groupId);
 	}
 
@@ -297,7 +297,7 @@ public class GuestbookUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUUID_G(java.lang.String uuid, long groupId,
+	public static Guestbook fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache) {
 		return getPersistence().fetchByUUID_G(uuid, groupId, retrieveFromCache);
 	}
@@ -309,7 +309,7 @@ public class GuestbookUtil {
 	* @param groupId the group ID
 	* @return the guestbook that was removed
 	*/
-	public static Guestbook removeByUUID_G(java.lang.String uuid, long groupId)
+	public static Guestbook removeByUUID_G(String uuid, long groupId)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence().removeByUUID_G(uuid, groupId);
 	}
@@ -321,7 +321,7 @@ public class GuestbookUtil {
 	* @param groupId the group ID
 	* @return the number of matching guestbooks
 	*/
-	public static int countByUUID_G(java.lang.String uuid, long groupId) {
+	public static int countByUUID_G(String uuid, long groupId) {
 		return getPersistence().countByUUID_G(uuid, groupId);
 	}
 
@@ -332,8 +332,7 @@ public class GuestbookUtil {
 	* @param companyId the company ID
 	* @return the matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId) {
+	public static List<Guestbook> findByUuid_C(String uuid, long companyId) {
 		return getPersistence().findByUuid_C(uuid, companyId);
 	}
 
@@ -350,8 +349,8 @@ public class GuestbookUtil {
 	* @param end the upper bound of the range of guestbooks (not inclusive)
 	* @return the range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end) {
+	public static List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end) {
 		return getPersistence().findByUuid_C(uuid, companyId, start, end);
 	}
 
@@ -369,9 +368,8 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
-		OrderByComparator<Guestbook> orderByComparator) {
+	public static List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end, OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence()
 				   .findByUuid_C(uuid, companyId, start, end, orderByComparator);
 	}
@@ -391,9 +389,8 @@ public class GuestbookUtil {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching guestbooks
 	*/
-	public static List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
-		OrderByComparator<Guestbook> orderByComparator,
+	public static List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end, OrderByComparator<Guestbook> orderByComparator,
 		boolean retrieveFromCache) {
 		return getPersistence()
 				   .findByUuid_C(uuid, companyId, start, end,
@@ -409,8 +406,8 @@ public class GuestbookUtil {
 	* @return the first matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public static Guestbook findByUuid_C_First(java.lang.String uuid,
-		long companyId, OrderByComparator<Guestbook> orderByComparator)
+	public static Guestbook findByUuid_C_First(String uuid, long companyId,
+		OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence()
 				   .findByUuid_C_First(uuid, companyId, orderByComparator);
@@ -424,8 +421,8 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUuid_C_First(java.lang.String uuid,
-		long companyId, OrderByComparator<Guestbook> orderByComparator) {
+	public static Guestbook fetchByUuid_C_First(String uuid, long companyId,
+		OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_First(uuid, companyId, orderByComparator);
 	}
@@ -439,8 +436,8 @@ public class GuestbookUtil {
 	* @return the last matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public static Guestbook findByUuid_C_Last(java.lang.String uuid,
-		long companyId, OrderByComparator<Guestbook> orderByComparator)
+	public static Guestbook findByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence()
 				   .findByUuid_C_Last(uuid, companyId, orderByComparator);
@@ -454,8 +451,8 @@ public class GuestbookUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public static Guestbook fetchByUuid_C_Last(java.lang.String uuid,
-		long companyId, OrderByComparator<Guestbook> orderByComparator) {
+	public static Guestbook fetchByUuid_C_Last(String uuid, long companyId,
+		OrderByComparator<Guestbook> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_Last(uuid, companyId, orderByComparator);
 	}
@@ -471,7 +468,7 @@ public class GuestbookUtil {
 	* @throws NoSuchGuestbookException if a guestbook with the primary key could not be found
 	*/
 	public static Guestbook[] findByUuid_C_PrevAndNext(long guestbookId,
-		java.lang.String uuid, long companyId,
+		String uuid, long companyId,
 		OrderByComparator<Guestbook> orderByComparator)
 		throws br.com.objective.training.exception.NoSuchGuestbookException {
 		return getPersistence()
@@ -485,7 +482,7 @@ public class GuestbookUtil {
 	* @param uuid the uuid
 	* @param companyId the company ID
 	*/
-	public static void removeByUuid_C(java.lang.String uuid, long companyId) {
+	public static void removeByUuid_C(String uuid, long companyId) {
 		getPersistence().removeByUuid_C(uuid, companyId);
 	}
 
@@ -496,7 +493,7 @@ public class GuestbookUtil {
 	* @param companyId the company ID
 	* @return the number of matching guestbooks
 	*/
-	public static int countByUuid_C(java.lang.String uuid, long companyId) {
+	public static int countByUuid_C(String uuid, long companyId) {
 		return getPersistence().countByUuid_C(uuid, companyId);
 	}
 
@@ -1282,7 +1279,7 @@ public class GuestbookUtil {
 		return getPersistence().countAll();
 	}
 
-	public static java.util.Set<java.lang.String> getBadColumnNames() {
+	public static java.util.Set<String> getBadColumnNames() {
 		return getPersistence().getBadColumnNames();
 	}
 
@@ -1290,6 +1287,17 @@ public class GuestbookUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<GuestbookPersistence, GuestbookPersistence> _serviceTracker =
-		ServiceTrackerFactory.open(GuestbookPersistence.class);
+	private static ServiceTracker<GuestbookPersistence, GuestbookPersistence> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(GuestbookPersistence.class);
+
+		ServiceTracker<GuestbookPersistence, GuestbookPersistence> serviceTracker =
+			new ServiceTracker<GuestbookPersistence, GuestbookPersistence>(bundle.getBundleContext(),
+				GuestbookPersistence.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

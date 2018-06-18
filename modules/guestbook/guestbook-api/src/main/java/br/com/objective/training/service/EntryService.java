@@ -55,9 +55,9 @@ public interface EntryService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link EntryServiceUtil} to access the entry remote service. Add custom service methods to {@link br.com.objective.training.service.impl.EntryServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public Entry addEntry(long userId, long guestbookId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
-		ServiceContext serviceContext) throws PortalException, SystemException;
+	public Entry addEntry(long userId, long guestbookId, String name,
+		String email, String message, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	public Entry deleteEntry(long entryId, ServiceContext serviceContext)
 		throws PortalException, SystemException;
@@ -79,10 +79,9 @@ public interface EntryService extends BaseService {
 	*
 	* @return the OSGi service identifier
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	public Entry updateEntry(long userId, long guestbookId, long entryId,
-		java.lang.String name, java.lang.String email,
-		java.lang.String message, ServiceContext serviceContext)
+		String name, String email, String message, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 }

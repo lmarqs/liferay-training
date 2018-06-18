@@ -57,8 +57,7 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class EntryServiceHttp {
 	public static br.com.objective.training.model.Entry addEntry(
 		HttpPrincipal httpPrincipal, long userId, long guestbookId,
-		java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -231,8 +230,7 @@ public class EntryServiceHttp {
 
 	public static br.com.objective.training.model.Entry updateEntry(
 		HttpPrincipal httpPrincipal, long userId, long guestbookId,
-		long entryId, java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		long entryId, String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -271,8 +269,7 @@ public class EntryServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(EntryServiceHttp.class);
 	private static final Class<?>[] _addEntryParameterTypes0 = new Class[] {
-			long.class, long.class, java.lang.String.class,
-			java.lang.String.class, java.lang.String.class,
+			long.class, long.class, String.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteEntryParameterTypes1 = new Class[] {
@@ -288,8 +285,7 @@ public class EntryServiceHttp {
 			long.class, long.class
 		};
 	private static final Class<?>[] _updateEntryParameterTypes5 = new Class[] {
-			long.class, long.class, long.class, java.lang.String.class,
-			java.lang.String.class, java.lang.String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
+			long.class, long.class, long.class, String.class, String.class,
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

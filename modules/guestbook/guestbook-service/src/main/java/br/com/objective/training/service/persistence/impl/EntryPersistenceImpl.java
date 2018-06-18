@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
@@ -48,6 +49,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.Serializable;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
 import java.util.Date;
@@ -769,13 +771,6 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 					result = entry;
 
 					cacheResult(entry);
-
-					if ((entry.getUuid() == null) ||
-							!entry.getUuid().equals(uuid) ||
-							(entry.getGroupId() != groupId)) {
-						finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-							finderArgs, entry);
-					}
 				}
 			}
 			catch (Exception e) {
@@ -3992,8 +3987,6 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 	@Override
 	protected Entry removeImpl(Entry entry) {
-		entry = toUnwrappedModel(entry);
-
 		Session session = null;
 
 		try {
@@ -4024,9 +4017,23 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 
 	@Override
 	public Entry updateImpl(Entry entry) {
-		entry = toUnwrappedModel(entry);
-
 		boolean isNew = entry.isNew();
+
+		if (!(entry instanceof EntryModelImpl)) {
+			InvocationHandler invocationHandler = null;
+
+			if (ProxyUtil.isProxyClass(entry.getClass())) {
+				invocationHandler = ProxyUtil.getInvocationHandler(entry);
+
+				throw new IllegalArgumentException(
+					"Implement ModelWrapper in entry proxy " +
+					invocationHandler.getClass());
+			}
+
+			throw new IllegalArgumentException(
+				"Implement ModelWrapper in custom Entry implementation " +
+				entry.getClass());
+		}
 
 		EntryModelImpl entryModelImpl = (EntryModelImpl)entry;
 
@@ -4229,36 +4236,6 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 		entry.resetOriginalValues();
 
 		return entry;
-	}
-
-	protected Entry toUnwrappedModel(Entry entry) {
-		if (entry instanceof EntryImpl) {
-			return entry;
-		}
-
-		EntryImpl entryImpl = new EntryImpl();
-
-		entryImpl.setNew(entry.isNew());
-		entryImpl.setPrimaryKey(entry.getPrimaryKey());
-
-		entryImpl.setUuid(entry.getUuid());
-		entryImpl.setEntryId(entry.getEntryId());
-		entryImpl.setGroupId(entry.getGroupId());
-		entryImpl.setCompanyId(entry.getCompanyId());
-		entryImpl.setUserId(entry.getUserId());
-		entryImpl.setUserName(entry.getUserName());
-		entryImpl.setCreateDate(entry.getCreateDate());
-		entryImpl.setModifiedDate(entry.getModifiedDate());
-		entryImpl.setStatus(entry.getStatus());
-		entryImpl.setStatusByUserId(entry.getStatusByUserId());
-		entryImpl.setStatusByUserName(entry.getStatusByUserName());
-		entryImpl.setStatusDate(entry.getStatusDate());
-		entryImpl.setName(entry.getName());
-		entryImpl.setEmail(entry.getEmail());
-		entryImpl.setMessage(entry.getMessage());
-		entryImpl.setGuestbookId(entry.getGuestbookId());
-
-		return entryImpl;
 	}
 
 	/**

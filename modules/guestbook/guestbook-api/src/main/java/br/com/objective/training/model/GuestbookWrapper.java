@@ -158,7 +158,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	}
 
 	@Override
-	public java.lang.Object clone() {
+	public Object clone() {
 		return new GuestbookWrapper((Guestbook)_guestbook.clone());
 	}
 
@@ -228,7 +228,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the name of this guestbook
 	*/
 	@Override
-	public java.lang.String getName() {
+	public String getName() {
 		return _guestbook.getName();
 	}
 
@@ -273,7 +273,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the status by user name of this guestbook
 	*/
 	@Override
-	public java.lang.String getStatusByUserName() {
+	public String getStatusByUserName() {
 		return _guestbook.getStatusByUserName();
 	}
 
@@ -283,7 +283,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the status by user uuid of this guestbook
 	*/
 	@Override
-	public java.lang.String getStatusByUserUuid() {
+	public String getStatusByUserUuid() {
 		return _guestbook.getStatusByUserUuid();
 	}
 
@@ -313,7 +313,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the user name of this guestbook
 	*/
 	@Override
-	public java.lang.String getUserName() {
+	public String getUserName() {
 		return _guestbook.getUserName();
 	}
 
@@ -323,7 +323,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the user uuid of this guestbook
 	*/
 	@Override
-	public java.lang.String getUserUuid() {
+	public String getUserUuid() {
 		return _guestbook.getUserUuid();
 	}
 
@@ -333,7 +333,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @return the uuid of this guestbook
 	*/
 	@Override
-	public java.lang.String getUuid() {
+	public String getUuid() {
 		return _guestbook.getUuid();
 	}
 
@@ -519,7 +519,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param name the name of this guestbook
 	*/
 	@Override
-	public void setName(java.lang.String name) {
+	public void setName(String name) {
 		_guestbook.setName(name);
 	}
 
@@ -569,7 +569,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param statusByUserName the status by user name of this guestbook
 	*/
 	@Override
-	public void setStatusByUserName(java.lang.String statusByUserName) {
+	public void setStatusByUserName(String statusByUserName) {
 		_guestbook.setStatusByUserName(statusByUserName);
 	}
 
@@ -579,7 +579,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param statusByUserUuid the status by user uuid of this guestbook
 	*/
 	@Override
-	public void setStatusByUserUuid(java.lang.String statusByUserUuid) {
+	public void setStatusByUserUuid(String statusByUserUuid) {
 		_guestbook.setStatusByUserUuid(statusByUserUuid);
 	}
 
@@ -609,7 +609,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param userName the user name of this guestbook
 	*/
 	@Override
-	public void setUserName(java.lang.String userName) {
+	public void setUserName(String userName) {
 		_guestbook.setUserName(userName);
 	}
 
@@ -619,7 +619,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param userUuid the user uuid of this guestbook
 	*/
 	@Override
-	public void setUserUuid(java.lang.String userUuid) {
+	public void setUserUuid(String userUuid) {
 		_guestbook.setUserUuid(userUuid);
 	}
 
@@ -629,7 +629,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	* @param uuid the uuid of this guestbook
 	*/
 	@Override
-	public void setUuid(java.lang.String uuid) {
+	public void setUuid(String uuid) {
 		_guestbook.setUuid(uuid);
 	}
 
@@ -644,7 +644,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	}
 
 	@Override
-	public java.lang.String toString() {
+	public String toString() {
 		return _guestbook.toString();
 	}
 
@@ -654,7 +654,7 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	}
 
 	@Override
-	public java.lang.String toXmlString() {
+	public String toXmlString() {
 		return _guestbook.toXmlString();
 	}
 

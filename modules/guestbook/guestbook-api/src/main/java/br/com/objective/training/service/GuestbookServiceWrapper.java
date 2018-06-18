@@ -34,7 +34,7 @@ public class GuestbookServiceWrapper implements GuestbookService,
 
 	@Override
 	public br.com.objective.training.model.Guestbook addGuestbook(long userId,
-		java.lang.String name,
+		String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.kernel.exception.PortalException {
@@ -76,13 +76,13 @@ public class GuestbookServiceWrapper implements GuestbookService,
 	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
+	public String getOSGiServiceIdentifier() {
 		return _guestbookService.getOSGiServiceIdentifier();
 	}
 
 	@Override
 	public br.com.objective.training.model.Guestbook updateGuestbook(
-		long userId, long guestbookId, java.lang.String name,
+		long userId, long guestbookId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

@@ -75,9 +75,9 @@ public interface EntryLocalService extends BaseLocalService,
 	public Entry addEntry(Entry entry);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public Entry addEntry(long userId, long guestbookId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
-		ServiceContext serviceContext) throws PortalException;
+	public Entry addEntry(long userId, long guestbookId, String name,
+		String email, String message, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	* Creates a new entry with the primary key. Does not add the entry to the database.
@@ -85,6 +85,7 @@ public interface EntryLocalService extends BaseLocalService,
 	* @param entryId the primary key for the new entry
 	* @return the new entry
 	*/
+	@Transactional(enabled = false)
 	public Entry createEntry(long entryId);
 
 	/**
@@ -187,7 +188,7 @@ public interface EntryLocalService extends BaseLocalService,
 	* @return the matching entry, or <code>null</code> if a matching entry could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Entry fetchEntryByUuidAndGroupId(java.lang.String uuid, long groupId);
+	public Entry fetchEntryByUuidAndGroupId(String uuid, long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -225,8 +226,7 @@ public interface EntryLocalService extends BaseLocalService,
 	* @return the matching entries, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Entry> getEntriesByUuidAndCompanyId(java.lang.String uuid,
-		long companyId);
+	public List<Entry> getEntriesByUuidAndCompanyId(String uuid, long companyId);
 
 	/**
 	* Returns a range of entries matching the UUID and company.
@@ -239,7 +239,7 @@ public interface EntryLocalService extends BaseLocalService,
 	* @return the range of matching entries, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Entry> getEntriesByUuidAndCompanyId(java.lang.String uuid,
+	public List<Entry> getEntriesByUuidAndCompanyId(String uuid,
 		long companyId, int start, int end,
 		OrderByComparator<Entry> orderByComparator);
 
@@ -273,7 +273,7 @@ public interface EntryLocalService extends BaseLocalService,
 	* @throws PortalException if a matching entry could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Entry getEntryByUuidAndGroupId(java.lang.String uuid, long groupId)
+	public Entry getEntryByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -288,7 +288,7 @@ public interface EntryLocalService extends BaseLocalService,
 	*
 	* @return the OSGi service identifier
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -306,7 +306,6 @@ public interface EntryLocalService extends BaseLocalService,
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Entry updateEntry(long userId, long guestbookId, long entryId,
-		java.lang.String name, java.lang.String email,
-		java.lang.String message, ServiceContext serviceContext)
+		String name, String email, String message, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 }

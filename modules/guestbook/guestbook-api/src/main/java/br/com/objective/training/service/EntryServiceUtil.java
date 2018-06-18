@@ -16,7 +16,8 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -42,8 +43,7 @@ public class EntryServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link br.com.objective.training.service.impl.EntryServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static br.com.objective.training.model.Entry addEntry(long userId,
-		long guestbookId, java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		long guestbookId, String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -82,13 +82,13 @@ public class EntryServiceUtil {
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static br.com.objective.training.model.Entry updateEntry(
-		long userId, long guestbookId, long entryId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long userId, long guestbookId, long entryId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -101,5 +101,16 @@ public class EntryServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<EntryService, EntryService> _serviceTracker = ServiceTrackerFactory.open(EntryService.class);
+	private static ServiceTracker<EntryService, EntryService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(EntryService.class);
+
+		ServiceTracker<EntryService, EntryService> serviceTracker = new ServiceTracker<EntryService, EntryService>(bundle.getBundleContext(),
+				EntryService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

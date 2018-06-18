@@ -59,6 +59,7 @@ import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
+import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -112,6 +113,7 @@ public abstract class GuestbookLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the new guestbook
 	 */
 	@Override
+	@Transactional(enabled = false)
 	public Guestbook createGuestbook(long guestbookId) {
 		return guestbookPersistence.create(guestbookId);
 	}
