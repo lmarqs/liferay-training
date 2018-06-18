@@ -75,7 +75,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public Guestbook addGuestbook(Guestbook guestbook);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public Guestbook addGuestbook(long userId, java.lang.String name,
+	public Guestbook addGuestbook(long userId, String name,
 		ServiceContext serviceContext) throws PortalException;
 
 	/**
@@ -84,6 +84,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	* @param guestbookId the primary key for the new guestbook
 	* @return the new guestbook
 	*/
+	@Transactional(enabled = false)
 	public Guestbook createGuestbook(long guestbookId);
 
 	/**
@@ -187,8 +188,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Guestbook fetchGuestbookByUuidAndGroupId(java.lang.String uuid,
-		long groupId);
+	public Guestbook fetchGuestbookByUuidAndGroupId(String uuid, long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -216,8 +216,8 @@ public interface GuestbookLocalService extends BaseLocalService,
 	* @throws PortalException if a matching guestbook could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Guestbook getGuestbookByUuidAndGroupId(java.lang.String uuid,
-		long groupId) throws PortalException;
+	public Guestbook getGuestbookByUuidAndGroupId(String uuid, long groupId)
+		throws PortalException;
 
 	/**
 	* Returns a range of all the guestbooks.
@@ -251,8 +251,8 @@ public interface GuestbookLocalService extends BaseLocalService,
 	* @return the matching guestbooks, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId);
+	public List<Guestbook> getGuestbooksByUuidAndCompanyId(String uuid,
+		long companyId);
 
 	/**
 	* Returns a range of guestbooks matching the UUID and company.
@@ -265,8 +265,8 @@ public interface GuestbookLocalService extends BaseLocalService,
 	* @return the range of matching guestbooks, or an empty list if no matches were found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+	public List<Guestbook> getGuestbooksByUuidAndCompanyId(String uuid,
+		long companyId, int start, int end,
 		OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -288,7 +288,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	*
 	* @return the OSGi service identifier
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -306,6 +306,6 @@ public interface GuestbookLocalService extends BaseLocalService,
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Guestbook updateGuestbook(long userId, long guestbookId,
-		java.lang.String name, ServiceContext serviceContext)
+		String name, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 }

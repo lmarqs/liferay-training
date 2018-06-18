@@ -47,7 +47,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param uuid the uuid
 	* @return the matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid(java.lang.String uuid);
+	public java.util.List<Guestbook> findByUuid(String uuid);
 
 	/**
 	* Returns a range of all the guestbooks where uuid = &#63;.
@@ -61,8 +61,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param end the upper bound of the range of guestbooks (not inclusive)
 	* @return the range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid(java.lang.String uuid,
-		int start, int end);
+	public java.util.List<Guestbook> findByUuid(String uuid, int start, int end);
 
 	/**
 	* Returns an ordered range of all the guestbooks where uuid = &#63;.
@@ -77,8 +76,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid(java.lang.String uuid,
-		int start, int end,
+	public java.util.List<Guestbook> findByUuid(String uuid, int start,
+		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -95,8 +94,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid(java.lang.String uuid,
-		int start, int end,
+	public java.util.List<Guestbook> findByUuid(String uuid, int start,
+		int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator,
 		boolean retrieveFromCache);
 
@@ -108,7 +107,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the first matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public Guestbook findByUuid_First(java.lang.String uuid,
+	public Guestbook findByUuid_First(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -119,7 +118,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUuid_First(java.lang.String uuid,
+	public Guestbook fetchByUuid_First(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -130,7 +129,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the last matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public Guestbook findByUuid_Last(java.lang.String uuid,
+	public Guestbook findByUuid_Last(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -141,7 +140,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUuid_Last(java.lang.String uuid,
+	public Guestbook fetchByUuid_Last(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -153,8 +152,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the previous, current, and next guestbook
 	* @throws NoSuchGuestbookException if a guestbook with the primary key could not be found
 	*/
-	public Guestbook[] findByUuid_PrevAndNext(long guestbookId,
-		java.lang.String uuid,
+	public Guestbook[] findByUuid_PrevAndNext(long guestbookId, String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -163,7 +161,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	*
 	* @param uuid the uuid
 	*/
-	public void removeByUuid(java.lang.String uuid);
+	public void removeByUuid(String uuid);
 
 	/**
 	* Returns the number of guestbooks where uuid = &#63;.
@@ -171,7 +169,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param uuid the uuid
 	* @return the number of matching guestbooks
 	*/
-	public int countByUuid(java.lang.String uuid);
+	public int countByUuid(String uuid);
 
 	/**
 	* Returns the guestbook where uuid = &#63; and groupId = &#63; or throws a {@link NoSuchGuestbookException} if it could not be found.
@@ -181,7 +179,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public Guestbook findByUUID_G(java.lang.String uuid, long groupId)
+	public Guestbook findByUUID_G(String uuid, long groupId)
 		throws NoSuchGuestbookException;
 
 	/**
@@ -191,7 +189,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param groupId the group ID
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUUID_G(java.lang.String uuid, long groupId);
+	public Guestbook fetchByUUID_G(String uuid, long groupId);
 
 	/**
 	* Returns the guestbook where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -201,7 +199,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUUID_G(java.lang.String uuid, long groupId,
+	public Guestbook fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache);
 
 	/**
@@ -211,7 +209,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param groupId the group ID
 	* @return the guestbook that was removed
 	*/
-	public Guestbook removeByUUID_G(java.lang.String uuid, long groupId)
+	public Guestbook removeByUUID_G(String uuid, long groupId)
 		throws NoSuchGuestbookException;
 
 	/**
@@ -221,7 +219,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param groupId the group ID
 	* @return the number of matching guestbooks
 	*/
-	public int countByUUID_G(java.lang.String uuid, long groupId);
+	public int countByUUID_G(String uuid, long groupId);
 
 	/**
 	* Returns all the guestbooks where uuid = &#63; and companyId = &#63;.
@@ -230,8 +228,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param companyId the company ID
 	* @return the matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId);
+	public java.util.List<Guestbook> findByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns a range of all the guestbooks where uuid = &#63; and companyId = &#63;.
@@ -246,8 +243,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param end the upper bound of the range of guestbooks (not inclusive)
 	* @return the range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end);
+	public java.util.List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the guestbooks where uuid = &#63; and companyId = &#63;.
@@ -263,8 +260,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
+	public java.util.List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -282,8 +279,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching guestbooks
 	*/
-	public java.util.List<Guestbook> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
+	public java.util.List<Guestbook> findByUuid_C(String uuid, long companyId,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator,
 		boolean retrieveFromCache);
 
@@ -296,7 +293,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the first matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public Guestbook findByUuid_C_First(java.lang.String uuid, long companyId,
+	public Guestbook findByUuid_C_First(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -308,7 +305,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUuid_C_First(java.lang.String uuid, long companyId,
+	public Guestbook fetchByUuid_C_First(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -320,7 +317,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the last matching guestbook
 	* @throws NoSuchGuestbookException if a matching guestbook could not be found
 	*/
-	public Guestbook findByUuid_C_Last(java.lang.String uuid, long companyId,
+	public Guestbook findByUuid_C_Last(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -332,7 +329,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching guestbook, or <code>null</code> if a matching guestbook could not be found
 	*/
-	public Guestbook fetchByUuid_C_Last(java.lang.String uuid, long companyId,
+	public Guestbook fetchByUuid_C_Last(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator);
 
 	/**
@@ -345,8 +342,8 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @return the previous, current, and next guestbook
 	* @throws NoSuchGuestbookException if a guestbook with the primary key could not be found
 	*/
-	public Guestbook[] findByUuid_C_PrevAndNext(long guestbookId,
-		java.lang.String uuid, long companyId,
+	public Guestbook[] findByUuid_C_PrevAndNext(long guestbookId, String uuid,
+		long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Guestbook> orderByComparator)
 		throws NoSuchGuestbookException;
 
@@ -356,7 +353,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param uuid the uuid
 	* @param companyId the company ID
 	*/
-	public void removeByUuid_C(java.lang.String uuid, long companyId);
+	public void removeByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns the number of guestbooks where uuid = &#63; and companyId = &#63;.
@@ -365,7 +362,7 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	* @param companyId the company ID
 	* @return the number of matching guestbooks
 	*/
-	public int countByUuid_C(java.lang.String uuid, long companyId);
+	public int countByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns all the guestbooks where groupId = &#63;.
@@ -1021,5 +1018,5 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	public int countAll();
 
 	@Override
-	public java.util.Set<java.lang.String> getBadColumnNames();
+	public java.util.Set<String> getBadColumnNames();
 }

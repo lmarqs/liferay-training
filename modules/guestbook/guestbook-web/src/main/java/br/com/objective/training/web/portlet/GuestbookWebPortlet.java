@@ -2,21 +2,14 @@ package br.com.objective.training.web.portlet;
 
 import br.com.objective.training.model.Entry;
 import br.com.objective.training.model.Guestbook;
-import br.com.objective.training.service.EntryLocalService;
 import br.com.objective.training.service.EntryLocalServiceUtil;
-import br.com.objective.training.service.GuestbookLocalService;
+import br.com.objective.training.service.EntryService;
 import br.com.objective.training.service.GuestbookLocalServiceUtil;
+import br.com.objective.training.service.GuestbookService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.SearchContextFactory;
-import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -27,13 +20,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,10 +30,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.GUESTBOOK_WEB_PORTLET;
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_EDIT;
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_SEARCH;
-import static br.com.objective.training.constants.GuestbookWebPortletKeys.MVC_PATH_VIEW;
+import static br.com.objective.training.constants.GuestbookWebPortletKeys.*;
 
 /**
  * @author lucas
@@ -168,10 +152,10 @@ public class GuestbookWebPortlet extends MVCPortlet {
     private long _getAttributeGuestbookId(RenderRequest request, RenderResponse response, ServiceContext serviceContext) throws PortalException {
         long guestbookId = ParamUtil.getLong(request, "guestbookId");
 
-        List<Guestbook> guestbooks = _guestbookLocalService.getGuestbooks(serviceContext.getScopeGroupId());
+        List<Guestbook> guestbooks = _guestbookService.getGuestbooks(serviceContext.getScopeGroupId());
 
         if (guestbooks.isEmpty()) {
-            Guestbook guestbook = _guestbookLocalService.addGuestbook(serviceContext.getUserId(), "Main", serviceContext);
+            Guestbook guestbook = _guestbookService.addGuestbook(serviceContext.getUserId(), "Main", serviceContext);
             guestbookId = guestbook.getGuestbookId();
         }
 
@@ -193,7 +177,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
             String email = ParamUtil.getString(request, "email");
             String message = ParamUtil.getString(request, "message");
 
-            _entryLocalService.updateEntry(serviceContext.getUserId(), guestbookId, entryId, userName, email, message, serviceContext);
+            _entryService.updateEntry(serviceContext.getUserId(), guestbookId, entryId, userName, email, message, serviceContext);
 
             response.setRenderParameter("guestbookId", Long.toString(guestbookId));
             SessionMessages.add(request, "entryUpdated");
@@ -216,7 +200,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
             String email = ParamUtil.getString(request, "email");
             String message = ParamUtil.getString(request, "message");
 
-            _entryLocalService.addEntry(serviceContext.getUserId(), guestbookId, userName, email, message, serviceContext);
+            _entryService.addEntry(serviceContext.getUserId(), guestbookId, userName, email, message, serviceContext);
 
             response.setRenderParameter("guestbookId", Long.toString(guestbookId));
             SessionMessages.add(request, "entryAdded");
@@ -238,7 +222,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
             response.setRenderParameter("guestbookId", Long.toString(guestbookId));
 
-            _entryLocalService.deleteEntry(entryId, serviceContext);
+            _entryService.deleteEntry(entryId, serviceContext);
 
             SessionMessages.add(request, "entryDeleted");
         } catch (Exception e) {
@@ -249,15 +233,15 @@ public class GuestbookWebPortlet extends MVCPortlet {
     }
 
     @Reference(unbind = "-")
-    protected void setEntryService(EntryLocalService entryLocalService) {
-        _entryLocalService = entryLocalService;
+    protected void setEntryService(EntryService entryService) {
+        _entryService = entryService;
     }
 
     @Reference(unbind = "-")
-    protected void setGuestbookService(GuestbookLocalService guestbookLocalService) {
-        _guestbookLocalService = guestbookLocalService;
+    protected void setGuestbookService(GuestbookService guestbookService) {
+        _guestbookService = guestbookService;
     }
 
-    private EntryLocalService _entryLocalService;
-    private GuestbookLocalService _guestbookLocalService;
+    private EntryService _entryService;
+    private GuestbookService _guestbookService;
 }

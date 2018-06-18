@@ -47,7 +47,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 
 	@Override
 	public br.com.objective.training.model.Guestbook addGuestbook(long userId,
-		java.lang.String name,
+		String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _guestbookLocalService.addGuestbook(userId, name, serviceContext);
@@ -210,7 +210,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	*/
 	@Override
 	public br.com.objective.training.model.Guestbook fetchGuestbookByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
+		String uuid, long groupId) {
 		return _guestbookLocalService.fetchGuestbookByUuidAndGroupId(uuid,
 			groupId);
 	}
@@ -250,7 +250,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	*/
 	@Override
 	public br.com.objective.training.model.Guestbook getGuestbookByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
+		String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _guestbookLocalService.getGuestbookByUuidAndGroupId(uuid, groupId);
 	}
@@ -300,7 +300,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	*/
 	@Override
 	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId) {
+		String uuid, long companyId) {
 		return _guestbookLocalService.getGuestbooksByUuidAndCompanyId(uuid,
 			companyId);
 	}
@@ -317,7 +317,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	*/
 	@Override
 	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooksByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> orderByComparator) {
 		return _guestbookLocalService.getGuestbooksByUuidAndCompanyId(uuid,
 			companyId, start, end, orderByComparator);
@@ -349,7 +349,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	* @return the OSGi service identifier
 	*/
 	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
+	public String getOSGiServiceIdentifier() {
 		return _guestbookLocalService.getOSGiServiceIdentifier();
 	}
 
@@ -374,7 +374,7 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 
 	@Override
 	public br.com.objective.training.model.Guestbook updateGuestbook(
-		long userId, long guestbookId, java.lang.String name,
+		long userId, long guestbookId, String name,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

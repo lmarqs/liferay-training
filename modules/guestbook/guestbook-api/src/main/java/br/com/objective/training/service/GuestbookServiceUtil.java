@@ -16,7 +16,8 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -41,20 +42,71 @@ public class GuestbookServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link br.com.objective.training.service.impl.GuestbookServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static br.com.objective.training.model.Guestbook addGuestbook(
+		long userId, String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.exception.PortalException {
+		return getService().addGuestbook(userId, name, serviceContext);
+	}
+
+	public static br.com.objective.training.model.Guestbook deleteGuestbook(
+		long guestbookId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteGuestbook(guestbookId, serviceContext);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getGuestbooks(groupId);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getGuestbooks(groupId, start, end);
+	}
+
+	public static int getGuestbooksCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getGuestbooksCount(groupId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static br.com.objective.training.model.Guestbook updateGuestbook(
+		long userId, long guestbookId, String name,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateGuestbook(userId, guestbookId, name, serviceContext);
 	}
 
 	public static GuestbookService getService() {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<GuestbookService, GuestbookService> _serviceTracker =
-		ServiceTrackerFactory.open(GuestbookService.class);
+	private static ServiceTracker<GuestbookService, GuestbookService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(GuestbookService.class);
+
+		ServiceTracker<GuestbookService, GuestbookService> serviceTracker = new ServiceTracker<GuestbookService, GuestbookService>(bundle.getBundleContext(),
+				GuestbookService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

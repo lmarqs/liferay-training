@@ -21,7 +21,6 @@ import br.com.objective.training.model.Guestbook;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -104,7 +103,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		GuestbookImpl guestbookImpl = new GuestbookImpl();
 
 		if (uuid == null) {
-			guestbookImpl.setUuid(StringPool.BLANK);
+			guestbookImpl.setUuid("");
 		}
 		else {
 			guestbookImpl.setUuid(uuid);
@@ -116,7 +115,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		guestbookImpl.setUserId(userId);
 
 		if (userName == null) {
-			guestbookImpl.setUserName(StringPool.BLANK);
+			guestbookImpl.setUserName("");
 		}
 		else {
 			guestbookImpl.setUserName(userName);
@@ -140,7 +139,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		guestbookImpl.setStatusByUserId(statusByUserId);
 
 		if (statusByUserName == null) {
-			guestbookImpl.setStatusByUserName(StringPool.BLANK);
+			guestbookImpl.setStatusByUserName("");
 		}
 		else {
 			guestbookImpl.setStatusByUserName(statusByUserName);
@@ -154,7 +153,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		}
 
 		if (name == null) {
-			guestbookImpl.setName(StringPool.BLANK);
+			guestbookImpl.setName("");
 		}
 		else {
 			guestbookImpl.setName(name);
@@ -192,7 +191,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(uuid);
@@ -207,7 +206,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		objectOutput.writeLong(userId);
 
 		if (userName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(userName);
@@ -221,7 +220,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		objectOutput.writeLong(statusByUserId);
 
 		if (statusByUserName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(statusByUserName);
@@ -230,7 +229,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		objectOutput.writeLong(statusDate);
 
 		if (name == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
+			objectOutput.writeUTF("");
 		}
 		else {
 			objectOutput.writeUTF(name);

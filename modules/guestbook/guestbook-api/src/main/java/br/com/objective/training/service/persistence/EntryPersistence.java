@@ -47,7 +47,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param uuid the uuid
 	* @return the matching entries
 	*/
-	public java.util.List<Entry> findByUuid(java.lang.String uuid);
+	public java.util.List<Entry> findByUuid(String uuid);
 
 	/**
 	* Returns a range of all the entries where uuid = &#63;.
@@ -61,8 +61,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param end the upper bound of the range of entries (not inclusive)
 	* @return the range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid(java.lang.String uuid, int start,
-		int end);
+	public java.util.List<Entry> findByUuid(String uuid, int start, int end);
 
 	/**
 	* Returns an ordered range of all the entries where uuid = &#63;.
@@ -77,8 +76,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid(java.lang.String uuid, int start,
-		int end,
+	public java.util.List<Entry> findByUuid(String uuid, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -95,8 +93,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid(java.lang.String uuid, int start,
-		int end,
+	public java.util.List<Entry> findByUuid(String uuid, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator,
 		boolean retrieveFromCache);
 
@@ -108,7 +105,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the first matching entry
 	* @throws NoSuchEntryException if a matching entry could not be found
 	*/
-	public Entry findByUuid_First(java.lang.String uuid,
+	public Entry findByUuid_First(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -119,7 +116,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUuid_First(java.lang.String uuid,
+	public Entry fetchByUuid_First(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -130,7 +127,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the last matching entry
 	* @throws NoSuchEntryException if a matching entry could not be found
 	*/
-	public Entry findByUuid_Last(java.lang.String uuid,
+	public Entry findByUuid_Last(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -141,7 +138,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUuid_Last(java.lang.String uuid,
+	public Entry fetchByUuid_Last(String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -153,7 +150,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the previous, current, and next entry
 	* @throws NoSuchEntryException if a entry with the primary key could not be found
 	*/
-	public Entry[] findByUuid_PrevAndNext(long entryId, java.lang.String uuid,
+	public Entry[] findByUuid_PrevAndNext(long entryId, String uuid,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -162,7 +159,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	*
 	* @param uuid the uuid
 	*/
-	public void removeByUuid(java.lang.String uuid);
+	public void removeByUuid(String uuid);
 
 	/**
 	* Returns the number of entries where uuid = &#63;.
@@ -170,7 +167,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param uuid the uuid
 	* @return the number of matching entries
 	*/
-	public int countByUuid(java.lang.String uuid);
+	public int countByUuid(String uuid);
 
 	/**
 	* Returns the entry where uuid = &#63; and groupId = &#63; or throws a {@link NoSuchEntryException} if it could not be found.
@@ -180,7 +177,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the matching entry
 	* @throws NoSuchEntryException if a matching entry could not be found
 	*/
-	public Entry findByUUID_G(java.lang.String uuid, long groupId)
+	public Entry findByUUID_G(String uuid, long groupId)
 		throws NoSuchEntryException;
 
 	/**
@@ -190,7 +187,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param groupId the group ID
 	* @return the matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUUID_G(java.lang.String uuid, long groupId);
+	public Entry fetchByUUID_G(String uuid, long groupId);
 
 	/**
 	* Returns the entry where uuid = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -200,7 +197,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUUID_G(java.lang.String uuid, long groupId,
+	public Entry fetchByUUID_G(String uuid, long groupId,
 		boolean retrieveFromCache);
 
 	/**
@@ -210,7 +207,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param groupId the group ID
 	* @return the entry that was removed
 	*/
-	public Entry removeByUUID_G(java.lang.String uuid, long groupId)
+	public Entry removeByUUID_G(String uuid, long groupId)
 		throws NoSuchEntryException;
 
 	/**
@@ -220,7 +217,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param groupId the group ID
 	* @return the number of matching entries
 	*/
-	public int countByUUID_G(java.lang.String uuid, long groupId);
+	public int countByUUID_G(String uuid, long groupId);
 
 	/**
 	* Returns all the entries where uuid = &#63; and companyId = &#63;.
@@ -229,8 +226,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param companyId the company ID
 	* @return the matching entries
 	*/
-	public java.util.List<Entry> findByUuid_C(java.lang.String uuid,
-		long companyId);
+	public java.util.List<Entry> findByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns a range of all the entries where uuid = &#63; and companyId = &#63;.
@@ -245,8 +241,8 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param end the upper bound of the range of entries (not inclusive)
 	* @return the range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end);
+	public java.util.List<Entry> findByUuid_C(String uuid, long companyId,
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the entries where uuid = &#63; and companyId = &#63;.
@@ -262,8 +258,8 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
+	public java.util.List<Entry> findByUuid_C(String uuid, long companyId,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -281,8 +277,8 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of matching entries
 	*/
-	public java.util.List<Entry> findByUuid_C(java.lang.String uuid,
-		long companyId, int start, int end,
+	public java.util.List<Entry> findByUuid_C(String uuid, long companyId,
+		int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator,
 		boolean retrieveFromCache);
 
@@ -295,7 +291,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the first matching entry
 	* @throws NoSuchEntryException if a matching entry could not be found
 	*/
-	public Entry findByUuid_C_First(java.lang.String uuid, long companyId,
+	public Entry findByUuid_C_First(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -307,7 +303,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUuid_C_First(java.lang.String uuid, long companyId,
+	public Entry fetchByUuid_C_First(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -319,7 +315,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the last matching entry
 	* @throws NoSuchEntryException if a matching entry could not be found
 	*/
-	public Entry findByUuid_C_Last(java.lang.String uuid, long companyId,
+	public Entry findByUuid_C_Last(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -331,7 +327,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching entry, or <code>null</code> if a matching entry could not be found
 	*/
-	public Entry fetchByUuid_C_Last(java.lang.String uuid, long companyId,
+	public Entry fetchByUuid_C_Last(String uuid, long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator);
 
 	/**
@@ -344,8 +340,8 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @return the previous, current, and next entry
 	* @throws NoSuchEntryException if a entry with the primary key could not be found
 	*/
-	public Entry[] findByUuid_C_PrevAndNext(long entryId,
-		java.lang.String uuid, long companyId,
+	public Entry[] findByUuid_C_PrevAndNext(long entryId, String uuid,
+		long companyId,
 		com.liferay.portal.kernel.util.OrderByComparator<Entry> orderByComparator)
 		throws NoSuchEntryException;
 
@@ -355,7 +351,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param uuid the uuid
 	* @param companyId the company ID
 	*/
-	public void removeByUuid_C(java.lang.String uuid, long companyId);
+	public void removeByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns the number of entries where uuid = &#63; and companyId = &#63;.
@@ -364,7 +360,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	* @param companyId the company ID
 	* @return the number of matching entries
 	*/
-	public int countByUuid_C(java.lang.String uuid, long companyId);
+	public int countByUuid_C(String uuid, long companyId);
 
 	/**
 	* Returns all the entries where status = &#63;.
@@ -1033,5 +1029,5 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 	public int countAll();
 
 	@Override
-	public java.util.Set<java.lang.String> getBadColumnNames();
+	public java.util.Set<String> getBadColumnNames();
 }

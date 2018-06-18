@@ -16,7 +16,8 @@ package br.com.objective.training.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -54,8 +55,7 @@ public class EntryLocalServiceUtil {
 	}
 
 	public static br.com.objective.training.model.Entry addEntry(long userId,
-		long guestbookId, java.lang.String name, java.lang.String email,
-		java.lang.String message,
+		long guestbookId, String name, String email, String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
@@ -204,7 +204,7 @@ public class EntryLocalServiceUtil {
 	* @return the matching entry, or <code>null</code> if a matching entry could not be found
 	*/
 	public static br.com.objective.training.model.Entry fetchEntryByUuidAndGroupId(
-		java.lang.String uuid, long groupId) {
+		String uuid, long groupId) {
 		return getService().fetchEntryByUuidAndGroupId(uuid, groupId);
 	}
 
@@ -253,7 +253,7 @@ public class EntryLocalServiceUtil {
 	* @return the matching entries, or an empty list if no matches were found
 	*/
 	public static java.util.List<br.com.objective.training.model.Entry> getEntriesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId) {
+		String uuid, long companyId) {
 		return getService().getEntriesByUuidAndCompanyId(uuid, companyId);
 	}
 
@@ -268,7 +268,7 @@ public class EntryLocalServiceUtil {
 	* @return the range of matching entries, or an empty list if no matches were found
 	*/
 	public static java.util.List<br.com.objective.training.model.Entry> getEntriesByUuidAndCompanyId(
-		java.lang.String uuid, long companyId, int start, int end,
+		String uuid, long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Entry> orderByComparator) {
 		return getService()
 				   .getEntriesByUuidAndCompanyId(uuid, companyId, start, end,
@@ -309,7 +309,7 @@ public class EntryLocalServiceUtil {
 	* @throws PortalException if a matching entry could not be found
 	*/
 	public static br.com.objective.training.model.Entry getEntryByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
+		String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getEntryByUuidAndGroupId(uuid, groupId);
 	}
@@ -328,7 +328,7 @@ public class EntryLocalServiceUtil {
 	*
 	* @return the OSGi service identifier
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
 	}
 
@@ -350,8 +350,8 @@ public class EntryLocalServiceUtil {
 	}
 
 	public static br.com.objective.training.model.Entry updateEntry(
-		long userId, long guestbookId, long entryId, java.lang.String name,
-		java.lang.String email, java.lang.String message,
+		long userId, long guestbookId, long entryId, String name, String email,
+		String message,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -364,6 +364,16 @@ public class EntryLocalServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<EntryLocalService, EntryLocalService> _serviceTracker =
-		ServiceTrackerFactory.open(EntryLocalService.class);
+	private static ServiceTracker<EntryLocalService, EntryLocalService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(EntryLocalService.class);
+
+		ServiceTracker<EntryLocalService, EntryLocalService> serviceTracker = new ServiceTracker<EntryLocalService, EntryLocalService>(bundle.getBundleContext(),
+				EntryLocalService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }
