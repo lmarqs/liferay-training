@@ -237,7 +237,18 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public List<Guestbook> getGuestbooks(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Guestbook> getGuestbooks(long groupId, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Guestbook> getGuestbooks(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Guestbook> getGuestbooks(long groupId, int status, int start,
+		int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Guestbook> getGuestbooks(long groupId, int status, int start,
+		int end, OrderByComparator<Guestbook> obc);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Guestbook> getGuestbooks(long groupId, int start, int end,
@@ -281,6 +292,9 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public int getGuestbooksCount(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getGuestbooksCount(long groupId, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -308,4 +322,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public Guestbook updateGuestbook(long userId, long guestbookId,
 		String name, ServiceContext serviceContext)
 		throws PortalException, SystemException;
+
+	public Guestbook updateStatus(long userId, long guestbookId, int status,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 }

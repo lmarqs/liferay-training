@@ -280,8 +280,28 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 
 	@Override
 	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status) {
+		return _guestbookLocalService.getGuestbooks(groupId, status);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
 		long groupId, int start, int end) {
 		return _guestbookLocalService.getGuestbooks(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end) {
+		return _guestbookLocalService.getGuestbooks(groupId, status, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> obc) {
+		return _guestbookLocalService.getGuestbooks(groupId, status, start,
+			end, obc);
 	}
 
 	@Override
@@ -339,6 +359,11 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	}
 
 	@Override
+	public int getGuestbooksCount(long groupId, int status) {
+		return _guestbookLocalService.getGuestbooksCount(groupId, status);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		return _guestbookLocalService.getIndexableActionableDynamicQuery();
 	}
@@ -380,6 +405,16 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _guestbookLocalService.updateGuestbook(userId, guestbookId,
 			name, serviceContext);
+	}
+
+	@Override
+	public br.com.objective.training.model.Guestbook updateStatus(long userId,
+		long guestbookId, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _guestbookLocalService.updateStatus(userId, guestbookId, status,
+			serviceContext);
 	}
 
 	@Override

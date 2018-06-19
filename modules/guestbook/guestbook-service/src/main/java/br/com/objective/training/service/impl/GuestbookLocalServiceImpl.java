@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -80,6 +82,11 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         guestbook.setName(name);
         guestbook.setExpandoBridgeAttributes(serviceContext);
 
+        guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
+        guestbook.setStatusByUserId(userId);
+        guestbook.setStatusByUserName(user.getFullName());
+        guestbook.setStatusDate(serviceContext.getModifiedDate(null));
+
         guestbookPersistence.update(guestbook);
 
         resourceLocalService.addResources(
@@ -99,6 +106,10 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
                 serviceContext.getAssetLinkEntryIds(),
                 AssetLinkConstants.TYPE_RELATED);
+
+        WorkflowHandlerRegistryUtil.startWorkflowInstance(guestbook.getCompanyId(),
+                guestbook.getGroupId(), guestbook.getUserId(), Guestbook.class.getName(),
+                guestbook.getPrimaryKey(), guestbook, serviceContext);
 
         return guestbook;
 
@@ -145,6 +156,27 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         return guestbook;
     }
 
+    public Guestbook updateStatus(long userId, long guestbookId, int status, ServiceContext serviceContext) throws PortalException, SystemException {
+
+        User user = userLocalService.getUser(userId);
+        Guestbook guestbook = getGuestbook(guestbookId);
+
+        guestbook.setStatus(status);
+        guestbook.setStatusByUserId(userId);
+        guestbook.setStatusByUserName(user.getFullName());
+        guestbook.setStatusDate(new Date());
+
+        guestbookPersistence.update(guestbook);
+
+        if (status == WorkflowConstants.STATUS_APPROVED) {
+            assetEntryLocalService.updateVisible(Guestbook.class.getName(), guestbookId, true);
+        } else {
+            assetEntryLocalService.updateVisible(Guestbook.class.getName(), guestbookId, false);
+        }
+
+        return guestbook;
+    }
+
     @Indexable(type = IndexableType.DELETE)
     public Guestbook deleteGuestbook(long guestbookId, ServiceContext serviceContext) throws PortalException, SystemException {
 
@@ -171,23 +203,43 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
             assetEntryLocalService.deleteEntry(assetEntry);
         }
 
+        workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
+                guestbook.getCompanyId(), guestbook.getGroupId(),
+                Guestbook.class.getName(), guestbook.getGuestbookId());
+
         return guestbook;
     }
 
     public List<Guestbook> getGuestbooks(long groupId) {
-        return guestbookPersistence.findByGroupId(groupId);
-    }
-
-    public List<Guestbook> getGuestbooks(long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
-        return guestbookPersistence.findByGroupId(groupId, start, end, obc);
+        return guestbookPersistence.filterFindByGroupId(groupId);
     }
 
     public List<Guestbook> getGuestbooks(long groupId, int start, int end) {
         return guestbookPersistence.findByGroupId(groupId, start, end);
     }
 
+    public List<Guestbook> getGuestbooks(long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
+        return guestbookPersistence.filterFindByGroupId(groupId, start, end, obc);
+    }
+
+    public List<Guestbook> getGuestbooks(long groupId, int status) {
+        return guestbookPersistence.findByG_S(groupId, status);
+    }
+
+    public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end, OrderByComparator<Guestbook> obc) {
+        return guestbookPersistence.findByG_S(groupId, status, start, end, obc);
+    }
+
+    public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end) {
+        return guestbookPersistence.findByG_S(groupId, status, start, end);
+    }
+
     public int getGuestbooksCount(long groupId) {
         return guestbookPersistence.countByGroupId(groupId);
+    }
+
+    public int getGuestbooksCount(long groupId, int status) {
+        return guestbookPersistence.countByG_S(groupId, status);
     }
 
     protected void validate(String name) throws PortalException {

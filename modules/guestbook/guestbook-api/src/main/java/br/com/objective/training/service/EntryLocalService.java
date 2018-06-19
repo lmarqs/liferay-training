@@ -211,8 +211,19 @@ public interface EntryLocalService extends BaseLocalService,
 	public List<Entry> getEntries(long groupId, long guestbookId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entry> getEntries(long groupId, long guestbookId, int status);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Entry> getEntries(long groupId, long guestbookId, int start,
 		int end) throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entry> getEntries(long groupId, long guestbookId, int status,
+		int start, int end) throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Entry> getEntries(long groupId, long guestbookId, int status,
+		int start, int end, OrderByComparator<Entry> obc);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Entry> getEntries(long groupId, long guestbookId, int start,
@@ -253,6 +264,9 @@ public interface EntryLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getEntriesCount(long groupId, long guestbookId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getEntriesCount(long groupId, long guestbookId, int status);
 
 	/**
 	* Returns the entry with the primary key.
@@ -307,5 +321,9 @@ public interface EntryLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Entry updateEntry(long userId, long guestbookId, long entryId,
 		String name, String email, String message, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public Entry updateStatus(long userId, long guestbookId, long entryId,
+		int status, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 }

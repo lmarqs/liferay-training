@@ -266,8 +266,24 @@ public class GuestbookLocalServiceUtil {
 	}
 
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status) {
+		return getService().getGuestbooks(groupId, status);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
 		long groupId, int start, int end) {
 		return getService().getGuestbooks(groupId, start, end);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end) {
+		return getService().getGuestbooks(groupId, status, start, end);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> obc) {
+		return getService().getGuestbooks(groupId, status, start, end, obc);
 	}
 
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
@@ -319,6 +335,10 @@ public class GuestbookLocalServiceUtil {
 		return getService().getGuestbooksCount(groupId);
 	}
 
+	public static int getGuestbooksCount(long groupId, int status) {
+		return getService().getGuestbooksCount(groupId, status);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		return getService().getIndexableActionableDynamicQuery();
 	}
@@ -356,6 +376,15 @@ public class GuestbookLocalServiceUtil {
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateGuestbook(userId, guestbookId, name, serviceContext);
+	}
+
+	public static br.com.objective.training.model.Guestbook updateStatus(
+		long userId, long guestbookId, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateStatus(userId, guestbookId, status, serviceContext);
 	}
 
 	public static GuestbookLocalService getService() {

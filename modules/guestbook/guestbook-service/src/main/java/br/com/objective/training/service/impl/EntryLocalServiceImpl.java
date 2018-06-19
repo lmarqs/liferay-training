@@ -31,6 +31,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -84,6 +86,11 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         entry.setEmail(email);
         entry.setMessage(message);
 
+        entry.setStatus(WorkflowConstants.STATUS_DRAFT);
+        entry.setStatusByUserId(userId);
+        entry.setStatusByUserName(user.getFullName());
+        entry.setStatusDate(serviceContext.getModifiedDate(null));
+
         entryPersistence.update(entry);
 
         resourceLocalService.addResources(user.getCompanyId(), groupId, userId,
@@ -100,6 +107,10 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
                 serviceContext.getAssetLinkEntryIds(),
                 AssetLinkConstants.TYPE_RELATED);
+
+        WorkflowHandlerRegistryUtil.startWorkflowInstance(entry.getCompanyId(),
+                entry.getGroupId(), entry.getUserId(), Entry.class.getName(),
+                entry.getPrimaryKey(), entry, serviceContext);
 
         return entry;
     }
@@ -148,6 +159,27 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entry;
     }
 
+    public Entry updateStatus(long userId, long guestbookId, long entryId, int status, ServiceContext serviceContext) throws PortalException, SystemException {
+
+        User user = userLocalService.getUser(userId);
+        Entry entry = getEntry(entryId);
+
+        entry.setStatus(status);
+        entry.setStatusByUserId(userId);
+        entry.setStatusByUserName(user.getFullName());
+        entry.setStatusDate(new Date());
+
+        entryPersistence.update(entry);
+
+        if (status == WorkflowConstants.STATUS_APPROVED) {
+            assetEntryLocalService.updateVisible(Entry.class.getName(), entryId, true);
+        } else {
+            assetEntryLocalService.updateVisible(Entry.class.getName(), entryId, false);
+        }
+
+        return entry;
+    }
+
     @Indexable(type = IndexableType.DELETE)
     public Entry deleteEntry(long entryId, ServiceContext serviceContext) throws PortalException {
 
@@ -165,6 +197,10 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
             assetEntryLocalService.deleteEntry(assetEntry);
         }
 
+        workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
+                entry.getCompanyId(), entry.getGroupId(),
+                Entry.class.getName(), entry.getEntryId());
+
         return entry;
     }
 
@@ -180,8 +216,24 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entryPersistence.findByG_G(groupId, guestbookId, start, end, obc);
     }
 
+    public List<Entry> getEntries(long groupId, long guestbookId, int status) {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end) throws SystemException {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status, start, end);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end, OrderByComparator<Entry> obc) {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status, start, end, obc);
+    }
+
     public int getEntriesCount(long groupId, long guestbookId) {
         return entryPersistence.countByG_G(groupId, guestbookId);
+    }
+
+    public int getEntriesCount(long groupId, long guestbookId, int status) {
+        return entryPersistence.countByG_G_S(groupId, guestbookId, status);
     }
 
     private void validate(String name, String email, String entry) throws PortalException {
