@@ -11,6 +11,7 @@
         <gb:if-guestbook-permission
                 permissionChecker="${permissionChecker}" guestbookId="${guestbook.guestbookId}" actionId="VIEW">
             <liferay-ui:search-container-column-text property="name"/>
+            <liferay-ui:search-container-column-status property="status" />
             <liferay-ui:search-container-column-jsp align="right" path="/admin/actions.jsp"/>
         </gb:if-guestbook-permission>
     </liferay-ui:search-container-row>

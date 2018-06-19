@@ -66,6 +66,7 @@
                 <liferay-ui:search-container-column-text property="message"/>
                 <liferay-ui:search-container-column-text property="name"/>
                 <liferay-ui:search-container-column-text property="email"/>
+                <liferay-ui:search-container-column-status property="status" />
                 <liferay-ui:search-container-column-jsp align="right" path="/web/actions.jsp"/>
             </gb:if-entry-permission>
         </liferay-ui:search-container-row>
