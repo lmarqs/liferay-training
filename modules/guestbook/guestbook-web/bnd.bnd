@@ -1,4 +1,4 @@
 Bundle-Name: guestbook-web
 Bundle-SymbolicName: br.com.objective.training.web
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.3
 Export-Package: br.com.objective.training.constants
