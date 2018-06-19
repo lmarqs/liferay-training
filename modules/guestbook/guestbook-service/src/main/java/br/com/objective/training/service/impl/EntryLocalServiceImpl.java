@@ -205,19 +205,35 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId) {
-        return entryPersistence.findByG_G(groupId, guestbookId);
+        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int status) {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status);
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId, int start, int end) throws SystemException {
-        return entryPersistence.findByG_G(groupId, guestbookId, start, end);
+        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED, start, end);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end) throws SystemException {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status, start, end);
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId, int start, int end, OrderByComparator<Entry> obc) {
-        return entryPersistence.findByG_G(groupId, guestbookId, start, end, obc);
+        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED, start, end, obc);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end, OrderByComparator<Entry> obc) {
+        return entryPersistence.findByG_G_S(groupId, guestbookId, status, start, end, obc);
     }
 
     public int getEntriesCount(long groupId, long guestbookId) {
-        return entryPersistence.countByG_G(groupId, guestbookId);
+        return this.getEntriesCount(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
+    }
+
+    public int getEntriesCount(long groupId, long guestbookId, int status) {
+        return entryPersistence.countByG_G_S(groupId, guestbookId, status);
     }
 
     private void validate(String name, String email, String entry) throws PortalException {
