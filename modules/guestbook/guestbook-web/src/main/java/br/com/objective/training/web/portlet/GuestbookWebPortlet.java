@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -86,13 +87,12 @@ public class GuestbookWebPortlet extends MVCPortlet {
     }
 
     private void _renderView(RenderRequest request, long scopeGroupId, long guestbookId) {
-        request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId));
+        request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, WorkflowConstants.STATUS_APPROVED));
 
-        request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId));
+        request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED));
         request.setAttribute("results",
                 EntryLocalServiceUtil.getEntries(
-                        scopeGroupId,
-                        guestbookId,
+                        scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED,
                         ParamUtil.getInteger(request, "start", 0),
                         ParamUtil.getInteger(request, "end", 20)
                 )
