@@ -308,4 +308,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public Guestbook updateGuestbook(long userId, long guestbookId,
 		String name, ServiceContext serviceContext)
 		throws PortalException, SystemException;
+
+	public Guestbook updateStatus(long userId, long guestbookId, int status,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 }
