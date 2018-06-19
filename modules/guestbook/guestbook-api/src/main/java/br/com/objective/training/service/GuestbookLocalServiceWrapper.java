@@ -280,8 +280,28 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 
 	@Override
 	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status) {
+		return _guestbookLocalService.getGuestbooks(groupId, status);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
 		long groupId, int start, int end) {
 		return _guestbookLocalService.getGuestbooks(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end) {
+		return _guestbookLocalService.getGuestbooks(groupId, status, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> obc) {
+		return _guestbookLocalService.getGuestbooks(groupId, status, start,
+			end, obc);
 	}
 
 	@Override
@@ -336,6 +356,11 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
 	@Override
 	public int getGuestbooksCount(long groupId) {
 		return _guestbookLocalService.getGuestbooksCount(groupId);
+	}
+
+	@Override
+	public int getGuestbooksCount(long groupId, int status) {
+		return _guestbookLocalService.getGuestbooksCount(groupId, status);
 	}
 
 	@Override

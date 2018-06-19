@@ -238,9 +238,31 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 
 	@Override
 	public java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int status) {
+		return _entryLocalService.getEntries(groupId, guestbookId, status);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Entry> getEntries(
 		long groupId, long guestbookId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _entryLocalService.getEntries(groupId, guestbookId, start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int status, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _entryLocalService.getEntries(groupId, guestbookId, status,
+			start, end);
+	}
+
+	@Override
+	public java.util.List<br.com.objective.training.model.Entry> getEntries(
+		long groupId, long guestbookId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Entry> obc) {
+		return _entryLocalService.getEntries(groupId, guestbookId, status,
+			start, end, obc);
 	}
 
 	@Override
@@ -295,6 +317,11 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	@Override
 	public int getEntriesCount(long groupId, long guestbookId) {
 		return _entryLocalService.getEntriesCount(groupId, guestbookId);
+	}
+
+	@Override
+	public int getEntriesCount(long groupId, long guestbookId, int status) {
+		return _entryLocalService.getEntriesCount(groupId, guestbookId, status);
 	}
 
 	/**

@@ -266,8 +266,24 @@ public class GuestbookLocalServiceUtil {
 	}
 
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status) {
+		return getService().getGuestbooks(groupId, status);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
 		long groupId, int start, int end) {
 		return getService().getGuestbooks(groupId, start, end);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end) {
+		return getService().getGuestbooks(groupId, status, start, end);
+	}
+
+	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<br.com.objective.training.model.Guestbook> obc) {
+		return getService().getGuestbooks(groupId, status, start, end, obc);
 	}
 
 	public static java.util.List<br.com.objective.training.model.Guestbook> getGuestbooks(
@@ -317,6 +333,10 @@ public class GuestbookLocalServiceUtil {
 
 	public static int getGuestbooksCount(long groupId) {
 		return getService().getGuestbooksCount(groupId);
+	}
+
+	public static int getGuestbooksCount(long groupId, int status) {
+		return getService().getGuestbooksCount(groupId, status);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
