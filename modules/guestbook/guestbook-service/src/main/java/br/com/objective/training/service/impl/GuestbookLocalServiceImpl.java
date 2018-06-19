@@ -211,23 +211,23 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
     }
 
     public List<Guestbook> getGuestbooks(long groupId) {
-        return this.getGuestbooks(groupId, WorkflowConstants.STATUS_APPROVED);
+        return guestbookPersistence.filterFindByGroupId(groupId);
+    }
+
+    public List<Guestbook> getGuestbooks(long groupId, int start, int end) {
+        return guestbookPersistence.findByGroupId(groupId, start, end);
+    }
+
+    public List<Guestbook> getGuestbooks(long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
+        return guestbookPersistence.filterFindByGroupId(groupId, start, end, obc);
     }
 
     public List<Guestbook> getGuestbooks(long groupId, int status) {
         return guestbookPersistence.findByG_S(groupId, status);
     }
 
-    public List<Guestbook> getGuestbooks(long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
-        return this.getGuestbooks(groupId, WorkflowConstants.STATUS_APPROVED, start, end, obc);
-    }
-
     public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end, OrderByComparator<Guestbook> obc) {
         return guestbookPersistence.findByG_S(groupId, status, start, end, obc);
-    }
-
-    public List<Guestbook> getGuestbooks(long groupId, int start, int end) {
-        return this.getGuestbooks(groupId, WorkflowConstants.STATUS_APPROVED, start, end);
     }
 
     public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end) {
@@ -235,7 +235,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
     }
 
     public int getGuestbooksCount(long groupId) {
-        return this.getGuestbooksCount(groupId, WorkflowConstants.STATUS_APPROVED);
+        return guestbookPersistence.countByGroupId(groupId);
     }
 
     public int getGuestbooksCount(long groupId, int status) {

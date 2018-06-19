@@ -205,23 +205,23 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId) {
-        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
+        return entryPersistence.findByG_G(groupId, guestbookId);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int start, int end) throws SystemException {
+        return entryPersistence.findByG_G(groupId, guestbookId, start, end);
+    }
+
+    public List<Entry> getEntries(long groupId, long guestbookId, int start, int end, OrderByComparator<Entry> obc) {
+        return entryPersistence.findByG_G(groupId, guestbookId, start, end, obc);
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId, int status) {
         return entryPersistence.findByG_G_S(groupId, guestbookId, status);
     }
 
-    public List<Entry> getEntries(long groupId, long guestbookId, int start, int end) throws SystemException {
-        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED, start, end);
-    }
-
     public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end) throws SystemException {
         return entryPersistence.findByG_G_S(groupId, guestbookId, status, start, end);
-    }
-
-    public List<Entry> getEntries(long groupId, long guestbookId, int start, int end, OrderByComparator<Entry> obc) {
-        return this.getEntries(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED, start, end, obc);
     }
 
     public List<Entry> getEntries(long groupId, long guestbookId, int status, int start, int end, OrderByComparator<Entry> obc) {
@@ -229,7 +229,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
     }
 
     public int getEntriesCount(long groupId, long guestbookId) {
-        return this.getEntriesCount(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
+        return entryPersistence.countByG_G(groupId, guestbookId);
     }
 
     public int getEntriesCount(long groupId, long guestbookId, int status) {
