@@ -308,4 +308,8 @@ public interface EntryLocalService extends BaseLocalService,
 	public Entry updateEntry(long userId, long guestbookId, long entryId,
 		String name, String email, String message, ServiceContext serviceContext)
 		throws PortalException, SystemException;
+
+	public Entry updateStatus(long userId, long guestbookId, long entryId,
+		int status, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 }

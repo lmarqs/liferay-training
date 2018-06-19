@@ -360,6 +360,16 @@ public class EntryLocalServiceUtil {
 			message, serviceContext);
 	}
 
+	public static br.com.objective.training.model.Entry updateStatus(
+		long userId, long guestbookId, long entryId, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateStatus(userId, guestbookId, entryId, status,
+			serviceContext);
+	}
+
 	public static EntryLocalService getService() {
 		return _serviceTracker.getService();
 	}
