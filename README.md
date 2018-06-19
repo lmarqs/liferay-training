@@ -16,4 +16,4 @@ What has been done so far:
 8. [X] Leveraging Search
 9. [X] Assets: Integrating with Liferay’s Framework
 10. [X] Generating Web Services
-11. [ ] Using Workflow
+11. [X] Using Workflow
