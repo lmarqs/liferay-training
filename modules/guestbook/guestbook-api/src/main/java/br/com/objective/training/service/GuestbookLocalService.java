@@ -323,6 +323,7 @@ public interface GuestbookLocalService extends BaseLocalService,
 		String name, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Guestbook updateStatus(long userId, long guestbookId, int status,
 		ServiceContext serviceContext) throws PortalException, SystemException;
 }

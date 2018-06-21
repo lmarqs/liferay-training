@@ -323,6 +323,7 @@ public interface EntryLocalService extends BaseLocalService,
 		String name, String email, String message, ServiceContext serviceContext)
 		throws PortalException, SystemException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Entry updateStatus(long userId, long guestbookId, long entryId,
 		int status, ServiceContext serviceContext)
 		throws PortalException, SystemException;
