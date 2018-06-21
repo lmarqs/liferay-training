@@ -159,6 +159,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
         return entry;
     }
 
+    @Indexable(type = IndexableType.REINDEX)
     public Entry updateStatus(long userId, long guestbookId, long entryId, int status, ServiceContext serviceContext) throws PortalException, SystemException {
 
         User user = userLocalService.getUser(userId);

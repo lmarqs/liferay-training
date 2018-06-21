@@ -156,6 +156,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         return guestbook;
     }
 
+    @Indexable(type = IndexableType.REINDEX)
     public Guestbook updateStatus(long userId, long guestbookId, int status, ServiceContext serviceContext) throws PortalException, SystemException {
 
         User user = userLocalService.getUser(userId);
