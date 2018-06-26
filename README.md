@@ -108,7 +108,7 @@ The steps are merged from this PR:
 ### Happy day
 A simple example of how the search works.
 
-![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml?v=1.0.1) 
+![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml?v=1.0.2) 
 
 ### Using permissions
 
@@ -126,4 +126,4 @@ The guestbook application allows to check if the search is integrated with workf
 3. Approve the new entry in workflow.
 4. Check if the entry **is** displayed in search results.
 
-![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml?v=1.0.1)
+![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml?v=1.0.2)
