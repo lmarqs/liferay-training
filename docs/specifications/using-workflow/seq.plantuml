@@ -1,0 +1,12 @@
+@startuml
+actor User
+participant "Guestbook WEB" as I
+
+User -> I: Add a Entry(name: Entry B, email: entryb@gb.com, message: bar)
+User <-- I: Entry added successfully
+User -> I: Search(keyword: bar)
+User <-- I: 0 Results for bar
+User -> I: Set Entry as approved on workflow(name: Entry B)
+User -> I: Search(keyword: bar)
+User <-- I: 1 Results for bar
+@enduml

@@ -109,11 +109,10 @@ The steps are merged from this PR:
 
 ![Alt text](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml) 
 
-
 ### Using permissions
 
 *Coming soon*
 
 ### Using workflow
 
-*Coming soon*
+![Alt text](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml)
