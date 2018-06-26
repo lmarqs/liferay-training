@@ -4,7 +4,7 @@ This source is a implementation of the [training materials](https://dev.liferay.
 
 All steps to create this app can be found at [Developing a Web Application](https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/developing-a-web-application) section.
 
-## Update [Leveraging Search](https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/leveraging-search) to Liferay 7.1
+## Update [Search](https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/leveraging-search) to Liferay 7.1
 
 More information about how Liferay search api works can be found at:
 
@@ -106,8 +106,9 @@ The steps are merged from this PR:
 ## Use cases
 
 ### Happy day
+A simple example of how the search works.
 
-![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml?v=1.0.0) 
+![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml?v=1.0.1) 
 
 ### Using permissions
 
@@ -115,4 +116,8 @@ The steps are merged from this PR:
 
 ### Using workflow
 
-![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml?v=1.0.0)
+Workflow is a review process that ensures a submitted entity isn’t published before it’s reviewed.
+Enabling workflow in the guestbook application also prevents unapproved entries from appearing in search results.
+
+
+![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml?v=1.0.1)
