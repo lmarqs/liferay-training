@@ -107,7 +107,7 @@ The steps are merged from this PR:
 
 ### Happy day
 
-![Alt text](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training//home/lucas/desenvolvimento/liferay-training/master/docs/specifications/happy-day/seq.plantuml) 
+![Alt text](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml) 
 
 
 ### Using permissions
