@@ -6,6 +6,8 @@ import br.com.objective.training.service.EntryLocalServiceUtil;
 import br.com.objective.training.service.EntryService;
 import br.com.objective.training.service.GuestbookLocalServiceUtil;
 import br.com.objective.training.service.GuestbookService;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -72,7 +74,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
             } else if (MVC_PATH_SEARCH.equals(mvcPath)) {
                 _renderSearch(request, scopeGroupId);
             } else {
-                _renderView(request, scopeGroupId, guestbookId);
+                _renderView(request, response, scopeGroupId, guestbookId);
             }
         } catch (Exception e) {
             throw new PortletException(e);
@@ -86,8 +88,31 @@ public class GuestbookWebPortlet extends MVCPortlet {
         request.setAttribute("entry", entryId > 0 ? EntryLocalServiceUtil.getEntry(entryId) : null);
     }
 
-    private void _renderView(RenderRequest request, long scopeGroupId, long guestbookId) {
-        request.setAttribute("guestbooks", GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, WorkflowConstants.STATUS_APPROVED));
+    private void _renderView(RenderRequest request, RenderResponse response, long scopeGroupId, long guestbookId) {
+        final List<Guestbook> guestbooks = GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, WorkflowConstants.STATUS_APPROVED);
+        List<NavigationItem> navigationItems = new NavigationItemList() {
+            {
+                for (Guestbook guestbook : guestbooks) {
+                    add(navigationItem -> {
+                        if (guestbook.getGuestbookId() == guestbookId) {
+                            navigationItem.setActive(true);
+                        }
+
+
+                        PortletURL portletURL = response.createRenderURL();
+
+                        portletURL.setProperty("mvcPath", MVC_PATH_VIEW);
+                        portletURL.addProperty("guestbookId", Long.toString(guestbook.getGuestbookId()));
+
+                        navigationItem.setHref(portletURL);
+                        navigationItem.setLabel(guestbook.getName());
+                    });
+                }
+
+            }
+        };
+
+        request.setAttribute("navigationItems", navigationItems);
 
         request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED));
         request.setAttribute("results",

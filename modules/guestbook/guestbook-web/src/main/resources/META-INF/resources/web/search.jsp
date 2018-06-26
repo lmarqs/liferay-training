@@ -8,18 +8,12 @@
     <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
-<aui:form action="${searchURL}" method="get" name="fm">
-
-    <liferay-portlet:renderURLParams varImpl="searchURL"/>
-    <liferay-ui:header backURL="${viewURL}" title="search"/>
-
-    <div class="search-form">
-        <span class="aui-search-bar">
-            <aui:input inlineField="${true}" name="keywords" size="30" title="search-entries"/>
-            <aui:button type="submit" value="search"/>
-        </span>
-    </div>
-</aui:form>
+<clay:management-toolbar
+        selectable="false"
+        searchActionURL="${searchURL}"
+        clearResultsURL="${viewURL}"
+        itemsTotal="${fn:length(entries)}"
+/>
 
 <liferay-ui:search-container delta="10" emptyResultsMessage="no-entries-were-found" total="${fn:length(entries)}">
     <liferay-ui:search-container-results results="${entries}"/>
