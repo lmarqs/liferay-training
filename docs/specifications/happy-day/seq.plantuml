@@ -1,0 +1,7 @@
+@startuml
+actor User
+User -> Guestbook: Add a Entry(name: Entry A, email: entrya@gb.com, message: foo)
+User <-- Guestbook: Entry added successfully
+User -> Guestbook: Search(keyword: foo)
+User <-- Guestbook: 1 results for foo
+@enduml
