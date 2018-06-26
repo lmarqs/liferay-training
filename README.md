@@ -107,7 +107,7 @@ The steps are merged from this PR:
 
 ### Happy day
 
-![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml) 
+![Happy day - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/happy-day/seq.plantuml?v=1.0.0) 
 
 ### Using permissions
 
@@ -115,4 +115,4 @@ The steps are merged from this PR:
 
 ### Using workflow
 
-![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml)
+![Using workflow - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-workflow/seq.plantuml?v=1.0.0)
