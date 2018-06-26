@@ -1,12 +1,29 @@
 @startuml
-actor User
-participant "Guestbook WEB" as I
+actor User as U
+participant "Liferay Workflow" as LW
+participant "Guestbook WEB" as GW
 
-User -> I: Add a Entry(name: Entry B, email: entryb@gb.com, message: bar)
-User <-- I: Entry added successfully
-User -> I: Search(keyword: bar)
-User <-- I: 0 Results for bar
-User -> I: Set Entry as approved on workflow(name: Entry B)
-User -> I: Search(keyword: bar)
-User <-- I: 1 Results for bar
+
+U -> LW: Set workflow (Asset Type: Guestbook Entry, Workflow Assigned: Single Approver)
+activate LW
+U <-- LW: Workflow assigned to Guestbook Entry
+deactivate LW
+
+U -> GW: Add a Entry(Name: Entry B, Email: entryb@gb.com, Message: bar)
+activate GW
+U <-- GW: Entry added successfully
+deactivate GW
+
+U -> GW: Search (keyword: bar)
+activate GW
+U <-- GW: 0 Results for bar
+deactivate GW
+
+U -> LW: Approve Entry (name: Entry B)
+activate LW
+U <-- LW: Your request completed successfully.
+deactivate LW
+
+U -> GW: Search(keyword: bar)
+U <-- GW: 1 Results for bar
 @enduml
