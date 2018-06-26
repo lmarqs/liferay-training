@@ -117,7 +117,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
         request.setAttribute("total", EntryLocalServiceUtil.getEntriesCount(scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED));
         request.setAttribute("results",
                 EntryLocalServiceUtil.getEntries(
-                        scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED,
+                        scopeGroupId, guestbookId,
                         ParamUtil.getInteger(request, "start", 0),
                         ParamUtil.getInteger(request, "end", 20)
                 )
