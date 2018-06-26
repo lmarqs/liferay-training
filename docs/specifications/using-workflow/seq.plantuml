@@ -9,7 +9,7 @@ activate LW
 U <-- LW: Workflow assigned to Guestbook Entry
 deactivate LW
 
-U -> GW: Add a Entry(Name: Entry B, Email: entryb@gb.com, Message: bar)
+U -> GW: Add a Entry (Name: Entry B, Email: entryb@gb.com, Message: bar)
 activate GW
 U <-- GW: Entry added successfully
 deactivate GW
