@@ -13,7 +13,7 @@ import java.util.Locale;
 
 @Component(
         immediate = true,
-        property = "indexer.class.name=br.com.objective.training.model.Guestbook",
+        property = "indexer.class.name=br.com.objective.training.model.Entry",
         service = IndexerPostProcessor.class
 )
 public class EntryIndexerPostProcessor implements IndexerPostProcessor {
