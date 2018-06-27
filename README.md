@@ -119,9 +119,9 @@ This simple use case checks the integration between the guestbook app and the Li
 This use case demonstrates how to test if the permission aware is enable for search.
 
 1. Add a Entry
-2. Check if the entry is displayed in search results;
+2. Check if the entry **is** displayed in search results;
 3. Log out from the portal;
-4. Check if the entry *is not* displayed in search results;
+4. Check if the entry **is not** displayed in search results;
 
 ![Using permissions - Sequence diagram](https://g.gravizo.com/source/svg?https://raw.githubusercontent.com/lmarqs/liferay-training/master/docs/specifications/using-permissions/seq.plantuml?v=1.0.3)
 
