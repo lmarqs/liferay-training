@@ -1,9 +1,27 @@
 @startuml
-actor User
-participant "Guestbook WEB" as I
 
-User -> I: Add a Entry(name: Entry A, email: entrya@gb.com, message: foo)
-User <-- I: Entry added successfully
-User -> I: Search(keyword: foo)
-User <-- I: 1 Results for foo
+actor User as U
+participant "Guestbook WEB" as GW
+participant "Liferay Portal" as LP
+
+U -> GW: Add a Entry (Name: Entry C, Email: entryc@gb.com, Message: baz)
+activate GW
+U <-- GW: Entry added successfully
+deactivate GW
+
+U -> GW: Search (keyword: baz)
+activate GW
+U <-- GW: 1 Results for bar
+deactivate GW
+
+U -> LP: Sign Out
+activate LP
+U <-- LP: Home page without a session
+deactivate LP
+
+U -> GW: Search(keyword: baz)
+activate GW
+U <-- GW: 0 Results for baz
+deactivate GW
+
 @enduml

@@ -1,4 +1,5 @@
 @startuml
+
 actor User as U
 participant "Liferay Workflow" as LW
 participant "Guestbook WEB" as GW
@@ -21,9 +22,12 @@ deactivate GW
 
 U -> LW: Approve Entry (name: Entry B)
 activate LW
-U <-- LW: Your request completed successfully.
+U <-- LW: Your request completed successfully
 deactivate LW
 
 U -> GW: Search(keyword: bar)
+activate GW
 U <-- GW: 1 Results for bar
+deactivate GW
+
 @enduml
