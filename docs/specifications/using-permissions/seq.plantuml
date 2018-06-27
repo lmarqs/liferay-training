@@ -11,7 +11,7 @@ deactivate GW
 
 U -> GW: Search (keyword: baz)
 activate GW
-U <-- GW: 1 Results for bar
+U <-- GW: 1 Results for baz
 deactivate GW
 
 U -> LP: Sign Out
