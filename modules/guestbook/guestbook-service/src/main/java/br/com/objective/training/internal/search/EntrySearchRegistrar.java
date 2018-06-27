@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
-//@Component(immediate = true)
+@Component(immediate = true)
 public class EntrySearchRegistrar {
 
     @Activate
