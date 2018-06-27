@@ -101,8 +101,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
                         PortletURL portletURL = response.createRenderURL();
 
-                        portletURL.setProperty("mvcPath", MVC_PATH_VIEW);
-                        portletURL.addProperty("guestbookId", Long.toString(guestbook.getGuestbookId()));
+                        portletURL.setParameter("mvcPath", MVC_PATH_VIEW);
+                        portletURL.setParameter("guestbookId", Long.toString(guestbook.getGuestbookId()));
 
                         navigationItem.setHref(portletURL);
                         navigationItem.setLabel(guestbook.getName());
