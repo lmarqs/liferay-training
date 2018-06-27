@@ -8,8 +8,6 @@
 <liferay-ui:success key="entryUpdated" message="msg.entry-updated"/>
 <liferay-ui:success key="entryDeleted" message="msg.entry-deleted"/>
 
-<clay:navigation-bar navigationItems="${navigationItems}"/>
-
 <liferay-portlet:renderURL varImpl="searchURL">
     <portlet:param name="mvcPath" value="/web/search.jsp"/>
 </liferay-portlet:renderURL>
@@ -23,6 +21,8 @@
         searchActionURL="${searchURL}"
         clearResultsURL="${viewURL}"
 />
+
+<clay:navigation-bar navigationItems="${navigationItems}"/>
 
 <gb:if-guestbook-permission
         permissionChecker="${permissionChecker}" guestbookId="${guestbookId}" actionId="VIEW">
