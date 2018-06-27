@@ -12,7 +12,7 @@
  * details.
  */
 
-package br.com.objective.training.search;
+package br.com.objective.training.internal.search;
 
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;

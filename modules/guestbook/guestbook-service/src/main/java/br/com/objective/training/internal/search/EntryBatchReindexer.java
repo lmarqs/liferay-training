@@ -1,4 +1,4 @@
-package br.com.objective.training.search;
+package br.com.objective.training.internal.search;
 
 public interface EntryBatchReindexer {
 

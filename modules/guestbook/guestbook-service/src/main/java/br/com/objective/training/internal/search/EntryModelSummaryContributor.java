@@ -1,4 +1,4 @@
-package br.com.objective.training.search;
+package br.com.objective.training.internal.search;
 
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Document;

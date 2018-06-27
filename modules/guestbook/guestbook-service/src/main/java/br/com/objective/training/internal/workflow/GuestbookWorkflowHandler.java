@@ -1,4 +1,4 @@
-package br.com.objective.training.workflow;
+package br.com.objective.training.internal.workflow;
 
 import br.com.objective.training.model.Guestbook;
 import br.com.objective.training.service.GuestbookLocalService;

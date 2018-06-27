@@ -1,6 +1,6 @@
 
 
-package br.com.objective.training.search;
+package br.com.objective.training.internal.search;
 
 import br.com.objective.training.model.Entry;
 import com.liferay.portal.kernel.search.Field;
