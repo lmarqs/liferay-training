@@ -14,6 +14,7 @@ import org.osgi.service.component.annotations.Reference;
         immediate = true,
         property = {"model.class.name=br.com.objective.training.model.Entry"}
 )
+@Deprecated
 public class EntryPermission implements BaseModelPermissionChecker {
 
     public static void check(PermissionChecker permissionChecker, long entryId, String actionId) throws PortalException, SystemException {

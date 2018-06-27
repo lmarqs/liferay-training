@@ -8,10 +8,14 @@ import com.liferay.portal.kernel.security.permission.BaseResourcePermissionCheck
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.ResourcePermissionChecker;
 
-@Component(immediate = true, property = {
-        "resource.name=" + GuestbookModelPermission.RESOURCE_NAME
-}, service = ResourcePermissionChecker.class)
-
+@Component(
+        immediate = true,
+        property = {
+                "resource.name=" + GuestbookModelPermission.RESOURCE_NAME
+        },
+        service = ResourcePermissionChecker.class
+)
+@Deprecated
 public class GuestbookModelPermission extends BaseResourcePermissionChecker {
 
     public static final String RESOURCE_NAME = "br.com.objective.training";
