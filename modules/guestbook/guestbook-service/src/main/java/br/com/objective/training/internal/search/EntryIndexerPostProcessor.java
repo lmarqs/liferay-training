@@ -11,11 +11,16 @@ import org.osgi.service.component.annotations.Deactivate;
 
 import java.util.Locale;
 
+/**
+ * To test this class remove the @Component annotation from the EntrySearchRegistrar class.
+ * As it is done on this commit: 8162300c2735c93e7214c21e2e7dbfdb943d4b81
+ */
 @Component(
         immediate = true,
         property = "indexer.class.name=br.com.objective.training.model.Entry",
         service = IndexerPostProcessor.class
 )
+@Deprecated
 public class EntryIndexerPostProcessor implements IndexerPostProcessor {
 
     @Activate
