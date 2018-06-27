@@ -24,7 +24,6 @@ import java.util.Locale;
 
 /**
  * @deprecated As of 1.0.1, since 7.1.0
- * @author lucas
  */
 @Component(
         immediate = true,
