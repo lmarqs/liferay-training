@@ -19,7 +19,7 @@
     <liferay-ui:search-container-results results="${entries}"/>
 
     <liferay-ui:search-container-row
-            className="br.com.objective.training.model.Entry"
+            className="com.liferay.blade.samples.guestbook.model.Entry"
             keyProperty="entryId"
             modelVar="entry"
             escapedModel="${true}"

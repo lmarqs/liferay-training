@@ -16,4 +16,4 @@ dependencies {
     compileOnly project(":modules:guestbook:guestbook-service")
 }
 
-group = "br.com.objective.training"
+group = "com.liferay.blade.samples.guestbook"

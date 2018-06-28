@@ -41,7 +41,7 @@
     >
         <aui:fieldset>
             <liferay-ui:input-asset-links
-                    className="br.com.objective.training.model.Entry"
+                    className="com.liferay.blade.samples.guestbook.model.Entry"
                     classPK="${entryId}"
             />
         </aui:fieldset>

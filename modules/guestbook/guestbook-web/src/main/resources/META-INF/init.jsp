@@ -9,7 +9,7 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
-<%@ taglib uri="http://training.objective.com.br/tld/guestbook" prefix="gb" %>
+<%@ taglib uri="http://guestbook.samples.blade.liferay.com/tld/guestbook" prefix="gb" %>
 
 <liferay-theme:defineObjects/>
 

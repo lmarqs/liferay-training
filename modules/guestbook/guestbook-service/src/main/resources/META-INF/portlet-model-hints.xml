@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="br.com.objective.training.model.Entry">
+	<model name="com.liferay.blade.samples.guestbook.model.Entry">
 		<field name="uuid" type="String" />
 		<field name="entryId" type="long" />
 		<field name="groupId" type="long" />
@@ -19,7 +19,7 @@
 		<field name="message" type="String" />
 		<field name="guestbookId" type="long" />
 	</model>
-	<model name="br.com.objective.training.model.Guestbook">
+	<model name="com.liferay.blade.samples.guestbook.model.Guestbook">
 		<field name="uuid" type="String" />
 		<field name="guestbookId" type="long" />
 		<field name="groupId" type="long" />

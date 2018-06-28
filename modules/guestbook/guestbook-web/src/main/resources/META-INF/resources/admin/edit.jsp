@@ -8,7 +8,7 @@
 
 <aui:form action="${actionURL}" name="fm">
 
-    <aui:model-context bean="${guestbook}" model="${br.com.objective.training.model.Guestbook.class}"/>
+    <aui:model-context bean="${guestbook}" model="${com.liferay.blade.samples.guestbook.model.Guestbook.class}"/>
 
     <aui:input type="hidden" name="guestbookId" value='${guestbook.guestbookId}'/>
 
@@ -39,7 +39,7 @@
             title="related-assets">
         <aui:fieldset>
             <liferay-ui:input-asset-links
-                    className="br.com.objective.training.model.Guestbook"
+                    className="com.liferay.blade.samples.guestbook.model.Guestbook"
                     classPK="${guestbookId}"/>
         </aui:fieldset>
     </liferay-ui:panel>

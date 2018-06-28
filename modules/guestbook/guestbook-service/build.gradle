@@ -21,4 +21,4 @@ buildService {
     apiDir = "../guestbook-api/src/main/java"
 }
 
-group = "br.com.objective.training"
+group = "com.liferay.blade.samples.guestbook"

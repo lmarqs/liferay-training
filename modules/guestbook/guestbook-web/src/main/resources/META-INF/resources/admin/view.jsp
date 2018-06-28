@@ -7,7 +7,7 @@
 <liferay-ui:search-container total="${total}">
     <liferay-ui:search-container-results results="${results}"/>
 
-    <liferay-ui:search-container-row className="br.com.objective.training.model.Guestbook" modelVar="guestbook">
+    <liferay-ui:search-container-row className="com.liferay.blade.samples.guestbook.model.Guestbook" modelVar="guestbook">
         <gb:if-guestbook-permission
                 permissionChecker="${permissionChecker}" guestbookId="${guestbook.guestbookId}" actionId="VIEW">
             <liferay-ui:search-container-column-text property="name"/>

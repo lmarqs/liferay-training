@@ -29,7 +29,7 @@
     <liferay-ui:search-container total="${total}">
         <liferay-ui:search-container-results results="${results}"/>
 
-        <liferay-ui:search-container-row className="br.com.objective.training.model.Entry" modelVar="entry">
+        <liferay-ui:search-container-row className="com.liferay.blade.samples.guestbook.model.Entry" modelVar="entry">
 
             <gb:if-entry-permission
                     permissionChecker="${permissionChecker}" entryId="${entry.entryId}" actionId="VIEW">

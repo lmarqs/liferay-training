@@ -4,10 +4,10 @@
 
 <resource-action-mapping>
     <model-resource>
-        <model-name>br.com.objective.training</model-name>
+        <model-name>com.liferay.blade.samples.guestbook</model-name>
         <portlet-ref>
-            <portlet-name>br_com_objective_training_guestbook_portlet_GuestbookPortlet</portlet-name>
-            <portlet-name>br_com_objective_training_guestbook_portlet_GuestbookAdminPortlet</portlet-name>
+            <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookPortlet</portlet-name>
+            <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookAdminPortlet</portlet-name>
         </portlet-ref>
         <root>true</root>
         <permissions>
@@ -29,10 +29,10 @@
         </permissions>
     </model-resource>
     <model-resource>
-        <model-name>br.com.objective.training.model.Guestbook</model-name>
+        <model-name>com.liferay.blade.samples.guestbook.model.Guestbook</model-name>
         <portlet-ref>
-            <portlet-name>br_com_objective_training_guestbook_portlet_GuestbookPortlet</portlet-name>
-            <portlet-name>br_com_objective_training_guestbook_portlet_GuestbookAdminPortlet</portlet-name>
+            <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookPortlet</portlet-name>
+            <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookAdminPortlet</portlet-name>
         </portlet-ref>
         <permissions>
             <supports>
@@ -58,9 +58,9 @@
         </permissions>
     </model-resource>
     <model-resource>
-        <model-name>br.com.objective.training.model.Entry</model-name>
+        <model-name>com.liferay.blade.samples.guestbook.model.Entry</model-name>
         <portlet-ref>
-            <portlet-name>br_com_objective_training_guestbook_portlet_GuestbookPortlet</portlet-name>
+            <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookPortlet</portlet-name>
         </portlet-ref>
         <permissions>
             <supports>

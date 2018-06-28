@@ -1,9 +1,9 @@
 Bundle-Name: guestbook-api
-Bundle-SymbolicName: br.com.objective.training.api
+Bundle-SymbolicName: com.liferay.blade.samples.guestbook.api
 Bundle-Version: 1.0.5
 Export-Package:\
-	br.com.objective.training.exception,\
-	br.com.objective.training.model,\
-	br.com.objective.training.service,\
-	br.com.objective.training.service.persistence
+	com.liferay.blade.samples.guestbook.exception,\
+	com.liferay.blade.samples.guestbook.model,\
+	com.liferay.blade.samples.guestbook.service,\
+	com.liferay.blade.samples.guestbook.service.persistence
 -includeresource: META-INF/service.xml=../guestbook-service/service.xml

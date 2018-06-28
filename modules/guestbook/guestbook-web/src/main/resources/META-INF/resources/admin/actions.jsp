@@ -27,7 +27,7 @@
 
     <gb:if-guestbook-permission permissionChecker="${permissionChecker}" guestbookId="${guestbook.guestbookId}" actionId="PERMISSIONS">
         <liferay-security:permissionsURL
-                modelResource="br.com.objective.training.model.Guestbook"
+                modelResource="com.liferay.blade.samples.guestbook.model.Guestbook"
                 modelResourceDescription="${guestbook.name}"
                 resourcePrimKey="${guestbook.guestbookId}"
                 var="permissionsURL"/>

@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
-	<import class="br.com.objective.training.model.Entry" />
-	<import class="br.com.objective.training.model.Guestbook" />
-	<class name="br.com.objective.training.model.impl.EntryImpl" table="GB_Entry">
+	<import class="com.liferay.blade.samples.guestbook.model.Entry" />
+	<import class="com.liferay.blade.samples.guestbook.model.Guestbook" />
+	<class name="com.liferay.blade.samples.guestbook.model.impl.EntryImpl" table="GB_Entry">
 		<id name="entryId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -24,7 +24,7 @@
 		<property name="message" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="guestbookId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="br.com.objective.training.model.impl.GuestbookImpl" table="GB_Guestbook">
+	<class name="com.liferay.blade.samples.guestbook.model.impl.GuestbookImpl" table="GB_Guestbook">
 		<id name="guestbookId" type="long">
 			<generator class="assigned" />
 		</id>
