@@ -4,4 +4,5 @@ Bundle-Version: 1.0.5
 Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
 Export-Package:\
-	com.liferay.blade.samples.guestbook.service.asset
+	com.liferay.blade.samples.guestbook.service.asset, \
+	com.liferay.blade.samples.guestbook.service.permission
