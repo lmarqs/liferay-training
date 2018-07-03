@@ -14,6 +14,7 @@ import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContri
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Date;
 import java.util.Locale;
 
 @Component(
@@ -30,10 +31,10 @@ public class EntryModelDocumentContributor implements ModelDocumentContributor<E
             Locale defaultLocale = PortalUtil.getSiteDefaultLocale(entry.getGroupId());
 
             document.addDate(Field.MODIFIED_DATE, entry.getModifiedDate());
-            document.addText("email", entry.getEmail());
+            document.addText(EntryField.ENTRY_EMAIL, entry.getEmail());
 
-            String localizedTitle = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
-            String localizedMessage = LocalizationUtil.getLocalizedName(Field.CONTENT, defaultLocale.toString());
+            String localizedTitle = LocalizationUtil.getLocalizedName(EntryField.ENTRY_NAME, defaultLocale.toString());
+            String localizedMessage = LocalizationUtil.getLocalizedName(EntryField.ENTRY_MESSAGE, defaultLocale.toString());
 
             document.addText(localizedTitle, entry.getName());
             document.addText(localizedMessage, entry.getMessage());
@@ -44,7 +45,7 @@ public class EntryModelDocumentContributor implements ModelDocumentContributor<E
 
             String guestbookName = guestbook.getName();
 
-            String localizedGbName = LocalizationUtil.getLocalizedName("guestbookName", defaultLocale.toString());
+            String localizedGbName = LocalizationUtil.getLocalizedName(GuestbookField.GUESTBOOK_NAME, defaultLocale.toString());
 
             document.addText(localizedGbName, guestbookName);
         } catch (PortalException pe) {

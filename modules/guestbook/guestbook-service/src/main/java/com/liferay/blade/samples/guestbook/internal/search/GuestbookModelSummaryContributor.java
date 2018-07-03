@@ -28,7 +28,7 @@ public class GuestbookModelSummaryContributor implements ModelSummaryContributor
     private Summary createSummary(Document document) {
         String prefix = Field.SNIPPET + StringPool.UNDERLINE;
 
-        String title = document.get(prefix + Field.TITLE, Field.TITLE);
+        String title = document.get(prefix + GuestbookField.GUESTBOOK_NAME, GuestbookField.GUESTBOOK_NAME);
 
         return new Summary(title, StringPool.BLANK);
     }

@@ -38,9 +38,11 @@ public class EntryKeywordQueryContributor implements KeywordQueryContributor {
     public void contribute(String keywords, BooleanQuery booleanQuery, KeywordQueryContributorHelper keywordQueryContributorHelper) {
         SearchContext searchContext = keywordQueryContributorHelper.getSearchContext();
 
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, "guestbookName", false);
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, Field.TITLE, false);
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, Field.CONTENT, false);
+
+        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, EntryField.ENTRY_NAME, false);
+        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, EntryField.ENTRY_MESSAGE, false);
+        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, EntryField.ENTRY_EMAIL, false);
+
     }
 
     @Reference

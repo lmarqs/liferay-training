@@ -28,8 +28,8 @@ public class EntryModelSummaryContributor implements ModelSummaryContributor {
     private Summary createSummary(Document document) {
         String prefix = Field.SNIPPET + StringPool.UNDERLINE;
 
-        String title = document.get(prefix + Field.TITLE, Field.TITLE);
-        String content = document.get(prefix + Field.CONTENT, Field.CONTENT);
+        String title = document.get(prefix + EntryField.ENTRY_NAME, EntryField.ENTRY_NAME);
+        String content = document.get(prefix + EntryField.ENTRY_MESSAGE, EntryField.ENTRY_MESSAGE);
 
         return new Summary(title, content);
     }

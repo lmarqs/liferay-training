@@ -27,7 +27,7 @@ public class GuestbookModelDocumentContributor implements ModelDocumentContribut
             document.addDate(Field.MODIFIED_DATE, guestbook.getModifiedDate());
 
             Locale defaultLocale = PortalUtil.getSiteDefaultLocale(guestbook.getGroupId());
-            String localizedField = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
+            String localizedField = LocalizationUtil.getLocalizedName(GuestbookField.GUESTBOOK_NAME, defaultLocale.toString());
 
             document.addText(localizedField, guestbook.getName());
         } catch (PortalException pe) {
