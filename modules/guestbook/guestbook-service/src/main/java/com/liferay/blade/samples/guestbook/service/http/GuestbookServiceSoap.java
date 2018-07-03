@@ -66,12 +66,31 @@ import java.rmi.RemoteException;
 @ProviderType
 public class GuestbookServiceSoap {
 	public static com.liferay.blade.samples.guestbook.model.GuestbookSoap addGuestbook(
-		long userId, String name,
+		long userId, String name, String note, Integer priority,
+		java.util.Date eventDate,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.blade.samples.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.addGuestbook(userId,
-					name, serviceContext);
+					name, note, priority, eventDate, serviceContext);
+
+			return com.liferay.blade.samples.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.blade.samples.guestbook.model.GuestbookSoap updateGuestbook(
+		long userId, long guestbookId, String name, String note,
+		Integer priority, java.util.Date eventDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.blade.samples.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.updateGuestbook(userId,
+					guestbookId, name, note, priority, eventDate, serviceContext);
 
 			return com.liferay.blade.samples.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
 		}
@@ -135,23 +154,6 @@ public class GuestbookServiceSoap {
 			int returnValue = GuestbookServiceUtil.getGuestbooksCount(groupId);
 
 			return returnValue;
-		}
-		catch (Exception e) {
-			_log.error(e, e);
-
-			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	public static com.liferay.blade.samples.guestbook.model.GuestbookSoap updateGuestbook(
-		long userId, long guestbookId, String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-		try {
-			com.liferay.blade.samples.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.updateGuestbook(userId,
-					guestbookId, name, serviceContext);
-
-			return com.liferay.blade.samples.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

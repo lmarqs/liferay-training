@@ -43,11 +43,14 @@ public class GuestbookServiceUtil {
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.blade.samples.guestbook.service.impl.GuestbookServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static com.liferay.blade.samples.guestbook.model.Guestbook addGuestbook(
-		long userId, String name,
+		long userId, String name, String note, Integer priority,
+		java.util.Date eventDate,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.kernel.exception.PortalException {
-		return getService().addGuestbook(userId, name, serviceContext);
+		return getService()
+				   .addGuestbook(userId, name, note, priority, eventDate,
+			serviceContext);
 	}
 
 	public static com.liferay.blade.samples.guestbook.model.Guestbook deleteGuestbook(
@@ -85,12 +88,14 @@ public class GuestbookServiceUtil {
 	}
 
 	public static com.liferay.blade.samples.guestbook.model.Guestbook updateGuestbook(
-		long userId, long guestbookId, String name,
+		long userId, long guestbookId, String name, String note,
+		Integer priority, java.util.Date eventDate,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateGuestbook(userId, guestbookId, name, serviceContext);
+				   .updateGuestbook(userId, guestbookId, name, note, priority,
+			eventDate, serviceContext);
 	}
 
 	public static GuestbookService getService() {

@@ -56,7 +56,8 @@ import com.liferay.portal.kernel.util.MethodKey;
 @ProviderType
 public class GuestbookServiceHttp {
 	public static com.liferay.blade.samples.guestbook.model.Guestbook addGuestbook(
-		HttpPrincipal httpPrincipal, long userId, String name,
+		HttpPrincipal httpPrincipal, long userId, String name, String note,
+		Integer priority, java.util.Date eventDate,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.kernel.exception.PortalException {
@@ -65,7 +66,7 @@ public class GuestbookServiceHttp {
 					"addGuestbook", _addGuestbookParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					name, serviceContext);
+					name, note, priority, eventDate, serviceContext);
 
 			Object returnObj = null;
 
@@ -93,6 +94,45 @@ public class GuestbookServiceHttp {
 		}
 	}
 
+	public static com.liferay.blade.samples.guestbook.model.Guestbook updateGuestbook(
+		HttpPrincipal httpPrincipal, long userId, long guestbookId,
+		String name, String note, Integer priority, java.util.Date eventDate,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
+					"updateGuestbook", _updateGuestbookParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
+					guestbookId, name, note, priority, eventDate, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.blade.samples.guestbook.model.Guestbook)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static com.liferay.blade.samples.guestbook.model.Guestbook deleteGuestbook(
 		HttpPrincipal httpPrincipal, long guestbookId,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -100,7 +140,7 @@ public class GuestbookServiceHttp {
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
-					"deleteGuestbook", _deleteGuestbookParameterTypes1);
+					"deleteGuestbook", _deleteGuestbookParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
 					guestbookId, serviceContext);
@@ -136,7 +176,7 @@ public class GuestbookServiceHttp {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
-					"getGuestbooks", _getGuestbooksParameterTypes2);
+					"getGuestbooks", _getGuestbooksParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -167,7 +207,7 @@ public class GuestbookServiceHttp {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
-					"getGuestbooks", _getGuestbooksParameterTypes3);
+					"getGuestbooks", _getGuestbooksParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
 					start, end);
@@ -199,7 +239,7 @@ public class GuestbookServiceHttp {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
-					"getGuestbooksCount", _getGuestbooksCountParameterTypes4);
+					"getGuestbooksCount", _getGuestbooksCountParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
 
@@ -225,64 +265,27 @@ public class GuestbookServiceHttp {
 		}
 	}
 
-	public static com.liferay.blade.samples.guestbook.model.Guestbook updateGuestbook(
-		HttpPrincipal httpPrincipal, long userId, long guestbookId,
-		String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		try {
-			MethodKey methodKey = new MethodKey(GuestbookServiceUtil.class,
-					"updateGuestbook", _updateGuestbookParameterTypes5);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
-					guestbookId, name, serviceContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
-					throw (com.liferay.portal.kernel.exception.SystemException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (com.liferay.blade.samples.guestbook.model.Guestbook)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(GuestbookServiceHttp.class);
 	private static final Class<?>[] _addGuestbookParameterTypes0 = new Class[] {
-			long.class, String.class,
+			long.class, String.class, String.class, Integer.class,
+			java.util.Date.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _deleteGuestbookParameterTypes1 = new Class[] {
+	private static final Class<?>[] _updateGuestbookParameterTypes1 = new Class[] {
+			long.class, long.class, String.class, String.class, Integer.class,
+			java.util.Date.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteGuestbookParameterTypes2 = new Class[] {
 			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getGuestbooksParameterTypes2 = new Class[] {
+	private static final Class<?>[] _getGuestbooksParameterTypes3 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _getGuestbooksParameterTypes3 = new Class[] {
+	private static final Class<?>[] _getGuestbooksParameterTypes4 = new Class[] {
 			long.class, int.class, int.class
 		};
-	private static final Class<?>[] _getGuestbooksCountParameterTypes4 = new Class[] {
+	private static final Class<?>[] _getGuestbooksCountParameterTypes5 = new Class[] {
 			long.class
-		};
-	private static final Class<?>[] _updateGuestbookParameterTypes5 = new Class[] {
-			long.class, long.class, String.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

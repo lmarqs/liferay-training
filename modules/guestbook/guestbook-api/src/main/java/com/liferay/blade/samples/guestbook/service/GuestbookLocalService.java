@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,8 +76,9 @@ public interface GuestbookLocalService extends BaseLocalService,
 	public Guestbook addGuestbook(Guestbook guestbook);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public Guestbook addGuestbook(long userId, String name,
-		ServiceContext serviceContext) throws PortalException;
+	public Guestbook addGuestbook(long userId, String name, String note,
+		Integer priority, Date eventDate, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	* Creates a new guestbook with the primary key. Does not add the guestbook to the database.
@@ -320,8 +322,8 @@ public interface GuestbookLocalService extends BaseLocalService,
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Guestbook updateGuestbook(long userId, long guestbookId,
-		String name, ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		String name, String note, Integer priority, Date eventDate,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public Guestbook updateStatus(long userId, long guestbookId, int status,

@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,8 +56,9 @@ public interface GuestbookService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link GuestbookServiceUtil} to access the guestbook remote service. Add custom service methods to {@link com.liferay.blade.samples.guestbook.service.impl.GuestbookServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public Guestbook addGuestbook(long userId, String name,
-		ServiceContext serviceContext) throws SystemException, PortalException;
+	public Guestbook addGuestbook(long userId, String name, String note,
+		Integer priority, Date eventDate, ServiceContext serviceContext)
+		throws SystemException, PortalException;
 
 	public Guestbook deleteGuestbook(long guestbookId,
 		ServiceContext serviceContext) throws PortalException, SystemException;
@@ -80,6 +82,6 @@ public interface GuestbookService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	public Guestbook updateGuestbook(long userId, long guestbookId,
-		String name, ServiceContext serviceContext)
-		throws PortalException, SystemException;
+		String name, String note, Integer priority, Date eventDate,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 }

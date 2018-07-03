@@ -107,6 +107,9 @@
 		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="http://model.guestbook.samples.blade.liferay.com" name="addGuestbook" qname="operNS:addGuestbook" returnQName="addGuestbookReturn" returnType="rtns:GuestbookSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="note" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="priority" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="eventDate" type="tns:dateTime"></parameter>
 			<parameter xmlns:tns="http://service.kernel.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
 		</operation>
 		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="http://model.guestbook.samples.blade.liferay.com" name="deleteGuestbook" qname="operNS:deleteGuestbook" returnQName="deleteGuestbookReturn" returnType="rtns:GuestbookSoap" soapAction="">
@@ -128,6 +131,9 @@
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="guestbookId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="note" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="priority" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="eventDate" type="tns:dateTime"></parameter>
 			<parameter xmlns:tns="http://service.kernel.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
 		</operation>
 		<parameter name="allowedMethods" value="addGuestbook deleteGuestbook getGuestbooks getGuestbooksCount updateGuestbook" />
