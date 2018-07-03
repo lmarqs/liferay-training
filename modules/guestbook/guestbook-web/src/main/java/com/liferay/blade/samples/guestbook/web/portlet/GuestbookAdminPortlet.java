@@ -15,6 +15,9 @@ import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +62,17 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
             if (MVC_PATH_EDIT.equals(mvcPath)) {
                 long guestbookId = ParamUtil.getLong(request, "guestbookId");
-                request.setAttribute("guestbook", guestbookId > 0 ? GuestbookLocalServiceUtil.getGuestbook(guestbookId) : null);
+
+                if (guestbookId > 0) {
+                    Guestbook guestbook = GuestbookLocalServiceUtil.getGuestbook(guestbookId);
+                    Calendar eventDate = Calendar.getInstance();
+
+                    eventDate.setTime(guestbook.getEventDate());
+
+                    request.setAttribute("guestbook", guestbook);
+                    request.setAttribute("eventDate", eventDate);
+                }
+
             } else {
                 long scopeGroupId = serviceContext.getScopeGroupId();
                 request.setAttribute("total",
@@ -90,9 +103,12 @@ public class GuestbookAdminPortlet extends MVCPortlet {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
 
         String name = ParamUtil.getString(request, "name");
+        String note = ParamUtil.getString(request, "note");
+        Integer priority = ParamUtil.getInteger(request, "priority");
+        Date eventDate = ParamUtil.getDate(request, "eventDate", new SimpleDateFormat("MM/dd/yyyy"));
 
         try {
-            _guestbookService.addGuestbook(serviceContext.getUserId(), name, serviceContext);
+            _guestbookService.addGuestbook(serviceContext.getUserId(), name, note, priority, eventDate, serviceContext);
             SessionMessages.add(request, "guestbookAdded");
         } catch (PortalException pe) {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())
@@ -106,11 +122,15 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
         ServiceContext serviceContext = ServiceContextFactory.getInstance(Guestbook.class.getName(), request);
 
-        String name = ParamUtil.getString(request, "name");
         long guestbookId = ParamUtil.getLong(request, "guestbookId");
 
+        String name = ParamUtil.getString(request, "name");
+        String note = ParamUtil.getString(request, "note");
+        Integer priority = ParamUtil.getInteger(request, "priority");
+        Date eventDate = ParamUtil.getDate(request, "eventDate", new SimpleDateFormat("MM/dd/yyyy"));
+
         try {
-            _guestbookService.updateGuestbook(serviceContext.getUserId(), guestbookId, name, serviceContext);
+            _guestbookService.updateGuestbook(serviceContext.getUserId(), guestbookId, name, note, priority, eventDate, serviceContext);
             SessionMessages.add(request, "guestbookUpdated");
         } catch (PortalException pe) {
             Logger.getLogger(GuestbookAdminPortlet.class.getName())

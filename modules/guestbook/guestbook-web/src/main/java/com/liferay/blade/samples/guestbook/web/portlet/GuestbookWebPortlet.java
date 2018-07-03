@@ -26,10 +26,7 @@ import org.osgi.service.component.annotations.Reference;
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -180,7 +177,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
         List<Guestbook> guestbooks = _guestbookService.getGuestbooks(serviceContext.getScopeGroupId());
 
         if (guestbooks.isEmpty()) {
-            Guestbook guestbook = _guestbookService.addGuestbook(serviceContext.getUserId(), "Main", serviceContext);
+            Guestbook guestbook = _guestbookService.addGuestbook(serviceContext.getUserId(), "Main", "", 0, new Date(), serviceContext);
             guestbookId = guestbook.getGuestbookId();
         }
 
