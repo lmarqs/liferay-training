@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.ServiceContext;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,9 +47,14 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
      * Never reference this class directly. Always use {@link com.liferay.blade.samples.guestbook.service.GuestbookServiceUtil} to access the guestbook remote service.
      */
 
-    public Guestbook addGuestbook(long userId, String name, ServiceContext serviceContext) throws SystemException, PortalException {
+    public Guestbook addGuestbook(long userId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws SystemException, PortalException {
         GuestbookModelPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), ActionKeys.ADD_GUESTBOOK);
-        return guestbookLocalService.addGuestbook(userId, name, serviceContext);
+        return guestbookLocalService.addGuestbook(userId, name, note, priority, eventDate, serviceContext);
+    }
+
+    public Guestbook updateGuestbook(long userId, long guestbookId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws PortalException, SystemException {
+        GuestbookPermission.check(getPermissionChecker(), guestbookId, ActionKeys.UPDATE);
+        return guestbookLocalService.updateGuestbook(userId, guestbookId, name, note, priority, eventDate, serviceContext);
     }
 
     public Guestbook deleteGuestbook(long guestbookId, ServiceContext serviceContext) throws PortalException, SystemException {
@@ -67,10 +73,4 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
     public int getGuestbooksCount(long groupId) throws SystemException {
         return guestbookPersistence.filterCountByGroupId(groupId);
     }
-
-    public Guestbook updateGuestbook(long userId, long guestbookId, String name, ServiceContext serviceContext) throws PortalException, SystemException {
-        GuestbookPermission.check(getPermissionChecker(), guestbookId, ActionKeys.UPDATE);
-        return guestbookLocalService.updateGuestbook(userId, guestbookId, name, serviceContext);
-    }
-
 }

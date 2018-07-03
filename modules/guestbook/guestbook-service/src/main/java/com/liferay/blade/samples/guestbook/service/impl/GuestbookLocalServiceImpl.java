@@ -58,7 +58,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
      */
 
     @Indexable(type = IndexableType.REINDEX)
-    public Guestbook addGuestbook(long userId, String name, ServiceContext serviceContext) throws PortalException {
+    public Guestbook addGuestbook(long userId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws PortalException {
 
         long groupId = serviceContext.getScopeGroupId();
 
@@ -79,7 +79,12 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         guestbook.setUserName(user.getFullName());
         guestbook.setCreateDate(serviceContext.getCreateDate(now));
         guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
+
         guestbook.setName(name);
+        guestbook.setNote(note);
+        guestbook.setPriority(priority);
+        guestbook.setEventDate(eventDate);
+
         guestbook.setExpandoBridgeAttributes(serviceContext);
 
         guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
@@ -116,7 +121,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.REINDEX)
-    public Guestbook updateGuestbook(long userId, long guestbookId, String name, ServiceContext serviceContext) throws PortalException, SystemException {
+    public Guestbook updateGuestbook(long userId, long guestbookId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws PortalException, SystemException {
 
         Date now = new Date();
 
@@ -129,7 +134,12 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         guestbook.setUserId(userId);
         guestbook.setUserName(user.getFullName());
         guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
+
         guestbook.setName(name);
+        guestbook.setNote(note);
+        guestbook.setPriority(priority);
+        guestbook.setEventDate(eventDate);
+
         guestbook.setExpandoBridgeAttributes(serviceContext);
 
         guestbookPersistence.update(guestbook);
