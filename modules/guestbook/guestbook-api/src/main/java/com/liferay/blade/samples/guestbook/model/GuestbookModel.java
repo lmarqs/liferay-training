@@ -308,6 +308,49 @@ public interface GuestbookModel extends BaseModel<Guestbook>, GroupedModel,
 	public void setName(String name);
 
 	/**
+	 * Returns the note of this guestbook.
+	 *
+	 * @return the note of this guestbook
+	 */
+	@AutoEscape
+	public String getNote();
+
+	/**
+	 * Sets the note of this guestbook.
+	 *
+	 * @param note the note of this guestbook
+	 */
+	public void setNote(String note);
+
+	/**
+	 * Returns the priority of this guestbook.
+	 *
+	 * @return the priority of this guestbook
+	 */
+	public Integer getPriority();
+
+	/**
+	 * Sets the priority of this guestbook.
+	 *
+	 * @param priority the priority of this guestbook
+	 */
+	public void setPriority(Integer priority);
+
+	/**
+	 * Returns the event date of this guestbook.
+	 *
+	 * @return the event date of this guestbook
+	 */
+	public Date getEventDate();
+
+	/**
+	 * Sets the event date of this guestbook.
+	 *
+	 * @param eventDate the event date of this guestbook
+	 */
+	public void setEventDate(Date eventDate);
+
+	/**
 	 * Returns <code>true</code> if this guestbook is approved.
 	 *
 	 * @return <code>true</code> if this guestbook is approved; <code>false</code> otherwise

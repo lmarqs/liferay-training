@@ -30,5 +30,8 @@ create table GB_Guestbook (
 	statusByUserId LONG,
 	statusByUserName VARCHAR(75) null,
 	statusDate DATE null,
-	name VARCHAR(75) null
+	name VARCHAR(75) null,
+	note VARCHAR(75) null,
+	priority INTEGER,
+	eventDate DATE null
 );

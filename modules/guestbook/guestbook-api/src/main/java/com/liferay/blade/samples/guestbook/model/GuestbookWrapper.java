@@ -72,6 +72,9 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
 		attributes.put("name", getName());
+		attributes.put("note", getNote());
+		attributes.put("priority", getPriority());
+		attributes.put("eventDate", getEventDate());
 
 		return attributes;
 	}
@@ -155,6 +158,24 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 		if (name != null) {
 			setName(name);
 		}
+
+		String note = (String)attributes.get("note");
+
+		if (note != null) {
+			setNote(note);
+		}
+
+		Integer priority = (Integer)attributes.get("priority");
+
+		if (priority != null) {
+			setPriority(priority);
+		}
+
+		Date eventDate = (Date)attributes.get("eventDate");
+
+		if (eventDate != null) {
+			setEventDate(eventDate);
+		}
 	}
 
 	@Override
@@ -185,6 +206,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	@Override
 	public Date getCreateDate() {
 		return _guestbook.getCreateDate();
+	}
+
+	/**
+	* Returns the event date of this guestbook.
+	*
+	* @return the event date of this guestbook
+	*/
+	@Override
+	public Date getEventDate() {
+		return _guestbook.getEventDate();
 	}
 
 	@Override
@@ -233,6 +264,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	}
 
 	/**
+	* Returns the note of this guestbook.
+	*
+	* @return the note of this guestbook
+	*/
+	@Override
+	public String getNote() {
+		return _guestbook.getNote();
+	}
+
+	/**
 	* Returns the primary key of this guestbook.
 	*
 	* @return the primary key of this guestbook
@@ -245,6 +286,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _guestbook.getPrimaryKeyObj();
+	}
+
+	/**
+	* Returns the priority of this guestbook.
+	*
+	* @return the priority of this guestbook
+	*/
+	@Override
+	public Integer getPriority() {
+		return _guestbook.getPriority();
 	}
 
 	/**
@@ -467,6 +518,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 		_guestbook.setCreateDate(createDate);
 	}
 
+	/**
+	* Sets the event date of this guestbook.
+	*
+	* @param eventDate the event date of this guestbook
+	*/
+	@Override
+	public void setEventDate(Date eventDate) {
+		_guestbook.setEventDate(eventDate);
+	}
+
 	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
@@ -529,6 +590,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	}
 
 	/**
+	* Sets the note of this guestbook.
+	*
+	* @param note the note of this guestbook
+	*/
+	@Override
+	public void setNote(String note) {
+		_guestbook.setNote(note);
+	}
+
+	/**
 	* Sets the primary key of this guestbook.
 	*
 	* @param primaryKey the primary key of this guestbook
@@ -541,6 +612,16 @@ public class GuestbookWrapper implements Guestbook, ModelWrapper<Guestbook> {
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_guestbook.setPrimaryKeyObj(primaryKeyObj);
+	}
+
+	/**
+	* Sets the priority of this guestbook.
+	*
+	* @param priority the priority of this guestbook
+	*/
+	@Override
+	public void setPriority(Integer priority) {
+		_guestbook.setPriority(priority);
 	}
 
 	/**

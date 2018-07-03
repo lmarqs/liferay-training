@@ -47,6 +47,9 @@ public class GuestbookSoap implements Serializable {
 		soapModel.setStatusByUserName(model.getStatusByUserName());
 		soapModel.setStatusDate(model.getStatusDate());
 		soapModel.setName(model.getName());
+		soapModel.setNote(model.getNote());
+		soapModel.setPriority(model.getPriority());
+		soapModel.setEventDate(model.getEventDate());
 
 		return soapModel;
 	}
@@ -203,6 +206,30 @@ public class GuestbookSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getNote() {
+		return _note;
+	}
+
+	public void setNote(String note) {
+		_note = note;
+	}
+
+	public Integer getPriority() {
+		return _priority;
+	}
+
+	public void setPriority(Integer priority) {
+		_priority = priority;
+	}
+
+	public Date getEventDate() {
+		return _eventDate;
+	}
+
+	public void setEventDate(Date eventDate) {
+		_eventDate = eventDate;
+	}
+
 	private String _uuid;
 	private long _guestbookId;
 	private long _groupId;
@@ -216,4 +243,7 @@ public class GuestbookSoap implements Serializable {
 	private String _statusByUserName;
 	private Date _statusDate;
 	private String _name;
+	private String _note;
+	private Integer _priority;
+	private Date _eventDate;
 }

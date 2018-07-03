@@ -65,7 +65,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -93,6 +93,12 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		sb.append(statusDate);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", note=");
+		sb.append(note);
+		sb.append(", priority=");
+		sb.append(priority);
+		sb.append(", eventDate=");
+		sb.append(eventDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -159,6 +165,22 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 			guestbookImpl.setName(name);
 		}
 
+		if (note == null) {
+			guestbookImpl.setNote("");
+		}
+		else {
+			guestbookImpl.setNote(note);
+		}
+
+		guestbookImpl.setPriority(priority);
+
+		if (eventDate == Long.MIN_VALUE) {
+			guestbookImpl.setEventDate(null);
+		}
+		else {
+			guestbookImpl.setEventDate(new Date(eventDate));
+		}
+
 		guestbookImpl.resetOriginalValues();
 
 		return guestbookImpl;
@@ -185,6 +207,10 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		statusByUserName = objectInput.readUTF();
 		statusDate = objectInput.readLong();
 		name = objectInput.readUTF();
+		note = objectInput.readUTF();
+
+		priority = objectInput.readInt();
+		eventDate = objectInput.readLong();
 	}
 
 	@Override
@@ -234,6 +260,16 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 		else {
 			objectOutput.writeUTF(name);
 		}
+
+		if (note == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(note);
+		}
+
+		objectOutput.writeInt(priority);
+		objectOutput.writeLong(eventDate);
 	}
 
 	public String uuid;
@@ -249,4 +285,7 @@ public class GuestbookCacheModel implements CacheModel<Guestbook>,
 	public String statusByUserName;
 	public long statusDate;
 	public String name;
+	public String note;
+	public int priority;
+	public long eventDate;
 }

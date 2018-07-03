@@ -91,7 +91,7 @@
 		<parameter name="wsdlTargetNamespace" value="urn:http.service.guestbook.samples.blade.liferay.com" />
 	</service>
 	<service name="Plugin_GB_GuestbookService" provider="java:RPC" style="rpc" use="encoded">
-		<arrayMapping xmlns:ns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:cmp-ns="http://model.guestbook.samples.blade.liferay.com" qname="ns:ArrayOf_tns2_GuestbookSoap" type="java:com.liferay.blade.samples.guestbook.model.GuestbookSoap[]" innerType="cmp-ns:GuestbookSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<arrayMapping xmlns:ns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:cmp-ns="http://model.guestbook.samples.blade.liferay.com" qname="ns:ArrayOf_tns16_GuestbookSoap" type="java:com.liferay.blade.samples.guestbook.model.GuestbookSoap[]" innerType="cmp-ns:GuestbookSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_long" type="java:long[]" innerType="cmp-ns:long" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
@@ -116,10 +116,10 @@
 		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getGuestbooksCount" qname="operNS:getGuestbooksCount" returnQName="getGuestbooksCountReturn" returnType="rtns:int" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="groupId" type="tns:long"></parameter>
 		</operation>
-		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:tns2="http://model.guestbook.samples.blade.liferay.com" name="getGuestbooks" qname="operNS:getGuestbooks" returnQName="getGuestbooksReturn" returnType="rtns:ArrayOf_tns2_GuestbookSoap" returnItemType="tns2:GuestbookSoap" soapAction="">
+		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:tns2="http://model.guestbook.samples.blade.liferay.com" name="getGuestbooks" qname="operNS:getGuestbooks" returnQName="getGuestbooksReturn" returnType="rtns:ArrayOf_tns16_GuestbookSoap" returnItemType="tns2:GuestbookSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="groupId" type="tns:long"></parameter>
 		</operation>
-		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:tns2="http://model.guestbook.samples.blade.liferay.com" name="getGuestbooks" qname="operNS:getGuestbooks" returnQName="getGuestbooksReturn" returnType="rtns:ArrayOf_tns2_GuestbookSoap" returnItemType="tns2:GuestbookSoap" soapAction="">
+		<operation xmlns:operNS="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:rtns="urn:http.service.guestbook.samples.blade.liferay.com" xmlns:tns2="http://model.guestbook.samples.blade.liferay.com" name="getGuestbooks" qname="operNS:getGuestbooks" returnQName="getGuestbooksReturn" returnType="rtns:ArrayOf_tns16_GuestbookSoap" returnItemType="tns2:GuestbookSoap" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="groupId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="start" type="tns:int"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="end" type="tns:int"></parameter>

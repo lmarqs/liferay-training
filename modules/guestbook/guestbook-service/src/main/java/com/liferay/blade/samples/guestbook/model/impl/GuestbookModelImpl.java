@@ -86,7 +86,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 			{ "statusByUserId", Types.BIGINT },
 			{ "statusByUserName", Types.VARCHAR },
 			{ "statusDate", Types.TIMESTAMP },
-			{ "name", Types.VARCHAR }
+			{ "name", Types.VARCHAR },
+			{ "note", Types.VARCHAR },
+			{ "priority", Types.INTEGER },
+			{ "eventDate", Types.TIMESTAMP }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -104,9 +107,12 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		TABLE_COLUMNS_MAP.put("statusByUserName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("note", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("priority", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("eventDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table GB_Guestbook (uuid_ VARCHAR(75) null,guestbookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,name VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table GB_Guestbook (uuid_ VARCHAR(75) null,guestbookId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,name VARCHAR(75) null,note VARCHAR(75) null,priority INTEGER,eventDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table GB_Guestbook";
 	public static final String ORDER_BY_JPQL = " ORDER BY guestbook.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY GB_Guestbook.name ASC";
@@ -154,6 +160,9 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		model.setStatusByUserName(soapModel.getStatusByUserName());
 		model.setStatusDate(soapModel.getStatusDate());
 		model.setName(soapModel.getName());
+		model.setNote(soapModel.getNote());
+		model.setPriority(soapModel.getPriority());
+		model.setEventDate(soapModel.getEventDate());
 
 		return model;
 	}
@@ -231,6 +240,9 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
 		attributes.put("name", getName());
+		attributes.put("note", getNote());
+		attributes.put("priority", getPriority());
+		attributes.put("eventDate", getEventDate());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -316,6 +328,24 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
 		if (name != null) {
 			setName(name);
+		}
+
+		String note = (String)attributes.get("note");
+
+		if (note != null) {
+			setNote(note);
+		}
+
+		Integer priority = (Integer)attributes.get("priority");
+
+		if (priority != null) {
+			setPriority(priority);
+		}
+
+		Date eventDate = (Date)attributes.get("eventDate");
+
+		if (eventDate != null) {
+			setEventDate(eventDate);
 		}
 	}
 
@@ -566,6 +596,44 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		_name = name;
 	}
 
+	@JSON
+	@Override
+	public String getNote() {
+		if (_note == null) {
+			return "";
+		}
+		else {
+			return _note;
+		}
+	}
+
+	@Override
+	public void setNote(String note) {
+		_note = note;
+	}
+
+	@JSON
+	@Override
+	public Integer getPriority() {
+		return _priority;
+	}
+
+	@Override
+	public void setPriority(Integer priority) {
+		_priority = priority;
+	}
+
+	@JSON
+	@Override
+	public Date getEventDate() {
+		return _eventDate;
+	}
+
+	@Override
+	public void setEventDate(Date eventDate) {
+		_eventDate = eventDate;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(PortalUtil.getClassNameId(
@@ -696,6 +764,9 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		guestbookImpl.setStatusByUserName(getStatusByUserName());
 		guestbookImpl.setStatusDate(getStatusDate());
 		guestbookImpl.setName(getName());
+		guestbookImpl.setNote(getNote());
+		guestbookImpl.setPriority(getPriority());
+		guestbookImpl.setEventDate(getEventDate());
 
 		guestbookImpl.resetOriginalValues();
 
@@ -850,12 +921,31 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 			guestbookCacheModel.name = null;
 		}
 
+		guestbookCacheModel.note = getNote();
+
+		String note = guestbookCacheModel.note;
+
+		if ((note != null) && (note.length() == 0)) {
+			guestbookCacheModel.note = null;
+		}
+
+		guestbookCacheModel.priority = getPriority();
+
+		Date eventDate = getEventDate();
+
+		if (eventDate != null) {
+			guestbookCacheModel.eventDate = eventDate.getTime();
+		}
+		else {
+			guestbookCacheModel.eventDate = Long.MIN_VALUE;
+		}
+
 		return guestbookCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -883,6 +973,12 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		sb.append(getStatusDate());
 		sb.append(", name=");
 		sb.append(getName());
+		sb.append(", note=");
+		sb.append(getNote());
+		sb.append(", priority=");
+		sb.append(getPriority());
+		sb.append(", eventDate=");
+		sb.append(getEventDate());
 		sb.append("}");
 
 		return sb.toString();
@@ -890,7 +986,7 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.blade.samples.guestbook.model.Guestbook");
@@ -948,6 +1044,18 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 			"<column><column-name>name</column-name><column-value><![CDATA[");
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>note</column-name><column-value><![CDATA[");
+		sb.append(getNote());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>priority</column-name><column-value><![CDATA[");
+		sb.append(getPriority());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>eventDate</column-name><column-value><![CDATA[");
+		sb.append(getEventDate());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -979,6 +1087,9 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 	private String _statusByUserName;
 	private Date _statusDate;
 	private String _name;
+	private String _note;
+	private Integer _priority;
+	private Date _eventDate;
 	private long _columnBitmask;
 	private Guestbook _escapedModel;
 }

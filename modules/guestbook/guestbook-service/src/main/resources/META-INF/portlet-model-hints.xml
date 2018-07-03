@@ -33,5 +33,8 @@
 		<field name="statusByUserName" type="String" />
 		<field name="statusDate" type="Date" />
 		<field name="name" type="String" />
+		<field name="note" type="String" />
+		<field name="priority" type="Integer" />
+		<field name="eventDate" type="Date" />
 	</model>
 </model-hints>
