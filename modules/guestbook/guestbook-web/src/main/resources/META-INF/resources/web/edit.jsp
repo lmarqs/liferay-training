@@ -7,14 +7,23 @@
 <portlet:actionURL name='${entry eq null ? "addEntry" : "updateEntry"}' var="actionURL"/>
 
 <aui:form action="${actionURL}" name="fm">
-    <aui:model-context bean="${entry}"/>
+    <aui:model-context bean="${entry}"
+                       model="<%= com.liferay.blade.samples.guestbook.model.Entry.class %>"/>
+
+    <aui:input name="guestbookId" type="hidden" value="${entry eq null ? guestbookId : entry.guestbookId}"/>
+    <aui:input name="entryId" type="hidden" value="${entry.entryId}"/>
 
     <aui:fieldset>
-        <aui:input name="name" value="${entry.name}"/>
-        <aui:input name="email" value="${entry.email}"/>
-        <aui:input name="message" value="${entry.message}"/>
-        <aui:input name="entryId" type="hidden" value="${entry.entryId}"/>
-        <aui:input name="guestbookId" type="hidden" value="${entry eq null ? guestbookId : entry.guestbookId}"/>
+        <aui:input name="name" value="${entry.name}">
+            <aui:validator name="required"/>
+        </aui:input>
+        <aui:input name="email" value="${entry.email}">
+            <aui:validator name="required"/>
+            <aui:validator name="email"/>
+        </aui:input>
+        <aui:input name="message" value="${entry.message}">
+            <aui:validator name="required"/>
+        </aui:input>
     </aui:fieldset>
 
     <liferay-ui:asset-categories-error/>
