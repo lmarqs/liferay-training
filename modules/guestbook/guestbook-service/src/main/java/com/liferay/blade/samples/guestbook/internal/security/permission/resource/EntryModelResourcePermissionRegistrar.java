@@ -43,12 +43,11 @@ public class EntryModelResourcePermissionRegistrar {
 
     }
 
-    private ServiceRegistration<ModelResourcePermission> _serviceRegistration;
-
     @Deactivate
     public void deactivate() {
         _serviceRegistration.unregister();
     }
+
 
     @Reference
     private EntryLocalService _entryLocalService;
@@ -56,10 +55,13 @@ public class EntryModelResourcePermissionRegistrar {
     @Reference(target = "(resource.name=" + GuestbookConstants.RESOURCE_NAME + ")")
     private PortletResourcePermission _portletResourcePermission;
 
+    private ServiceRegistration<ModelResourcePermission> _serviceRegistration;
+
     @Reference
     private StagingPermission _stagingPermission;
 
     private static class StagingPermissionCheck implements ModelResourcePermissionLogic<Entry> {
+
 
         @Override
         public Boolean contains(PermissionChecker permissionChecker, String name, Entry entry, String actionId) throws PortalException {

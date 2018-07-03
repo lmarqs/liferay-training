@@ -12,7 +12,9 @@ import org.osgi.service.component.annotations.Reference;
 
 @Component(
         immediate = true,
-        property = {"model.class.name=com.liferay.blade.samples.guestbook.model.Entry"}
+        property = {
+                "model.class.name=com.liferay.blade.samples.guestbook.model.Entry"
+        }
 )
 @Deprecated
 public class EntryPermission implements BaseModelPermissionChecker {
