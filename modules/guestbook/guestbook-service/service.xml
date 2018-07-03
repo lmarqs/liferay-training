@@ -27,6 +27,9 @@
 
         <!-- Other fields -->
         <column name="name" type="String"/>
+        <column name="note" type="String"/>
+        <column name="priority" type="Integer"/>
+        <column name="eventDate" type="Date"/>
 
         <!-- Order -->
         <order by="asc">
