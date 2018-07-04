@@ -19,7 +19,7 @@ public class GuestbookModelSummaryContributor implements ModelSummaryContributor
     @Override
     public Summary getSummary(Document document, Locale locale, String snippet) {
         Summary summary = createSummary(document);
-        
+
         summary.setMaxContentLength(128);
 
         return summary;
@@ -28,7 +28,7 @@ public class GuestbookModelSummaryContributor implements ModelSummaryContributor
     private Summary createSummary(Document document) {
         String prefix = Field.SNIPPET + StringPool.UNDERLINE;
 
-        String title = document.get(prefix + GuestbookField.GUESTBOOK_NAME, GuestbookField.GUESTBOOK_NAME);
+        String title = document.get(prefix + Field.TITLE, Field.TITLE);
 
         return new Summary(title, StringPool.BLANK);
     }

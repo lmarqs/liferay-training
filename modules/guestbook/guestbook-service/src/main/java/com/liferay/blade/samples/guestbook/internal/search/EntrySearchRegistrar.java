@@ -1,5 +1,3 @@
-
-
 package com.liferay.blade.samples.guestbook.internal.search;
 
 import com.liferay.blade.samples.guestbook.model.Entry;

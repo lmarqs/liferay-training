@@ -1,5 +1,7 @@
 package com.liferay.blade.samples.guestbook.internal.search;
 
+import com.liferay.blade.samples.guestbook.constants.search.EntryField;
+import com.liferay.blade.samples.guestbook.constants.search.GuestbookField;
 import com.liferay.blade.samples.guestbook.model.Entry;
 import com.liferay.blade.samples.guestbook.model.Guestbook;
 import com.liferay.blade.samples.guestbook.service.GuestbookLocalService;
@@ -14,7 +16,6 @@ import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContri
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Date;
 import java.util.Locale;
 
 @Component(
@@ -33,11 +34,11 @@ public class EntryModelDocumentContributor implements ModelDocumentContributor<E
             document.addDate(Field.MODIFIED_DATE, entry.getModifiedDate());
             document.addText(EntryField.ENTRY_EMAIL, entry.getEmail());
 
-            String localizedTitle = LocalizationUtil.getLocalizedName(EntryField.ENTRY_NAME, defaultLocale.toString());
-            String localizedMessage = LocalizationUtil.getLocalizedName(EntryField.ENTRY_MESSAGE, defaultLocale.toString());
+            String localizedTitle = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
+            String localizedContent = LocalizationUtil.getLocalizedName(Field.CONTENT, defaultLocale.toString());
 
             document.addText(localizedTitle, entry.getName());
-            document.addText(localizedMessage, entry.getMessage());
+            document.addText(localizedContent, entry.getMessage());
 
             long guestbookId = entry.getGuestbookId();
 
@@ -52,13 +53,15 @@ public class EntryModelDocumentContributor implements ModelDocumentContributor<E
             if (_log.isWarnEnabled()) {
                 _log.warn("Unable to index entry " + entry.getEntryId(), pe);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-
     @Reference
     private GuestbookLocalService _guestbookLocalService;
+
 
     private static final Log _log = LogFactoryUtil.getLog(EntryModelDocumentContributor.class);
 

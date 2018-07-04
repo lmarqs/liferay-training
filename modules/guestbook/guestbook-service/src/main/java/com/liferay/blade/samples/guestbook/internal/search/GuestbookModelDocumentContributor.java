@@ -27,9 +27,9 @@ public class GuestbookModelDocumentContributor implements ModelDocumentContribut
             document.addDate(Field.MODIFIED_DATE, guestbook.getModifiedDate());
 
             Locale defaultLocale = PortalUtil.getSiteDefaultLocale(guestbook.getGroupId());
-            String localizedField = LocalizationUtil.getLocalizedName(GuestbookField.GUESTBOOK_NAME, defaultLocale.toString());
+            String localizedTitle = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
 
-            document.addText(localizedField, guestbook.getName());
+            document.addText(localizedTitle, guestbook.getName());
         } catch (PortalException pe) {
             if (_log.isWarnEnabled()) {
                 _log.warn("Unable to index guestbook " + guestbook.getGuestbookId(), pe);
