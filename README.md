@@ -56,7 +56,7 @@ The steps are merged from this PR:
 
     The same feature of `BaseIndexer#postProcessContextBooleanFilter`. 
     This method is invoked while the main search query is being constructed. 
-    * Ensures that entities with the status STATUS_IN_TRASH aren’t added to the query.
+    * Ensures that entities with the status STATUS_IN_TRASH are not added to the query.
      
     See [`EntryModelPreFilterContributor` and `GuestbookModelPreFilterContributor`](https://github.com/lmarqs/liferay-training/pull/2/commits/a4e712cced85767c127b8895b0223a5125b01283).
 
