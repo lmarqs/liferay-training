@@ -23,10 +23,10 @@
                             <aui:validator name="date"/>
                         </aui:input>
 
-                        <aui:input name="priority" value='${guestbook.priority}' type="number" min="0" max="5">
+                        <aui:input name="priority" value='${guestbook.priority}' type="number" min="1000" max="99999">
                             <aui:validator name="number"/>
-                            <aui:validator name="min">0</aui:validator>
-                            <aui:validator name="max">5</aui:validator>
+                            <aui:validator name="min">1000</aui:validator>
+                            <aui:validator name="max">99999</aui:validator>
                         </aui:input>
 
                         <aui:input name="note" value='${guestbook.note}' type="textarea"/>
