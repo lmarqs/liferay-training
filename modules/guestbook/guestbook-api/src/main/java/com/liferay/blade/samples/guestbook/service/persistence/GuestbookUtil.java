@@ -1132,6 +1132,61 @@ public class GuestbookUtil {
 	}
 
 	/**
+	* Returns the guestbook where priority = &#63; or throws a {@link NoSuchGuestbookException} if it could not be found.
+	*
+	* @param priority the priority
+	* @return the matching guestbook
+	* @throws NoSuchGuestbookException if a matching guestbook could not be found
+	*/
+	public static Guestbook findByPriority(Integer priority)
+		throws com.liferay.blade.samples.guestbook.exception.NoSuchGuestbookException {
+		return getPersistence().findByPriority(priority);
+	}
+
+	/**
+	* Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param priority the priority
+	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	*/
+	public static Guestbook fetchByPriority(Integer priority) {
+		return getPersistence().fetchByPriority(priority);
+	}
+
+	/**
+	* Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param priority the priority
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	*/
+	public static Guestbook fetchByPriority(Integer priority,
+		boolean retrieveFromCache) {
+		return getPersistence().fetchByPriority(priority, retrieveFromCache);
+	}
+
+	/**
+	* Removes the guestbook where priority = &#63; from the database.
+	*
+	* @param priority the priority
+	* @return the guestbook that was removed
+	*/
+	public static Guestbook removeByPriority(Integer priority)
+		throws com.liferay.blade.samples.guestbook.exception.NoSuchGuestbookException {
+		return getPersistence().removeByPriority(priority);
+	}
+
+	/**
+	* Returns the number of guestbooks where priority = &#63;.
+	*
+	* @param priority the priority
+	* @return the number of matching guestbooks
+	*/
+	public static int countByPriority(Integer priority) {
+		return getPersistence().countByPriority(priority);
+	}
+
+	/**
 	* Caches the guestbook in the entity cache if it is enabled.
 	*
 	* @param guestbook the guestbook

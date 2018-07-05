@@ -899,6 +899,50 @@ public interface GuestbookPersistence extends BasePersistence<Guestbook> {
 	public int filterCountByG_S(long groupId, int status);
 
 	/**
+	* Returns the guestbook where priority = &#63; or throws a {@link NoSuchGuestbookException} if it could not be found.
+	*
+	* @param priority the priority
+	* @return the matching guestbook
+	* @throws NoSuchGuestbookException if a matching guestbook could not be found
+	*/
+	public Guestbook findByPriority(Integer priority)
+		throws NoSuchGuestbookException;
+
+	/**
+	* Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param priority the priority
+	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	*/
+	public Guestbook fetchByPriority(Integer priority);
+
+	/**
+	* Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param priority the priority
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	*/
+	public Guestbook fetchByPriority(Integer priority, boolean retrieveFromCache);
+
+	/**
+	* Removes the guestbook where priority = &#63; from the database.
+	*
+	* @param priority the priority
+	* @return the guestbook that was removed
+	*/
+	public Guestbook removeByPriority(Integer priority)
+		throws NoSuchGuestbookException;
+
+	/**
+	* Returns the number of guestbooks where priority = &#63;.
+	*
+	* @param priority the priority
+	* @return the number of matching guestbooks
+	*/
+	public int countByPriority(Integer priority);
+
+	/**
 	* Caches the guestbook in the entity cache if it is enabled.
 	*
 	* @param guestbook the guestbook

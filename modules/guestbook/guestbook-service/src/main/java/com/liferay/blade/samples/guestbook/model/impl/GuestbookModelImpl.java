@@ -130,9 +130,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 			true);
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 	public static final long GROUPID_COLUMN_BITMASK = 2L;
-	public static final long STATUS_COLUMN_BITMASK = 4L;
-	public static final long UUID_COLUMN_BITMASK = 8L;
-	public static final long NAME_COLUMN_BITMASK = 16L;
+	public static final long PRIORITY_COLUMN_BITMASK = 4L;
+	public static final long STATUS_COLUMN_BITMASK = 8L;
+	public static final long UUID_COLUMN_BITMASK = 16L;
+	public static final long NAME_COLUMN_BITMASK = 32L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -620,7 +621,19 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
 	@Override
 	public void setPriority(Integer priority) {
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+
+		if (!_setOriginalPriority) {
+			_setOriginalPriority = true;
+
+			_originalPriority = _priority;
+		}
+
 		_priority = priority;
+	}
+
+	public Integer getOriginalPriority() {
+		return _originalPriority;
 	}
 
 	@JSON
@@ -842,6 +855,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 		guestbookModelImpl._originalStatus = guestbookModelImpl._status;
 
 		guestbookModelImpl._setOriginalStatus = false;
+
+		guestbookModelImpl._originalPriority = guestbookModelImpl._priority;
+
+		guestbookModelImpl._setOriginalPriority = false;
 
 		guestbookModelImpl._columnBitmask = 0;
 	}
@@ -1089,6 +1106,8 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 	private String _name;
 	private String _note;
 	private Integer _priority;
+	private Integer _originalPriority;
+	private boolean _setOriginalPriority;
 	private Date _eventDate;
 	private long _columnBitmask;
 	private Guestbook _escapedModel;

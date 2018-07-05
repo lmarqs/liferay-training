@@ -3746,6 +3746,204 @@ public class GuestbookPersistenceImpl extends BasePersistenceImpl<Guestbook>
 
 	private static final String _FINDER_COLUMN_G_S_GROUPID_2 = "guestbook.groupId = ? AND ";
 	private static final String _FINDER_COLUMN_G_S_STATUS_2 = "guestbook.status = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_PRIORITY = new FinderPath(GuestbookModelImpl.ENTITY_CACHE_ENABLED,
+			GuestbookModelImpl.FINDER_CACHE_ENABLED, GuestbookImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByPriority",
+			new String[] { Integer.class.getName() },
+			GuestbookModelImpl.PRIORITY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_PRIORITY = new FinderPath(GuestbookModelImpl.ENTITY_CACHE_ENABLED,
+			GuestbookModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByPriority",
+			new String[] { Integer.class.getName() });
+
+	/**
+	 * Returns the guestbook where priority = &#63; or throws a {@link NoSuchGuestbookException} if it could not be found.
+	 *
+	 * @param priority the priority
+	 * @return the matching guestbook
+	 * @throws NoSuchGuestbookException if a matching guestbook could not be found
+	 */
+	@Override
+	public Guestbook findByPriority(Integer priority)
+		throws NoSuchGuestbookException {
+		Guestbook guestbook = fetchByPriority(priority);
+
+		if (guestbook == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("priority=");
+			msg.append(priority);
+
+			msg.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
+			}
+
+			throw new NoSuchGuestbookException(msg.toString());
+		}
+
+		return guestbook;
+	}
+
+	/**
+	 * Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param priority the priority
+	 * @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	 */
+	@Override
+	public Guestbook fetchByPriority(Integer priority) {
+		return fetchByPriority(priority, true);
+	}
+
+	/**
+	 * Returns the guestbook where priority = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param priority the priority
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching guestbook, or <code>null</code> if a matching guestbook could not be found
+	 */
+	@Override
+	public Guestbook fetchByPriority(Integer priority, boolean retrieveFromCache) {
+		Object[] finderArgs = new Object[] { priority };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(FINDER_PATH_FETCH_BY_PRIORITY,
+					finderArgs, this);
+		}
+
+		if (result instanceof Guestbook) {
+			Guestbook guestbook = (Guestbook)result;
+
+			if (!Objects.equals(priority, guestbook.getPriority())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_GUESTBOOK_WHERE);
+
+			query.append(_FINDER_COLUMN_PRIORITY_PRIORITY_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(priority.intValue());
+
+				List<Guestbook> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(FINDER_PATH_FETCH_BY_PRIORITY,
+						finderArgs, list);
+				}
+				else {
+					Guestbook guestbook = list.get(0);
+
+					result = guestbook;
+
+					cacheResult(guestbook);
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(FINDER_PATH_FETCH_BY_PRIORITY,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Guestbook)result;
+		}
+	}
+
+	/**
+	 * Removes the guestbook where priority = &#63; from the database.
+	 *
+	 * @param priority the priority
+	 * @return the guestbook that was removed
+	 */
+	@Override
+	public Guestbook removeByPriority(Integer priority)
+		throws NoSuchGuestbookException {
+		Guestbook guestbook = findByPriority(priority);
+
+		return remove(guestbook);
+	}
+
+	/**
+	 * Returns the number of guestbooks where priority = &#63;.
+	 *
+	 * @param priority the priority
+	 * @return the number of matching guestbooks
+	 */
+	@Override
+	public int countByPriority(Integer priority) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_PRIORITY;
+
+		Object[] finderArgs = new Object[] { priority };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_GUESTBOOK_WHERE);
+
+			query.append(_FINDER_COLUMN_PRIORITY_PRIORITY_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(priority.intValue());
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_PRIORITY_PRIORITY_2 = "guestbook.priority = ?";
 
 	public GuestbookPersistenceImpl() {
 		setModelClass(Guestbook.class);
@@ -3782,6 +3980,9 @@ public class GuestbookPersistenceImpl extends BasePersistenceImpl<Guestbook>
 		finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G,
 			new Object[] { guestbook.getUuid(), guestbook.getGroupId() },
 			guestbook);
+
+		finderCache.putResult(FINDER_PATH_FETCH_BY_PRIORITY,
+			new Object[] { guestbook.getPriority() }, guestbook);
 
 		guestbook.resetOriginalValues();
 	}
@@ -3861,6 +4062,13 @@ public class GuestbookPersistenceImpl extends BasePersistenceImpl<Guestbook>
 			Long.valueOf(1), false);
 		finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
 			guestbookModelImpl, false);
+
+		args = new Object[] { guestbookModelImpl.getPriority() };
+
+		finderCache.putResult(FINDER_PATH_COUNT_BY_PRIORITY, args,
+			Long.valueOf(1), false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_PRIORITY, args,
+			guestbookModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -3884,6 +4092,23 @@ public class GuestbookPersistenceImpl extends BasePersistenceImpl<Guestbook>
 
 			finderCache.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
 			finderCache.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] { guestbookModelImpl.getPriority() };
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_PRIORITY, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_PRIORITY, args);
+		}
+
+		if ((guestbookModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_PRIORITY.getColumnBitmask()) != 0) {
+			Object[] args = new Object[] {
+					guestbookModelImpl.getOriginalPriority()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_PRIORITY, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_PRIORITY, args);
 		}
 	}
 
