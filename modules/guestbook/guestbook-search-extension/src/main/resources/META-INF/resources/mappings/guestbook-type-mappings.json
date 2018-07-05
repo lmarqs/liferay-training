@@ -1,0 +1,15 @@
+{
+  "LiferayDocumentType": {
+    "properties": {
+      "guestbookEventDate": {
+        "type": "date"
+      },
+      "guestbookNote": {
+        "type": "text"
+      },
+      "guestbookPriority": {
+        "type": "long"
+      }
+    }
+  }
+}
