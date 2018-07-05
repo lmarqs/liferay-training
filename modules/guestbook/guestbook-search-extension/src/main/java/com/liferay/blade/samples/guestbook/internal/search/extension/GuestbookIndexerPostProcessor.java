@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.search.query.QueryHelper;
+import com.liferay.portal.search.spi.model.query.contributor.KeywordQueryContributor;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -14,6 +15,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Locale;
+import java.util.stream.Stream;
 
 @Component(
         immediate = true,
@@ -57,10 +59,8 @@ public class GuestbookIndexerPostProcessor implements IndexerPostProcessor {
     }
 
     @Override
-    public void postProcessSearchQuery(BooleanQuery searchQuery, BooleanFilter booleanFilter, final SearchContext searchContext) {
-        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_NOTE, true);
-        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_PRIORITY, true);
-        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_EVENT_DATE, true);
+    public void postProcessSearchQuery(BooleanQuery searchQuery, BooleanFilter booleanFilter, SearchContext searchContext) {
+        _keywordQueryContributor.contribute("", searchQuery, new KeywordQueryContributorHelper(searchContext));
     }
 
     @Override
@@ -76,6 +76,32 @@ public class GuestbookIndexerPostProcessor implements IndexerPostProcessor {
     @Reference
     protected QueryHelper queryHelper;
 
+    @Reference(target = "(indexer.class.name=com.liferay.blade.samples.guestbook.model.Guestbook)")
+    protected KeywordQueryContributor _keywordQueryContributor;
+
     private static Log _log = LogFactoryUtil.getLog(GuestbookIndexerPostProcessor.class);
 
+    private static class KeywordQueryContributorHelper implements com.liferay.portal.search.spi.model.query.contributor.helper.KeywordQueryContributorHelper {
+
+        private final SearchContext _searchContext;
+
+        private KeywordQueryContributorHelper(SearchContext searchContext) {
+            _searchContext = searchContext;
+        }
+
+        @Override
+        public String getClassName() {
+            return null;
+        }
+
+        @Override
+        public Stream<String> getSearchClassNamesStream() {
+            return null;
+        }
+
+        @Override
+        public SearchContext getSearchContext() {
+            return _searchContext;
+        }
+    }
 }
