@@ -48,6 +48,10 @@
             <finder-column name="status"/>
         </finder>
 
+        <finder name="Priority" return-type="Guestbook" unique="true">
+            <finder-column name="priority" />
+        </finder>
+
         <!-- References -->
         <reference package-path="com.liferay.portal" entity="WorkflowInstanceLink"/>
         <reference package-path="com.liferay.portlet.asset" entity="AssetEntry"/>
