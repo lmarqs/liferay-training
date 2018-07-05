@@ -1,7 +1,7 @@
 Bundle-Name: guestbook-service
 Bundle-SymbolicName: com.liferay.blade.samples.guestbook.service
-Bundle-Version: 1.0.10
-Liferay-Require-SchemaVersion: 1.0.10
+Bundle-Version: 1.0.11
+Liferay-Require-SchemaVersion: 1.0.11
 Liferay-Service: true
 Export-Package:\
 	com.liferay.blade.samples.guestbook.service.asset, \

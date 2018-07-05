@@ -1,6 +1,6 @@
 Bundle-Name: guestbook-api
 Bundle-SymbolicName: com.liferay.blade.samples.guestbook.api
-Bundle-Version: 1.0.10
+Bundle-Version: 1.0.11
 Export-Package:\
 	com.liferay.blade.samples.guestbook.exception,\
 	com.liferay.blade.samples.guestbook.model,\
