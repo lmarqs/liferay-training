@@ -6,10 +6,12 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
+import com.liferay.portal.search.query.QueryHelper;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Locale;
 
@@ -55,8 +57,10 @@ public class GuestbookIndexerPostProcessor implements IndexerPostProcessor {
     }
 
     @Override
-        _log.info( "keywordQueryContributor");
     public void postProcessSearchQuery(BooleanQuery searchQuery, BooleanFilter booleanFilter, final SearchContext searchContext) {
+        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_NOTE, true);
+        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_PRIORITY, true);
+        queryHelper.addSearchLocalizedTerm(searchQuery, searchContext, GuestbookField.GUESTBOOK_EVENT_DATE, true);
     }
 
     @Override
@@ -68,6 +72,9 @@ public class GuestbookIndexerPostProcessor implements IndexerPostProcessor {
     public void postProcessSummary(Summary summary, Document document, Locale locale, String snippet) {
         _log.info("postProcessSummary");
     }
+
+    @Reference
+    protected QueryHelper queryHelper;
 
     private static Log _log = LogFactoryUtil.getLog(GuestbookIndexerPostProcessor.class);
 
