@@ -10,8 +10,12 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.search.*;
+import com.liferay.portal.kernel.search.facet.RangeFacet;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.search.generic.BooleanClauseImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -19,13 +23,19 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.search.facet.Facet;
+import com.liferay.portal.search.filter.DateRangeFilterBuilder;
+import com.liferay.portal.search.filter.FilterBuilders;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +84,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
                 _renderView(request, response, scopeGroupId, guestbookId);
             }
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             throw new PortletException(e);
         }
 
@@ -122,7 +134,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
     }
 
-    private void _renderSearch(RenderRequest request, long scopeGroupId) throws SearchException {
+    private void _renderSearch(RenderRequest request, long scopeGroupId) throws SearchException, JSONException {
         String keywords = ParamUtil.getString(request, "keywords");
 
         SearchContext searchContext;
@@ -132,6 +144,14 @@ public class GuestbookWebPortlet extends MVCPortlet {
         searchContext.setAttribute("paginationType", "more");
         searchContext.setStart(0);
         searchContext.setEnd(10);
+
+
+        ModifiedFacet facet = new ModifiedFacet(ParamUtil.getString(request, "fieldName"), searchContext, filterBuilders);
+
+        facet.setFrom(ParamUtil.getString(request, "from"));
+        facet.setTo(ParamUtil.getString(request, "to"));
+
+        searchContext.addFacet(facet);
 
         Indexer indexer = IndexerRegistryUtil.getIndexer(Entry.class);
 
@@ -205,6 +225,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
             SessionMessages.add(request, "entryUpdated");
 
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             SessionErrors.add(request, e.getClass().getName());
             PortalUtil.copyRequestParameters(request, response);
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
@@ -228,6 +250,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
             SessionMessages.add(request, "entryAdded");
 
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             SessionErrors.add(request, e.getClass().getName());
             PortalUtil.copyRequestParameters(request, response);
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
@@ -264,6 +288,91 @@ public class GuestbookWebPortlet extends MVCPortlet {
         _guestbookService = guestbookService;
     }
 
+    @Reference
+    protected FilterBuilders filterBuilders;
+
     private EntryService _entryService;
     private GuestbookService _guestbookService;
+
+    private static class ModifiedFacet extends RangeFacet implements Facet {
+        @Override
+        protected BooleanClause<Filter> doGetFacetFilterBooleanClause() {
+
+            if (Validator.isNull(_from) && Validator.isNull(_to)) {
+                return null;
+            }
+
+            DateRangeFilterBuilder dateRangeFilterBuilder = _filterBuilders.dateRangeFilterBuilder();
+
+            dateRangeFilterBuilder.setFieldName(getFieldName());
+
+            if (Validator.isNotNull(_from)) {
+                dateRangeFilterBuilder.setFrom(_from);
+            }
+
+            if (Validator.isNotNull(_to)) {
+                dateRangeFilterBuilder.setTo(_to);
+            }
+
+            dateRangeFilterBuilder.setIncludeLower(true);
+            dateRangeFilterBuilder.setIncludeUpper(true);
+
+            return new BooleanClauseImpl(dateRangeFilterBuilder.build(), BooleanClauseOccur.MUST);
+        }
+
+        private String formatDate(String date) {
+            try {
+                return new SimpleDateFormat("yyyyMMdd000000")
+                        .format(new SimpleDateFormat("MM/dd/yyyy").parse(date));
+            } catch (ParseException ignored) {
+                // silence is golden
+            }
+            return date;
+        }
+
+
+        @Override
+        public String getAggregationName() {
+            return getFieldName();
+        }
+
+        @Override
+        public String[] getSelections() {
+            return new String[0];
+        }
+
+        @Override
+        public void select(String... selections) {
+
+        }
+
+        @Override
+        public void setAggregationName(String aggregationName) {
+
+        }
+
+        public ModifiedFacet(String fieldName, SearchContext searchContext, FilterBuilders filterBuilders) {
+            super(searchContext);
+
+            setFieldName(fieldName);
+
+            _filterBuilders = filterBuilders;
+        }
+
+
+        private final FilterBuilders _filterBuilders;
+
+        public void setFrom(String from) {
+            _from = formatDate(from);
+        }
+
+        public void setTo(String to) {
+            _to = formatDate(to);
+        }
+
+        private String _from, _to;
+
+    }
+
+
 }
