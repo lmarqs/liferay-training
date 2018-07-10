@@ -2,6 +2,19 @@ import com.liferay.gradle.plugins.service.builder.ServiceBuilderPlugin
 import com.liferay.gradle.plugins.wsdd.builder.WSDDBuilderPlugin
 import com.liferay.gradle.plugins.wsdl.builder.WSDLBuilderPlugin
 
+gradle.allprojects {
+	buildscript {
+		repositories {
+			mavenLocal()
+		}
+	}
+
+	repositories {
+		mavenLocal()
+	}
+}
+
+
 buildscript {
     dependencies {
         classpath group: "com.liferay", name: "com.liferay.gradle.plugins.workspace", version: "1.10.1"
