@@ -1,6 +1,7 @@
 package com.liferay.blade.samples.guestbook.internal.search.extension.api;
 
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.search.filter.FilterBuilders;
 
 //@ProviderType
 public interface DateRangeFacetBuilder {
@@ -14,5 +15,7 @@ public interface DateRangeFacetBuilder {
     public abstract DateRangeFacetBuilder setSearchContext(SearchContext searchContext);
 
     public abstract DateRangeFacetBuilder setTo(String to);
+
+    public abstract DateRangeFacetBuilder setFilterBuilders(FilterBuilders filterBuilders);
 
 }

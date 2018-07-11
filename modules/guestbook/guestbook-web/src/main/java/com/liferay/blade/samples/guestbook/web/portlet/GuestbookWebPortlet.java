@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.search.filter.FilterBuilders;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -139,6 +140,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
         searchContext.addFacet(_facetBuilders
                 .dateRangeFacetBuilder()
+                .setFilterBuilders(filterBuilders)
                 .setFieldName(ParamUtil.getString(request, "fieldName"))
                 .setSearchContext(searchContext)
                 .setFrom(ParamUtil.getString(request, "from"))
@@ -285,8 +287,12 @@ public class GuestbookWebPortlet extends MVCPortlet {
         _facetBuilders = facetBuilders;
     }
 
+    @Reference
+    protected FilterBuilders filterBuilders;
+
     private EntryService _entryService;
     private GuestbookService _guestbookService;
     private FacetBuilders _facetBuilders;
+
 
 }

@@ -16,7 +16,7 @@ public class DateRangeFacetBuilderImpl implements DateRangeFacetBuilder {
 
     @Override
     public DateRangeFacet build() {
-        DateRangeFacet dateRangeFacet = new DateRangeFacetImpl(_fieldName, _searchContext, filterBuilders);
+        DateRangeFacet dateRangeFacet = new DateRangeFacetImpl(_fieldName, _searchContext, _filterBuilders);
 
         dateRangeFacet.setFrom(_from);
         dateRangeFacet.setTo(_to);
@@ -52,8 +52,13 @@ public class DateRangeFacetBuilderImpl implements DateRangeFacetBuilder {
         return this;
     }
 
-    @Reference
-    protected FilterBuilders filterBuilders;
+    @Override
+    public DateRangeFacetBuilder setFilterBuilders(FilterBuilders filterBuilders) {
+        _filterBuilders = filterBuilders;
+        return this;
+    }
+
+    private FilterBuilders _filterBuilders;
 
     private SearchContext _searchContext;
     private String _fieldName;
