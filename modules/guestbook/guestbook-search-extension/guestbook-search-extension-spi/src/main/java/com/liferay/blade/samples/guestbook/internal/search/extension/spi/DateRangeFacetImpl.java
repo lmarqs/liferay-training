@@ -1,5 +1,6 @@
-package com.liferay.blade.samples.guestbook.internal.search.extension;
+package com.liferay.blade.samples.guestbook.internal.search.extension.spi;
 
+import com.liferay.blade.samples.guestbook.internal.search.extension.api.DateRangeFacet;
 import com.liferay.portal.kernel.search.BooleanClause;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -9,16 +10,11 @@ import com.liferay.portal.kernel.search.generic.BooleanClauseImpl;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.filter.DateRangeFilterBuilder;
 import com.liferay.portal.search.filter.FilterBuilders;
-import org.osgi.service.component.annotations.Component;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-@Component(
-        immediate = true,
-        service = DateRangeFacet.class
-)
 public class DateRangeFacetImpl extends RangeFacet implements DateRangeFacet {
 
     DateRangeFacetImpl(String fieldName, SearchContext searchContext, FilterBuilders filterBuilders) {

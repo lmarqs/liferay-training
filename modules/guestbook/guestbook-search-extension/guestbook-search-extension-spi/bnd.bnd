@@ -1,4 +1,2 @@
 Bundle-SymbolicName: guestbook-search-extension-spi
 Bundle-Version: 1.0.0
-Export-Package:\
- com.liferay.blade.samples.guestbook.internal.search.extension,\

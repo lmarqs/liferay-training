@@ -1,9 +1,9 @@
-package com.liferay.blade.samples.guestbook.internal.search.extension;
+package com.liferay.blade.samples.guestbook.internal.search.extension.api;
 
 import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.search.facet.Facet;
 
-@ProviderType
+//@ProviderType
 public interface DateRangeFacet extends Facet {
     public void setFrom(String from);
 

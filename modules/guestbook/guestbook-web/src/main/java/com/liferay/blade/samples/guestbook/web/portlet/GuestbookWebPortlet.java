@@ -1,6 +1,6 @@
 package com.liferay.blade.samples.guestbook.web.portlet;
 
-import com.liferay.blade.samples.guestbook.internal.search.extension.FacetBuilders;
+import com.liferay.blade.samples.guestbook.internal.search.extension.api.FacetBuilders;
 import com.liferay.blade.samples.guestbook.model.Entry;
 import com.liferay.blade.samples.guestbook.model.Guestbook;
 import com.liferay.blade.samples.guestbook.service.EntryLocalServiceUtil;

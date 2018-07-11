@@ -1,6 +1,8 @@
-package com.liferay.blade.samples.guestbook.internal.search.extension;
+package com.liferay.blade.samples.guestbook.internal.search.extension.spi;
 
 
+import com.liferay.blade.samples.guestbook.internal.search.extension.api.DateRangeFacet;
+import com.liferay.blade.samples.guestbook.internal.search.extension.api.DateRangeFacetBuilder;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.search.filter.FilterBuilders;
 import org.osgi.service.component.annotations.Component;
@@ -14,7 +16,7 @@ public class DateRangeFacetBuilderImpl implements DateRangeFacetBuilder {
 
     @Override
     public DateRangeFacet build() {
-        DateRangeFacet dateRangeFacet = new DateRangeFacetImpl(_fieldName, _searchContext, _filterBuilders);
+        DateRangeFacet dateRangeFacet = new DateRangeFacetImpl(_fieldName, _searchContext, filterBuilders);
 
         dateRangeFacet.setFrom(_from);
         dateRangeFacet.setTo(_to);
@@ -50,12 +52,9 @@ public class DateRangeFacetBuilderImpl implements DateRangeFacetBuilder {
         return this;
     }
 
-    @Reference(unbind = "-")
-    protected void setFilterBuilders(FilterBuilders filterBuilders) {
-        _filterBuilders = filterBuilders;
-    }
+    @Reference
+    protected FilterBuilders filterBuilders;
 
-    private FilterBuilders _filterBuilders;
     private SearchContext _searchContext;
     private String _fieldName;
     private String _from;
