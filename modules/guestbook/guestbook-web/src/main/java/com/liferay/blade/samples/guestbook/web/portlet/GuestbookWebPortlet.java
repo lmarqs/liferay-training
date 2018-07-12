@@ -42,7 +42,7 @@ import static com.liferay.blade.samples.guestbook.constants.GuestbookWebPortletK
         immediate = true,
         property = {
                 "com.liferay.portlet.display-category=category.social",
-                "com.liferay.portlet.header-portlet-css=/css/main.css",
+                "com.liferay.portlet.header-portlet-css=/lib/css/main.css",
                 "com.liferay.portlet.instanceable=false",
                 "com.liferay.portlet.scopeable=true",
                 "javax.portlet.display-name=Guestbook",
