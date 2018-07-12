@@ -140,7 +140,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
         searchContext.addFacet(_facetBuilders
                 .dateRangeFacetBuilder()
-                .setFilterBuilders(filterBuilders)
+                .setFilterBuilders(_filterBuilders)
                 .setFieldName(ParamUtil.getString(request, "fieldName"))
                 .setSearchContext(searchContext)
                 .setFrom(ParamUtil.getString(request, "from"))
@@ -287,12 +287,15 @@ public class GuestbookWebPortlet extends MVCPortlet {
         _facetBuilders = facetBuilders;
     }
 
-    @Reference
-    protected FilterBuilders filterBuilders;
+    @Reference(unbind = "-")
+    protected void setFilterBuilders(FilterBuilders filterBuilders) {
+        _filterBuilders = filterBuilders;
+    }
 
     private EntryService _entryService;
     private GuestbookService _guestbookService;
     private FacetBuilders _facetBuilders;
+    private FilterBuilders _filterBuilders;
 
 
 }
