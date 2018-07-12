@@ -33,3 +33,5 @@ gradlew
 
 configs/
 **/out/
+
+modules/guestbook/guestbook-web/package-lock\.json
