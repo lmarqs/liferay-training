@@ -3,6 +3,28 @@
         "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
 
 <resource-action-mapping>
+    <portlet-resource>
+        <portlet-name>com_liferay_blade_samples_guestbook_portlet_GuestbookPortlet</portlet-name>
+        <permissions>
+            <supports>
+                <action-key>ADD_TO_PAGE</action-key>
+                <action-key>CONFIGURATION</action-key>
+                <action-key>PREFERENCES</action-key>
+                <action-key>VIEW</action-key>
+            </supports>
+            <site-member-defaults>
+                <action-key>ADD_TO_PAGE</action-key>
+                <action-key>VIEW</action-key>
+            </site-member-defaults>
+            <guest-defaults />
+            <guest-unsupported>
+                <action-key>ADD_TO_PAGE</action-key>
+                <action-key>CONFIGURATION</action-key>
+                <action-key>PREFERENCES</action-key>
+                <action-key>VIEW</action-key>
+            </guest-unsupported>
+        </permissions>
+    </portlet-resource>
     <model-resource>
         <model-name>com.liferay.blade.samples.guestbook</model-name>
         <portlet-ref>
@@ -20,11 +42,13 @@
                 <action-key>ADD_ENTRY</action-key>
             </site-member-defaults>
             <guest-defaults>
-                <action-key>VIEW</action-key>
+                <!--<action-key>VIEW</action-key>-->
             </guest-defaults>
             <guest-unsupported>
-                <action-key>ADD_GUESTBOOK</action-key>
-                <action-key>ADD_ENTRY</action-key>
+                <action-key>DELETE</action-key>
+                <action-key>PERMISSIONS</action-key>
+                <action-key>UPDATE</action-key>
+                <action-key>VIEW</action-key>
             </guest-unsupported>
         </permissions>
     </model-resource>
