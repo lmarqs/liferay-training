@@ -16,11 +16,7 @@
     <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
-<clay:management-toolbar
-        selectable="false"
-        searchActionURL="${searchURL}"
-        clearResultsURL="${viewURL}"
-/>
+<%@ include file="./search_bar.jsp" %>
 
 <clay:navigation-bar navigationItems="${navigationItems}"/>
 

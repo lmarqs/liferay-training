@@ -1,5 +1,6 @@
 package com.liferay.blade.samples.guestbook.web.portlet;
 
+import com.liferay.blade.samples.guestbook.internal.search.extension.api.FacetBuilders;
 import com.liferay.blade.samples.guestbook.model.Entry;
 import com.liferay.blade.samples.guestbook.model.Guestbook;
 import com.liferay.blade.samples.guestbook.service.EntryLocalServiceUtil;
@@ -10,6 +11,7 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItemList;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -20,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.search.filter.FilterBuilders;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -74,6 +77,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
                 _renderView(request, response, scopeGroupId, guestbookId);
             }
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             throw new PortletException(e);
         }
 
@@ -122,7 +127,7 @@ public class GuestbookWebPortlet extends MVCPortlet {
 
     }
 
-    private void _renderSearch(RenderRequest request, long scopeGroupId) throws SearchException {
+    private void _renderSearch(RenderRequest request, long scopeGroupId) throws SearchException, JSONException {
         String keywords = ParamUtil.getString(request, "keywords");
 
         SearchContext searchContext;
@@ -132,6 +137,15 @@ public class GuestbookWebPortlet extends MVCPortlet {
         searchContext.setAttribute("paginationType", "more");
         searchContext.setStart(0);
         searchContext.setEnd(10);
+
+        searchContext.addFacet(_facetBuilders
+                .dateRangeFacetBuilder()
+                .setFilterBuilders(_filterBuilders)
+                .setFieldName(ParamUtil.getString(request, "fieldName"))
+                .setSearchContext(searchContext)
+                .setFrom(ParamUtil.getString(request, "from"))
+                .setTo(ParamUtil.getString(request, "to"))
+                .build());
 
         Indexer indexer = IndexerRegistryUtil.getIndexer(Entry.class);
 
@@ -205,6 +219,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
             SessionMessages.add(request, "entryUpdated");
 
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             SessionErrors.add(request, e.getClass().getName());
             PortalUtil.copyRequestParameters(request, response);
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
@@ -228,6 +244,8 @@ public class GuestbookWebPortlet extends MVCPortlet {
             SessionMessages.add(request, "entryAdded");
 
         } catch (Exception e) {
+            Logger.getLogger(GuestbookWebPortlet.class.getName())
+                    .log(Level.SEVERE, null, e);
             SessionErrors.add(request, e.getClass().getName());
             PortalUtil.copyRequestParameters(request, response);
             response.setRenderParameter("mvcPath", MVC_PATH_EDIT);
@@ -264,6 +282,20 @@ public class GuestbookWebPortlet extends MVCPortlet {
         _guestbookService = guestbookService;
     }
 
+    @Reference(unbind = "-")
+    protected void setFacetBuilders(FacetBuilders facetBuilders) {
+        _facetBuilders = facetBuilders;
+    }
+
+    @Reference(unbind = "-")
+    protected void setFilterBuilders(FilterBuilders filterBuilders) {
+        _filterBuilders = filterBuilders;
+    }
+
     private EntryService _entryService;
     private GuestbookService _guestbookService;
+    private FacetBuilders _facetBuilders;
+    private FilterBuilders _filterBuilders;
+
+
 }
