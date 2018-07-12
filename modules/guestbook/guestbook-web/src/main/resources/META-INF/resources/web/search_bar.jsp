@@ -8,10 +8,11 @@
             </aui:select>
         </div>
         <div class="col-md-5">
-            <aui:input autocomplete="off" name="from" placeholder="MM/dd/yyyy" value="${from}"/>
+            <c:set var="ph" value="MM/dd/yyyy or Date Math Expression"/>
+            <aui:input name="from" value="${from}" cssClass="aui-datepicker" placeholder="${ph}" autocomplete="off"/>
         </div>
         <div class="col-md-5">
-            <aui:input autocomplete="off" name="to" placeholder="MM/dd/yyyy" value="${to}"/>
+            <aui:input name="to" value="${to}" cssClass="aui-datepicker" placeholder="${ph}" autocomplete="off"/>
         </div>
     </div>
 
@@ -26,14 +27,7 @@
 
 </aui:form>
 
-<script type="text/javascript">
-    AUI().use("aui-datepicker", function (A) {
-        new A.DatePicker({
-            trigger: "[placeholder='MM/dd/yyyy']",
-            mask: "%m/%d/%Y",
-            popover: {
-                zIndex: 1E3
-            }
-        })
-    });
-</script>
+
+<aui:script require="guestbook-portlet@1.0.1">
+    guestbookPortlet101.default('<portlet:namespace/>', AUI, $, _);
+</aui:script>
