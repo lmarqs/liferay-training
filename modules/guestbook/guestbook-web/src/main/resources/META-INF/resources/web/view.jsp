@@ -16,7 +16,7 @@
     <portlet:param name="mvcPath" value="/web/view.jsp"/>
 </portlet:renderURL>
 
-<%@ include file="./search_bar.jsp" %>
+<%@include file="/META-INF/resources/search/form.jsp" %>
 
 <clay:navigation-bar navigationItems="${navigationItems}"/>
 

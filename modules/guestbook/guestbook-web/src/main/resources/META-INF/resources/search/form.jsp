@@ -1,4 +1,5 @@
 <aui:form action="${searchURL}" method="post" name="fm">
+
     <div class="row">
         <div class="col-md-2">
             <aui:select name="fieldName" value='${fieldName}'>
@@ -26,8 +27,3 @@
     </div>
 
 </aui:form>
-
-
-<aui:script require="guestbook-portlet@1.0.1">
-    guestbookPortlet101.default('<portlet:namespace/>', AUI, $, _);
-</aui:script>

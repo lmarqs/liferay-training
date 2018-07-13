@@ -1,0 +1,1 @@
+<%@ include file="/META-INF/init.jsp" %>

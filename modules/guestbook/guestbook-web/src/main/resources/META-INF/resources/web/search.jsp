@@ -11,7 +11,7 @@
 <liferay-portlet:renderURLParams varImpl="searchURL"/>
 <liferay-ui:header backURL="${viewURL}" title="search"/>
 
-<%@include file="./search_bar.jsp" %>
+<%@include file="/META-INF/resources/search/form.jsp" %>
 
 <liferay-ui:search-container delta="10" emptyResultsMessage="no-entries-were-found" total="${fn:length(entries)}">
     <liferay-ui:search-container-results results="${entries}"/>
