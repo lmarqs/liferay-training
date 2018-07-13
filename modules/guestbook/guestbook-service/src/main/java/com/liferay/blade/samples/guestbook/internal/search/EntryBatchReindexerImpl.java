@@ -38,9 +38,6 @@ public class EntryBatchReindexerImpl implements EntryBatchReindexer {
         batchIndexingActionable.performActions();
     }
 
-    @Reference
-    protected EntryLocalService entryLocalService;
-
     @Reference(target = "(indexer.class.name=com.liferay.blade.samples.guestbook.model.Entry)")
     protected IndexerDocumentBuilder indexerDocumentBuilder;
 
