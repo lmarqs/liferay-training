@@ -24,8 +24,7 @@ public class GuestbookKeywordQueryContributor implements KeywordQueryContributor
         SearchContext searchContext = keywordQueryContributorHelper.getSearchContext();
 
         queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, GuestbookField.GUESTBOOK_NOTE, true);
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, GuestbookField.GUESTBOOK_PRIORITY, true);
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, GuestbookField.GUESTBOOK_EVENT_DATE, true);
+//        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, GuestbookField.GUESTBOOK_PRIORITY, true);
 
     }
 
