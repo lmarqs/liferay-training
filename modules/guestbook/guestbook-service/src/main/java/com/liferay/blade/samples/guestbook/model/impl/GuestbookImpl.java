@@ -27,11 +27,13 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class GuestbookImpl extends GuestbookBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a guestbook model instance should use the {@link com.liferay.blade.samples.guestbook.model.Guestbook} interface instead.
 	 */
 	public GuestbookImpl() {
 	}
+
 }

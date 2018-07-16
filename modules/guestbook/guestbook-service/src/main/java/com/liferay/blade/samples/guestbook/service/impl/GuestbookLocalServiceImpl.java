@@ -14,14 +14,13 @@
 
 package com.liferay.blade.samples.guestbook.service.impl;
 
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetLinkConstants;
 import com.liferay.blade.samples.guestbook.exception.GuestbookNameException;
 import com.liferay.blade.samples.guestbook.model.Entry;
 import com.liferay.blade.samples.guestbook.model.Guestbook;
 import com.liferay.blade.samples.guestbook.service.base.GuestbookLocalServiceBaseImpl;
-import com.liferay.asset.kernel.model.AssetEntry;
-import com.liferay.asset.kernel.model.AssetLinkConstants;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
@@ -51,211 +50,232 @@ import java.util.List;
  * @see com.liferay.blade.samples.guestbook.service.GuestbookLocalServiceUtil
  */
 public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
-    /*
-     * NOTE FOR DEVELOPERS:
-     *
-     * Never reference this class directly. Always use {@link com.liferay.blade.samples.guestbook.service.GuestbookLocalServiceUtil} to access the guestbook local service.
-     */
 
-    @Indexable(type = IndexableType.REINDEX)
-    public Guestbook addGuestbook(long userId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws PortalException {
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link com.liferay.blade.samples.guestbook.service.GuestbookLocalServiceUtil} to access the guestbook local service.
+	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public Guestbook addGuestbook(
+			long userId, String name, String note, Integer priority,
+			Date eventDate, ServiceContext serviceContext)
+		throws PortalException {
 
-        long groupId = serviceContext.getScopeGroupId();
+		long groupId = serviceContext.getScopeGroupId();
 
-        User user = userLocalService.getUserById(userId);
+		User user = userLocalService.getUserById(userId);
 
-        Date now = new Date();
+		Date now = new Date();
 
-        validate(name);
+		validate(name);
 
-        long guestbookId = counterLocalService.increment();
+		long guestbookId = counterLocalService.increment();
 
-        Guestbook guestbook = guestbookPersistence.create(guestbookId);
+		Guestbook guestbook = guestbookPersistence.create(guestbookId);
 
-        guestbook.setUuid(serviceContext.getUuid());
-        guestbook.setUserId(userId);
-        guestbook.setGroupId(groupId);
-        guestbook.setCompanyId(user.getCompanyId());
-        guestbook.setUserName(user.getFullName());
-        guestbook.setCreateDate(serviceContext.getCreateDate(now));
-        guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
+		guestbook.setUuid(serviceContext.getUuid());
+		guestbook.setUserId(userId);
+		guestbook.setGroupId(groupId);
+		guestbook.setCompanyId(user.getCompanyId());
+		guestbook.setUserName(user.getFullName());
+		guestbook.setCreateDate(serviceContext.getCreateDate(now));
+		guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
 
-        guestbook.setName(name);
-        guestbook.setNote(note);
-        guestbook.setPriority(priority);
-        guestbook.setEventDate(eventDate);
+		guestbook.setName(name);
+		guestbook.setNote(note);
+		guestbook.setPriority(priority);
+		guestbook.setEventDate(eventDate);
 
-        guestbook.setExpandoBridgeAttributes(serviceContext);
+		guestbook.setExpandoBridgeAttributes(serviceContext);
 
-        guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
-        guestbook.setStatusByUserId(userId);
-        guestbook.setStatusByUserName(user.getFullName());
-        guestbook.setStatusDate(serviceContext.getModifiedDate(null));
+		guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
+		guestbook.setStatusByUserId(userId);
+		guestbook.setStatusByUserName(user.getFullName());
+		guestbook.setStatusDate(serviceContext.getModifiedDate(null));
 
-        guestbookPersistence.update(guestbook);
+		guestbookPersistence.update(guestbook);
 
-        resourceLocalService.addResources(
-                user.getCompanyId(), groupId, userId,
-                Guestbook.class.getName(), guestbookId,
-                false, true, true);
+		resourceLocalService.addResources(
+				user.getCompanyId(), groupId, userId, Guestbook.class.getName(),
+				guestbookId, false, true, true);
 
-        AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId,
-                groupId, guestbook.getCreateDate(),
-                guestbook.getModifiedDate(), Guestbook.class.getName(),
-                guestbookId, guestbook.getUuid(), 0,
-                serviceContext.getAssetCategoryIds(),
-                serviceContext.getAssetTagNames(), true, true, null, null, null, null,
-                ContentTypes.TEXT_HTML, guestbook.getName(), null, null, null,
-                null, 0, 0, null);
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId,
+				groupId, guestbook.getCreateDate(), guestbook.getModifiedDate(),
+				Guestbook.class.getName(), guestbookId, guestbook.getUuid(), 0,
+				serviceContext.getAssetCategoryIds(),
+				serviceContext.getAssetTagNames(), true, true, null, null, null,
+null, ContentTypes.TEXT_HTML, guestbook.getName(), null, null, null, null, 0, 0,
+				null);
 
-        assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
-                serviceContext.getAssetLinkEntryIds(),
-                AssetLinkConstants.TYPE_RELATED);
+		assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
+				serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
 
-        WorkflowHandlerRegistryUtil.startWorkflowInstance(guestbook.getCompanyId(),
-                guestbook.getGroupId(), guestbook.getUserId(), Guestbook.class.getName(),
-                guestbook.getPrimaryKey(), guestbook, serviceContext);
+		WorkflowHandlerRegistryUtil.startWorkflowInstance(guestbook.getCompanyId(),
+				guestbook.getGroupId(), guestbook.getUserId(),
+Guestbook.class.getName(), guestbook.getPrimaryKey(), guestbook,
+				serviceContext);
 
-        return guestbook;
+		return guestbook;
+	}
 
-    }
+	@Indexable(type = IndexableType.DELETE)
+	public Guestbook deleteGuestbook(
+			long guestbookId, ServiceContext serviceContext)
+		throws PortalException {
 
-    @Indexable(type = IndexableType.REINDEX)
-    public Guestbook updateGuestbook(long userId, long guestbookId, String name, String note, Integer priority, Date eventDate, ServiceContext serviceContext) throws PortalException, SystemException {
+		Guestbook guestbook = getGuestbook(guestbookId);
 
-        Date now = new Date();
+		List<Entry> entries = entryLocalService.getEntries(
+	serviceContext.getScopeGroupId(), guestbookId);
 
-        validate(name);
+		for (Entry entry : entries) {
+			entryLocalService.deleteEntry(entry.getEntryId());
+		}
 
-        Guestbook guestbook = getGuestbook(guestbookId);
+		guestbook = deleteGuestbook(guestbook);
 
-        User user = userLocalService.getUser(userId);
+		resourceLocalService.deleteResource(serviceContext.getCompanyId(),
+				Guestbook.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
+				guestbookId);
 
-        guestbook.setUserId(userId);
-        guestbook.setUserName(user.getFullName());
-        guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
+			Guestbook.class.getName(), guestbookId);
 
-        guestbook.setName(name);
-        guestbook.setNote(note);
-        guestbook.setPriority(priority);
-        guestbook.setEventDate(eventDate);
+		if (assetEntry != null) {
+			assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
 
-        guestbook.setExpandoBridgeAttributes(serviceContext);
+			assetEntryLocalService.deleteEntry(assetEntry);
+		}
 
-        guestbookPersistence.update(guestbook);
+		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
+				guestbook.getCompanyId(), guestbook.getGroupId(),
+				Guestbook.class.getName(), guestbook.getGuestbookId());
 
-        resourceLocalService.updateResources(serviceContext.getCompanyId(),
-                serviceContext.getScopeGroupId(),
-                Guestbook.class.getName(), guestbookId,
-                serviceContext.getGroupPermissions(),
-                serviceContext.getGuestPermissions());
+		return guestbook;
+	}
 
-        AssetEntry assetEntry = assetEntryLocalService.updateEntry(guestbook.getUserId(),
-                guestbook.getGroupId(), guestbook.getCreateDate(),
-                guestbook.getModifiedDate(), Guestbook.class.getName(),
-                guestbookId, guestbook.getUuid(), 0,
-                serviceContext.getAssetCategoryIds(),
-                serviceContext.getAssetTagNames(), true, true, guestbook.getCreateDate(),
-                null, null, null, ContentTypes.TEXT_HTML, guestbook.getName(), null, null,
-                null, null, 0, 0, serviceContext.getAssetPriority());
+	public List<Guestbook> getGuestbooks(long groupId) {
+		return guestbookPersistence.filterFindByGroupId(groupId);
+	}
 
-        assetLinkLocalService.updateLinks(serviceContext.getUserId(),
-                assetEntry.getEntryId(), serviceContext.getAssetLinkEntryIds(),
-                AssetLinkConstants.TYPE_RELATED);
+	public List<Guestbook> getGuestbooks(long groupId, int status) {
+		return guestbookPersistence.findByG_S(groupId, status);
+	}
 
-        return guestbook;
-    }
+	public List<Guestbook> getGuestbooks(long groupId, int start, int end) {
+		return guestbookPersistence.findByGroupId(groupId, start, end);
+	}
 
-    @Indexable(type = IndexableType.REINDEX)
-    public Guestbook updateStatus(long userId, long guestbookId, int status, ServiceContext serviceContext) throws PortalException, SystemException {
+	public List<Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end) {
 
-        User user = userLocalService.getUser(userId);
-        Guestbook guestbook = getGuestbook(guestbookId);
+		return guestbookPersistence.findByG_S(groupId, status, start, end);
+	}
 
-        guestbook.setStatus(status);
-        guestbook.setStatusByUserId(userId);
-        guestbook.setStatusByUserName(user.getFullName());
-        guestbook.setStatusDate(new Date());
+	public List<Guestbook> getGuestbooks(
+		long groupId, int status, int start, int end,
+		OrderByComparator<Guestbook> obc) {
 
-        guestbookPersistence.update(guestbook);
+		return guestbookPersistence.findByG_S(groupId, status, start, end, obc);
+	}
 
-        if (status == WorkflowConstants.STATUS_APPROVED) {
-            assetEntryLocalService.updateVisible(Guestbook.class.getName(), guestbookId, true);
-        } else {
-            assetEntryLocalService.updateVisible(Guestbook.class.getName(), guestbookId, false);
-        }
+	public List<Guestbook> getGuestbooks(
+		long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
 
-        return guestbook;
-    }
+		return guestbookPersistence.filterFindByGroupId(
+	groupId, start, end, obc);
+	}
 
-    @Indexable(type = IndexableType.DELETE)
-    public Guestbook deleteGuestbook(long guestbookId, ServiceContext serviceContext) throws PortalException, SystemException {
+	public int getGuestbooksCount(long groupId) {
+		return guestbookPersistence.countByGroupId(groupId);
+	}
 
-        Guestbook guestbook = getGuestbook(guestbookId);
+	public int getGuestbooksCount(long groupId, int status) {
+		return guestbookPersistence.countByG_S(groupId, status);
+	}
 
-        List<Entry> entries = entryLocalService.getEntries(serviceContext.getScopeGroupId(), guestbookId);
+	@Indexable(type = IndexableType.REINDEX)
+	public Guestbook updateGuestbook(
+			long userId, long guestbookId, String name, String note,
+			Integer priority, Date eventDate, ServiceContext serviceContext)
+		throws PortalException {
 
-        for (Entry entry : entries) {
-            entryLocalService.deleteEntry(entry.getEntryId());
-        }
+		Date now = new Date();
 
-        guestbook = deleteGuestbook(guestbook);
+		validate(name);
 
-        resourceLocalService.deleteResource(serviceContext.getCompanyId(),
-                Guestbook.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
-                guestbookId);
+		Guestbook guestbook = getGuestbook(guestbookId);
 
-        AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
-                Guestbook.class.getName(), guestbookId);
+		User user = userLocalService.getUser(userId);
 
-        if (assetEntry != null) {
-            assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
+		guestbook.setUserId(userId);
+		guestbook.setUserName(user.getFullName());
+		guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
 
-            assetEntryLocalService.deleteEntry(assetEntry);
-        }
+		guestbook.setName(name);
+		guestbook.setNote(note);
+		guestbook.setPriority(priority);
+		guestbook.setEventDate(eventDate);
 
-        workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
-                guestbook.getCompanyId(), guestbook.getGroupId(),
-                Guestbook.class.getName(), guestbook.getGuestbookId());
+		guestbook.setExpandoBridgeAttributes(serviceContext);
 
-        return guestbook;
-    }
+		guestbookPersistence.update(guestbook);
 
-    public List<Guestbook> getGuestbooks(long groupId) {
-        return guestbookPersistence.filterFindByGroupId(groupId);
-    }
+		resourceLocalService.updateResources(serviceContext.getCompanyId(),
+				serviceContext.getScopeGroupId(), Guestbook.class.getName(),
+				guestbookId, serviceContext.getGroupPermissions(),
+				serviceContext.getGuestPermissions());
 
-    public List<Guestbook> getGuestbooks(long groupId, int start, int end) {
-        return guestbookPersistence.findByGroupId(groupId, start, end);
-    }
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(guestbook.getUserId(),
+				guestbook.getGroupId(), guestbook.getCreateDate(),
+				guestbook.getModifiedDate(), Guestbook.class.getName(),
+				guestbookId, guestbook.getUuid(), 0,
+				serviceContext.getAssetCategoryIds(),
+				serviceContext.getAssetTagNames(), true, true,
+guestbook.getCreateDate(), null, null, null, ContentTypes.TEXT_HTML,
+guestbook.getName(), null, null, null, null, 0, 0,
+				serviceContext.getAssetPriority());
 
-    public List<Guestbook> getGuestbooks(long groupId, int start, int end, OrderByComparator<Guestbook> obc) {
-        return guestbookPersistence.filterFindByGroupId(groupId, start, end, obc);
-    }
+		assetLinkLocalService.updateLinks(serviceContext.getUserId(),
+				assetEntry.getEntryId(), serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
 
-    public List<Guestbook> getGuestbooks(long groupId, int status) {
-        return guestbookPersistence.findByG_S(groupId, status);
-    }
+		return guestbook;
+	}
 
-    public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end, OrderByComparator<Guestbook> obc) {
-        return guestbookPersistence.findByG_S(groupId, status, start, end, obc);
-    }
+	@Indexable(type = IndexableType.REINDEX)
+	public Guestbook updateStatus(
+			long userId, long guestbookId, int status,
+			ServiceContext serviceContext)
+		throws PortalException {
 
-    public List<Guestbook> getGuestbooks(long groupId, int status, int start, int end) {
-        return guestbookPersistence.findByG_S(groupId, status, start, end);
-    }
+		User user = userLocalService.getUser(userId);
+		Guestbook guestbook = getGuestbook(guestbookId);
 
-    public int getGuestbooksCount(long groupId) {
-        return guestbookPersistence.countByGroupId(groupId);
-    }
+		guestbook.setStatus(status);
+		guestbook.setStatusByUserId(userId);
+		guestbook.setStatusByUserName(user.getFullName());
+		guestbook.setStatusDate(new Date());
 
-    public int getGuestbooksCount(long groupId, int status) {
-        return guestbookPersistence.countByG_S(groupId, status);
-    }
+		guestbookPersistence.update(guestbook);
 
-    protected void validate(String name) throws PortalException {
-        if (Validator.isNull(name)) {
-            throw new GuestbookNameException();
-        }
-    }
+		if (status == WorkflowConstants.STATUS_APPROVED) {
+			assetEntryLocalService.updateVisible(
+	Guestbook.class.getName(), guestbookId, true);
+		} else {
+			assetEntryLocalService.updateVisible(
+	Guestbook.class.getName(), guestbookId, false);
+		}
+
+		return guestbook;
+	}
+
+	protected void validate(String name) throws PortalException {
+		if (Validator.isNull(name)) {
+			throw new GuestbookNameException();
+		}
+	}
+
 }

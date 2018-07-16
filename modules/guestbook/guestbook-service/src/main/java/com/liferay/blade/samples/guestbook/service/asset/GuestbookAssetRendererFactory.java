@@ -1,118 +1,137 @@
 package com.liferay.blade.samples.guestbook.service.asset;
 
-import com.liferay.blade.samples.guestbook.model.Guestbook;
-import com.liferay.blade.samples.guestbook.service.GuestbookLocalService;
-import com.liferay.blade.samples.guestbook.service.permission.GuestbookPermission;
+import static com.liferay.blade.samples.guestbook.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
+import static com.liferay.blade.samples.guestbook.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
+import static com.liferay.portal.kernel.util.WebKeys.THEME_DISPLAY;
+
+import static javax.portlet.PortletRequest.RENDER_PHASE;
+
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseAssetRendererFactory;
+import com.liferay.blade.samples.guestbook.model.Guestbook;
+import com.liferay.blade.samples.guestbook.service.GuestbookLocalService;
+import com.liferay.blade.samples.guestbook.service.permission.GuestbookPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.PortletURL;
-import javax.servlet.ServletContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.liferay.blade.samples.guestbook.constants.GuestbookAdminPortletKeys.GUESTBOOK_ADMIN_PORTLET;
-import static com.liferay.blade.samples.guestbook.constants.GuestbookAdminPortletKeys.MVC_PATH_EDIT;
-import static com.liferay.portal.kernel.util.WebKeys.THEME_DISPLAY;
-import static javax.portlet.PortletRequest.RENDER_PHASE;
+import javax.portlet.PortletURL;
 
+import javax.servlet.ServletContext;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 @Component(
-        immediate = true,
-        property = {
-                "javax.portlet.name=" + GUESTBOOK_ADMIN_PORTLET
-        },
-        service = AssetRendererFactory.class
+		immediate = true,
+		property = "javax.portlet.name=" + GUESTBOOK_ADMIN_PORTLET,
+		service = AssetRendererFactory.class
 )
-public class GuestbookAssetRendererFactory extends BaseAssetRendererFactory<Guestbook> {
+public class GuestbookAssetRendererFactory
+	extends BaseAssetRendererFactory<Guestbook> {
 
-    public GuestbookAssetRendererFactory() {
-        setClassName(CLASS_NAME);
-        setLinkable(_LINKABLE);
-        setPortletId(GUESTBOOK_ADMIN_PORTLET);
-        setSearchable(true);
-        setSelectable(true);
-    }
+	public static final String CLASS_NAME = Guestbook.class.getName();
 
-    @Override
-    public AssetRenderer<Guestbook> getAssetRenderer(long classPK, int type) throws PortalException {
+	public static final String TYPE = "guestbook";
 
-        Guestbook guestbook = _guestbookLocalService.getGuestbook(classPK);
+	public GuestbookAssetRendererFactory() {
+		setClassName(CLASS_NAME);
+		setLinkable(_LINKABLE);
+		setPortletId(GUESTBOOK_ADMIN_PORTLET);
+		setSearchable(true);
+		setSelectable(true);
+	}
 
-        GuestbookAssetRenderer guestbookAssetRenderer = new GuestbookAssetRenderer(guestbook);
+	@Override
+	public AssetRenderer<Guestbook> getAssetRenderer(long classPK, int type)
+		throws PortalException {
 
-        guestbookAssetRenderer.setAssetRendererType(type);
-        guestbookAssetRenderer.setServletContext(_servletContext);
+		Guestbook guestbook = _guestbookLocalService.getGuestbook(classPK);
 
-        return guestbookAssetRenderer;
-    }
+		GuestbookAssetRenderer guestbookAssetRenderer =
+	new GuestbookAssetRenderer(guestbook);
 
-    @Override
-    public String getClassName() {
-        return CLASS_NAME;
-    }
+		guestbookAssetRenderer.setAssetRendererType(type);
+		guestbookAssetRenderer.setServletContext(_servletContext);
 
-    @Override
-    public String getType() {
-        return TYPE;
-    }
+		return guestbookAssetRenderer;
+	}
 
-    @Override
-    public boolean hasPermission(PermissionChecker permissionChecker, long classPK, String actionId) throws Exception {
-        Guestbook guestbook = _guestbookLocalService.getGuestbook(classPK);
-        return GuestbookPermission.contains(permissionChecker, guestbook, actionId);
-    }
+	@Override
+	public String getClassName() {
+		return CLASS_NAME;
+	}
 
-    @Override
-    public PortletURL getURLAdd(LiferayPortletRequest request, LiferayPortletResponse response, long classTypeId) {
-        PortletURL portletURL = null;
+	@Override
+	public String getIconCssClass() {
+		return "bookmarks";
+	}
 
-        try {
-            ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(THEME_DISPLAY);
+	@Override
+	public String getType() {
+		return TYPE;
+	}
 
-            portletURL = response.createLiferayPortletURL(getControlPanelPlid(themeDisplay), GUESTBOOK_ADMIN_PORTLET, RENDER_PHASE);
-            portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
-            portletURL.setParameter("showback", Boolean.FALSE.toString());
-        } catch (PortalException e) {
-            Logger.getLogger(GuestbookAssetRendererFactory.class.getName())
-                    .log(Level.SEVERE, null, e);
-        }
+	@Override
+	public PortletURL getURLAdd(
+		LiferayPortletRequest request, LiferayPortletResponse response,
+		long classTypeId) {
 
-        return portletURL;
-    }
+		PortletURL portletURL = null;
 
-    @Override
-    public boolean isLinkable() {
-        return _LINKABLE;
-    }
+		try {
+			ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+	THEME_DISPLAY);
 
-    @Override
-    public String getIconCssClass() {
-        return "bookmarks";
-    }
+			portletURL = response.createLiferayPortletURL(
+	getControlPanelPlid(themeDisplay), GUESTBOOK_ADMIN_PORTLET, RENDER_PHASE);
+		portletURL.setParameter("mvcPath", MVC_PATH_EDIT);
+			portletURL.setParameter("showback", Boolean.FALSE.toString());
+		} catch (PortalException e) {
+			Logger.getLogger(GuestbookAssetRendererFactory.class.getName())
+				.log(Level.SEVERE, null, e);
+		}
 
-    @Reference(target = "(osgi.web.symbolicname=com.liferay.blade.samples.guestbook.web)", unbind = "-")
-    public void setServletContext(ServletContext servletContext) {
-        _servletContext = servletContext;
-    }
+		return portletURL;
+	}
 
-    private ServletContext _servletContext;
+	@Override
+	public boolean hasPermission(
+			PermissionChecker permissionChecker, long classPK, String actionId)
+		throws Exception {
 
-    @Reference(unbind = "-")
-    protected void setGuestbookLocalService(GuestbookLocalService guestbookLocalService) {
-        _guestbookLocalService = guestbookLocalService;
-    }
+		Guestbook guestbook = _guestbookLocalService.getGuestbook(classPK);
 
-    private GuestbookLocalService _guestbookLocalService;
-    private static final boolean _LINKABLE = true;
-    public static final String CLASS_NAME = Guestbook.class.getName();
-    public static final String TYPE = "guestbook";
+		return GuestbookPermission.contains(
+	permissionChecker, guestbook, actionId);
+	}
+
+	@Override
+	public boolean isLinkable() {
+		return _LINKABLE;
+	}
+
+	@Reference(target = "(osgi.web.symbolicname=com.liferay.blade.samples.guestbook.web)", unbind = "-")
+	public void setServletContext(ServletContext servletContext) {
+		_servletContext = servletContext;
+	}
+
+	@Reference(unbind = "-")
+	protected void setGuestbookLocalService(
+		GuestbookLocalService guestbookLocalService) {
+
+		_guestbookLocalService = guestbookLocalService;
+	}
+
+	private static final boolean _LINKABLE = true;
+
+	private GuestbookLocalService _guestbookLocalService;
+	private ServletContext _servletContext;
+
 }

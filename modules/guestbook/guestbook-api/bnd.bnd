@@ -6,5 +6,4 @@ Export-Package:\
 	com.liferay.blade.samples.guestbook.model,\
 	com.liferay.blade.samples.guestbook.service,\
 	com.liferay.blade.samples.guestbook.service.persistence
-
 -includeresource: META-INF/service.xml=../guestbook-service/service.xml

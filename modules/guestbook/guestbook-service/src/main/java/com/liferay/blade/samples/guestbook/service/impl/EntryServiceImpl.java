@@ -20,7 +20,6 @@ import com.liferay.blade.samples.guestbook.service.permission.EntryPermission;
 import com.liferay.blade.samples.guestbook.service.permission.GuestbookModelPermission;
 import com.liferay.blade.samples.guestbook.service.util.ActionKeys;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.util.List;
@@ -40,37 +39,59 @@ import java.util.List;
  * @see com.liferay.blade.samples.guestbook.service.EntryServiceUtil
  */
 public class EntryServiceImpl extends EntryServiceBaseImpl {
-    /*
-     * NOTE FOR DEVELOPERS:
-     *
-     * Never reference this class directly. Always use {@link com.liferay.blade.samples.guestbook.service.EntryServiceUtil} to access the entry remote service.
-     */
 
-    public Entry addEntry(long userId, long guestbookId, String name, String email, String message, ServiceContext serviceContext) throws PortalException, SystemException {
-        GuestbookModelPermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), ActionKeys.ADD_ENTRY);
-        return entryLocalService.addEntry(userId, guestbookId, name, email, message, serviceContext);
-    }
+	/**
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link com.liferay.blade.samples.guestbook.service.EntryServiceUtil} to access the entry remote service.
+	 */
+	public Entry addEntry(
+			long userId, long guestbookId, String name, String email,
+			String message, ServiceContext serviceContext)
+		throws PortalException {
 
-    public Entry deleteEntry(long entryId, ServiceContext serviceContext) throws PortalException, SystemException {
-        EntryPermission.check(getPermissionChecker(), entryId, ActionKeys.DELETE);
-        return entryLocalService.deleteEntry(entryId, serviceContext);
-    }
+		GuestbookModelPermission.check(
+	getPermissionChecker(), serviceContext.getScopeGroupId(),
+	ActionKeys.ADD_ENTRY);
 
-    public List<Entry> getEntries(long groupId, long guestbookId) throws SystemException {
-        return entryPersistence.filterFindByG_G(groupId, guestbookId);
-    }
+		return entryLocalService.addEntry(
+	userId, guestbookId, name, email, message, serviceContext);
+	}
 
-    public List<Entry> getEntries(long groupId, long guestbookId, int start, int end) throws SystemException {
-        return entryPersistence.filterFindByG_G(groupId, guestbookId, start, end);
-    }
+	public Entry deleteEntry(long entryId, ServiceContext serviceContext)
+		throws PortalException {
 
-    public int getEntriesCount(long groupId, long guestbookId) throws SystemException {
-        return entryPersistence.filterCountByG_G(groupId, guestbookId);
-    }
+		EntryPermission.check(
+	getPermissionChecker(), entryId, ActionKeys.DELETE);
 
-    public Entry updateEntry(long userId, long guestbookId, long entryId, String name, String email, String message, ServiceContext serviceContext) throws PortalException, SystemException {
-        EntryPermission.check(getPermissionChecker(), entryId, ActionKeys.UPDATE);
-        return entryLocalService.updateEntry(userId, guestbookId, entryId, name, email, message, serviceContext);
-    }
+		return entryLocalService.deleteEntry(entryId, serviceContext);
+	}
+
+	public List<Entry> getEntries(long groupId, long guestbookId) {
+		return entryPersistence.filterFindByG_G(groupId, guestbookId);
+	}
+
+	public List<Entry> getEntries(
+		long groupId, long guestbookId, int start, int end) {
+
+		return entryPersistence.filterFindByG_G(
+	groupId, guestbookId, start, end);
+	}
+
+	public int getEntriesCount(long groupId, long guestbookId) {
+		return entryPersistence.filterCountByG_G(groupId, guestbookId);
+	}
+
+	public Entry updateEntry(
+			long userId, long guestbookId, long entryId, String name,
+			String email, String message, ServiceContext serviceContext)
+		throws PortalException {
+
+		EntryPermission.check(
+	getPermissionChecker(), entryId, ActionKeys.UPDATE);
+
+		return entryLocalService.updateEntry(
+	userId, guestbookId, entryId, name, email, message, serviceContext);
+	}
 
 }

@@ -3,74 +3,82 @@ package com.liferay.blade.samples.guestbook.internal.search.extension;
 import com.liferay.portal.search.elasticsearch6.settings.IndexSettingsContributor;
 import com.liferay.portal.search.elasticsearch6.settings.IndexSettingsHelper;
 import com.liferay.portal.search.elasticsearch6.settings.TypeMappingsHelper;
-import org.osgi.service.component.annotations.Component;
 
 import java.io.*;
+
 import java.nio.charset.StandardCharsets;
+
 import java.util.stream.Collectors;
 
-@Component(
-        immediate = true,
-        service = IndexSettingsContributor.class
-)
-public class GuestbookIndexSettingsContributor implements IndexSettingsContributor {
-    @Override
-    public void contribute(String indexName, TypeMappingsHelper typeMappingsHelper) {
-        try {
-            String mappings = this.readMappings("guestbook-type-mappings.json");
-            typeMappingsHelper.addTypeMappings(indexName, mappings);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+import org.osgi.service.component.annotations.Component;
 
-    private String readMappings(String filename) throws UnsupportedEncodingException {
+@Component(immediate = true, service = IndexSettingsContributor.class)
+public class GuestbookIndexSettingsContributor
+	implements IndexSettingsContributor {
 
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
+	@Override
+	public int compareTo(IndexSettingsContributor indexSettingsContributor) {
+		return -1;
+	}
 
-        try {
-            ClassLoader classLoader = GuestbookIndexSettingsContributor.class.getClassLoader();
+	@Override
+	public void contribute(
+		String indexName, TypeMappingsHelper typeMappingsHelper) {
 
-            inputStream = classLoader.getResourceAsStream("META-INF/resources/mappings/" + filename);
+		try {
+			String mappings = this.readMappings("guestbook-type-mappings.json");
 
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8.name());
+			typeMappingsHelper.addTypeMappings(indexName, mappings);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-            bufferedReader = new BufferedReader(inputStreamReader);
+	@Override
+	public int getPriority() {
+		return 0;
+	}
 
-            return bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
-        } catch (UnsupportedEncodingException e) {
-            throw e;
-        } finally {
-            try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-            } catch (IOException ignored) {
-            }
+	@Override
+	public void populate(IndexSettingsHelper indexSettingsHelper) {
+	}
 
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException ignored) {
-            }
-        }
-    }
+	private String readMappings(String filename)
+		throws UnsupportedEncodingException {
 
-    @Override
-    public int getPriority() {
-        return 0;
-    }
+		InputStream inputStream = null;
+		BufferedReader bufferedReader = null;
 
-    @Override
-    public void populate(IndexSettingsHelper indexSettingsHelper) {
-    }
+		try {
+			ClassLoader classLoader =
+	GuestbookIndexSettingsContributor.class.getClassLoader();
 
-    @Override
-    public int compareTo(IndexSettingsContributor indexSettingsContributor) {
-        return -1;
-    }
+			inputStream = classLoader.getResourceAsStream(
+	"META-INF/resources/mappings/" + filename);
 
+			InputStreamReader inputStreamReader = new InputStreamReader(
+	inputStream, StandardCharsets.UTF_8.name());
+
+			bufferedReader = new BufferedReader(inputStreamReader);
+
+			return bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+		} catch (UnsupportedEncodingException e) {
+			throw e;
+		} finally {
+			try {
+				if (bufferedReader != null) {
+					bufferedReader.close();
+				}
+			} catch (IOException ignored) {
+			}
+
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			} catch (IOException ignored) {
+			}
+		}
+	}
 
 }

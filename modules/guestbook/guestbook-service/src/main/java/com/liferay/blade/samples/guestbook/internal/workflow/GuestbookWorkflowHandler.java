@@ -9,50 +9,58 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.BaseWorkflowHandler;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandler;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.io.Serializable;
+
 import java.util.Locale;
 import java.util.Map;
 
-@Component(
-        immediate = true,
-        service = WorkflowHandler.class
-)
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+@Component(immediate = true, service = WorkflowHandler.class)
 public class GuestbookWorkflowHandler extends BaseWorkflowHandler<Guestbook> {
-    @Override
-    public String getClassName() {
-        return Guestbook.class.getName();
-    }
 
-    @Override
-    public String getType(Locale locale) {
-        return _resourceActions.getModelResource(locale, getClassName());
-    }
+	@Override
+	public String getClassName() {
+		return Guestbook.class.getName();
+	}
 
-    @Override
-    public Guestbook updateStatus(int status, Map<String, Serializable> workflowContext) throws PortalException {
+	@Override
+	public String getType(Locale locale) {
+		return _resourceActions.getModelResource(locale, getClassName());
+	}
 
-        long userId = GetterUtil.getLong((String) workflowContext.get(WorkflowConstants.CONTEXT_USER_ID));
-        long resourcePrimKey = GetterUtil.getLong((String) workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
+	@Override
+	public Guestbook updateStatus(
+			int status, Map<String, Serializable> workflowContext)
+		throws PortalException {
 
-        ServiceContext serviceContext = (ServiceContext) workflowContext.get("serviceContext");
+		long userId = GetterUtil.getLong(
+	(String)workflowContext.get(WorkflowConstants.CONTEXT_USER_ID));
+		long resourcePrimKey = GetterUtil.getLong(
+	(String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
-        return _guestbookLocalService.updateStatus(userId, resourcePrimKey, status, serviceContext);
-    }
+		ServiceContext serviceContext = (ServiceContext)workflowContext.get(
+	"serviceContext");
 
-    @Reference(unbind = "-")
-    protected void setResourceActions(ResourceActions resourceActions) {
-        _resourceActions = resourceActions;
-    }
+		return _guestbookLocalService.updateStatus(
+	userId, resourcePrimKey, status, serviceContext);
+	}
 
-    @Reference(unbind = "-")
-    protected void setGuestbookLocalService(GuestbookLocalService guestbookLocalService) {
-        _guestbookLocalService = guestbookLocalService;
-    }
+	@Reference(unbind = "-")
+	protected void setGuestbookLocalService(
+		GuestbookLocalService guestbookLocalService) {
 
-    private GuestbookLocalService _guestbookLocalService;
+		_guestbookLocalService = guestbookLocalService;
+	}
 
-    private ResourceActions _resourceActions;
+	@Reference(unbind = "-")
+	protected void setResourceActions(ResourceActions resourceActions) {
+		_resourceActions = resourceActions;
+	}
+
+	private GuestbookLocalService _guestbookLocalService;
+	private ResourceActions _resourceActions;
+
 }

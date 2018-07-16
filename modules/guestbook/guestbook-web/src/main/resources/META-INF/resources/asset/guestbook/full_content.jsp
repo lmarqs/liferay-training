@@ -1,6 +1,6 @@
-<%@include file="../init.jsp" %>
+<%@ include file="../init.jsp" %>
 
 <dl>
-    <dt>Name</dt>
-    <dd><c:out value="${guestbook.name}"/></dd>
+	<dt>Name</dt>
+	<dd><c:out value="${guestbook.name}" /></dd>
 </dl>

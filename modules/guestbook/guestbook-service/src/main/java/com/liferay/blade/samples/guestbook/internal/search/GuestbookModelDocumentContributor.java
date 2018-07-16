@@ -9,34 +9,40 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
-import org.osgi.service.component.annotations.Component;
 
 import java.util.Locale;
 
+import org.osgi.service.component.annotations.Component;
+
 @Component(
-        immediate = true,
-        property = "indexer.class.name=com.liferay.blade.samples.guestbook.model.Guestbook",
-        service = ModelDocumentContributor.class
+		immediate = true,
+		property = "indexer.class.name=com.liferay.blade.samples.guestbook.model.Guestbook",
+		service = ModelDocumentContributor.class
 )
-public class GuestbookModelDocumentContributor implements ModelDocumentContributor<Guestbook> {
+public class GuestbookModelDocumentContributor
+	implements ModelDocumentContributor<Guestbook> {
 
-    @Override
-    public void contribute(Document document, Guestbook guestbook) {
+	@Override
+	public void contribute(Document document, Guestbook guestbook) {
+		try {
+			document.addDate(Field.MODIFIED_DATE, guestbook.getModifiedDate());
 
-        try {
-            document.addDate(Field.MODIFIED_DATE, guestbook.getModifiedDate());
+			Locale defaultLocale = PortalUtil.getSiteDefaultLocale(
+	guestbook.getGroupId());
 
-            Locale defaultLocale = PortalUtil.getSiteDefaultLocale(guestbook.getGroupId());
-            String localizedTitle = LocalizationUtil.getLocalizedName(Field.TITLE, defaultLocale.toString());
+			String localizedTitle = LocalizationUtil.getLocalizedName(
+	Field.TITLE, defaultLocale.toString());
 
-            document.addText(localizedTitle, guestbook.getName());
-        } catch (PortalException pe) {
-            if (_log.isWarnEnabled()) {
-                _log.warn("Unable to index guestbook " + guestbook.getGuestbookId(), pe);
-            }
-        }
+			document.addText(localizedTitle, guestbook.getName());
+		} catch (PortalException pe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+	"Unable to index guestbook " + guestbook.getGuestbookId(), pe);
+			}
+		}
+	}
 
-    }
+	private static final Log _log = LogFactoryUtil.getLog(
+	GuestbookModelDocumentContributor.class);
 
-    private static final Log _log = LogFactoryUtil.getLog(GuestbookModelDocumentContributor.class);
 }

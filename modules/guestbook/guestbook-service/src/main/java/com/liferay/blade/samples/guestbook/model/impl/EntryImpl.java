@@ -27,11 +27,13 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class EntryImpl extends EntryBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a entry model instance should use the {@link com.liferay.blade.samples.guestbook.model.Entry} interface instead.
 	 */
 	public EntryImpl() {
 	}
+
 }
