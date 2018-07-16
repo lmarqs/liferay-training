@@ -17,3 +17,7 @@
 <liferay-theme:defineObjects/>
 
 <portlet:defineObjects/>
+
+<aui:script require="guestbook-portlet@1.0.1">
+    guestbookPortlet101.default('<portlet:namespace/>', AUI, $, _);
+</aui:script>

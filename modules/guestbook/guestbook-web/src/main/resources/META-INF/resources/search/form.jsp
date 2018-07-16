@@ -1,4 +1,4 @@
-<aui:form action="${searchURL}" method="post" name="fm">
+<aui:form action="${searchURL}" name="fm">
 
     <div class="row">
         <div class="col-md-2">
