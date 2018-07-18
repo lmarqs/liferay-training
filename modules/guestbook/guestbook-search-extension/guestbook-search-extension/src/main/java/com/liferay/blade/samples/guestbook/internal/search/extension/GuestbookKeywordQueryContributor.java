@@ -27,14 +27,10 @@ public class GuestbookKeywordQueryContributor
 		KeywordQueryContributorHelper keywordQueryContributorHelper) {
 
 		SearchContext searchContext =
-	keywordQueryContributorHelper.getSearchContext();
+			keywordQueryContributorHelper.getSearchContext();
 
 		queryHelper.addSearchLocalizedTerm(
-	booleanQuery, searchContext, GuestbookField.GUESTBOOK_NOTE, true);
-
-//        queryHelper.addSearchLocalizedTerm(booleanQuery,
-
-searchContext, GuestbookField.GUESTBOOK_PRIORITY, true);
+			booleanQuery, searchContext, GuestbookField.GUESTBOOK_NOTE, true);
 	}
 
 	@Reference

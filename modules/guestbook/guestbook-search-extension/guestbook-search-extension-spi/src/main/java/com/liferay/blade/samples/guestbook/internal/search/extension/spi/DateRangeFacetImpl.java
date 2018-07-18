@@ -17,84 +17,89 @@ import java.text.SimpleDateFormat;
 
 public class DateRangeFacetImpl extends RangeFacet implements DateRangeFacet {
 
-    DateRangeFacetImpl(String fieldName, SearchContext searchContext, FilterBuilders filterBuilders) {
-        super(searchContext);
+	DateRangeFacetImpl(
+String fieldName, SearchContext searchContext, FilterBuilders filterBuilders) {
 
-        setFieldName(fieldName);
+		super(searchContext);
 
-        _filterBuilders = filterBuilders;
-    }
+		setFieldName(fieldName);
 
+		_filterBuilders = filterBuilders;
+	}
 
-    @Override
-    protected BooleanClause<Filter> doGetFacetFilterBooleanClause() {
+	@Override
+	public String getAggregationName() {
+		return getFieldName();
+	}
 
-        if (Validator.isNull(_from) && Validator.isNull(_to)) {
-            return null;
-        }
+	@Override
+	public String[] getSelections() {
+		return new String[0];
+	}
 
-        DateRangeFilterBuilder dateRangeFilterBuilder = _filterBuilders.dateRangeFilterBuilder();
+	@Override
+	public void select(String... selections) {
+		throw new UnsupportedOperationException();
+	}
 
-        dateRangeFilterBuilder.setFieldName(getFieldName());
+	@Override
+	public void setAggregationName(String aggregationName) {
+		throw new UnsupportedOperationException();
+	}
 
-        if (Validator.isNotNull(_from)) {
-            dateRangeFilterBuilder.setFrom(_from);
-        }
+	@Override
+	public void setFrom(String from) {
+		_from = formatDate(from);
+	}
 
-        if (Validator.isNotNull(_to)) {
-            dateRangeFilterBuilder.setTo(_to);
-        }
+	@Override
+	public void setTo(String to) {
+		_to = formatDate(to);
+	}
 
-        dateRangeFilterBuilder.setIncludeLower(true);
-        dateRangeFilterBuilder.setIncludeUpper(true);
+	@Override
+	protected BooleanClause<Filter> doGetFacetFilterBooleanClause() {
+		if (Validator.isNull(_from) && Validator.isNull(_to)) {
+			return null;
+		}
 
-        return new BooleanClauseImpl<>(dateRangeFilterBuilder.build(), BooleanClauseOccur.MUST);
-    }
+		DateRangeFilterBuilder dateRangeFilterBuilder =
+	_filterBuilders.dateRangeFilterBuilder();
 
-    @Override
-    public String getAggregationName() {
-        return getFieldName();
-    }
+		dateRangeFilterBuilder.setFieldName(getFieldName());
 
-    @Override
-    public String[] getSelections() {
-        return new String[0];
-    }
+		if (Validator.isNotNull(_from)) {
+			dateRangeFilterBuilder.setFrom(_from);
+		}
 
-    @Override
-    public void select(String... selections) {
-        throw new UnsupportedOperationException();
-    }
+		if (Validator.isNotNull(_to)) {
+			dateRangeFilterBuilder.setTo(_to);
+		}
 
-    @Override
-    public void setAggregationName(String aggregationName) {
-        throw new UnsupportedOperationException();
-    }
+		dateRangeFilterBuilder.setIncludeLower(true);
+		dateRangeFilterBuilder.setIncludeUpper(true);
 
-    @Override
-    public void setFrom(String from) {
-        _from = formatDate(from);
-    }
+		return new BooleanClauseImpl<>(
+	dateRangeFilterBuilder.build(), BooleanClauseOccur.MUST);
+	}
 
-    @Override
-    public void setTo(String to) {
-        _to = formatDate(to);
-    }
+	private String formatDate(String date) {
+		try {
+			DateFormat df1 = new SimpleDateFormat("yyyyMMdd000000");
+			DateFormat df2 = new SimpleDateFormat("MM/dd/yyyy");
 
-    private String formatDate(String date) {
-        try {
-            DateFormat df1 = new SimpleDateFormat("yyyyMMdd000000");
-            DateFormat df2 = new SimpleDateFormat("MM/dd/yyyy");
+			return df1.format(df2.parse(date));
+		} catch (ParseException ignored) {
 
-            return df1.format(df2.parse(date));
-        } catch (ParseException ignored) {
-            // silence is golden
-        }
-        return date;
-    }
+			// silence is golden
 
-    private final FilterBuilders _filterBuilders;
-    private String _from;
-    private String _to;
+		}
+
+		return date;
+	}
+
+	private final FilterBuilders _filterBuilders;
+	private String _from;
+	private String _to;
 
 }

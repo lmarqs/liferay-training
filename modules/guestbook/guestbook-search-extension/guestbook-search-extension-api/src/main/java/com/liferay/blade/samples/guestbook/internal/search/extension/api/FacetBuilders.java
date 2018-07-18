@@ -4,5 +4,7 @@ import aQute.bnd.annotation.ProviderType;
 
 @ProviderType
 public interface FacetBuilders {
-    public DateRangeFacetBuilder dateRangeFacetBuilder();
+
+	public DateRangeFacetBuilder dateRangeFacetBuilder();
+
 }
